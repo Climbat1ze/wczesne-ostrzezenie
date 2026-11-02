@@ -1,6 +1,40 @@
-# Wczesne Ostrzeżenie Warszawa
+# Wczesne Ostrzeżenie
 
-Pulpit sygnałów zagrożenia wobec Polski i Bałtów z ocenionych źródeł RSS, aktualizowany co godzinę. Główny parametr: współczynnik wpierdolu (WW, 0–100) i zegar zagłady. Mailem przychodzą tylko alarmy (spiętrzenie sygnałów, sygnał krytyczny, alarm trendu) i raport tygodniowy w poniedziałek. Metodyka: `strona/metodyka.html`.
+Pulpit sygnałów zagrożenia wobec Polski i Bałtów z ocenionych źródeł RSS, aktualizowany co godzinę. Główny parametr: współczynnik wpierdolu (WW, 0–100) i zegar zagłady.
+
+**Strona:** https://climbat1ze.github.io/wczesne-ostrzezenie/ · **Metodyka:** https://climbat1ze.github.io/wczesne-ostrzezenie/metodyka.html
+
+To prywatne narzędzie, nie komunikat władz. Oficjalne alerty: Rządowe Centrum Bezpieczeństwa (gov.pl/web/rcb) i Alert RCB w telefonie.
+
+## Jak czytać
+- **Kolor i indeks 0–100:** ile kategorii wskaźników naraz jest aktywnych wobec Polski i Bałtów, ważone oceną źródła.
+- **Spiętrzenie sygnałów:** Uwaga (1 kategoria z 3+ niezależnymi redakcjami w 72 h), Ostrzeżenie (2), Alarm (3, w tym ewakuacja, ostrzeżenia wywiadu, mobilizacja albo zamknięcia nieba). Mail idzie tylko przy wzroście do Ostrzeżenia lub Alarmu.
+- **Sygnał krytyczny:** ewakuacja ambasady, mobilizacja, art. 4/5 NATO, zamknięcie nieba albo atak zbrojny wobec Polski lub Bałtów, opisane przez 2 niezależne redakcje A/B w 24 h. Mail od razu.
+- **Alarm trendu:** rusza po zebraniu 21 dni historii.
+- **Analogia 2021/22:** 10 zdarzeń sprzed ataku na Ukrainę i czy mają dziś odpowiednik wobec flanki.
+
+## Maile
+Mailem przychodzą tylko alarmy (spiętrzenie sygnałów, sygnał krytyczny, alarm trendu) i raport tygodniowy w poniedziałek rano. Odbiorcy są w kopii ukrytej i nie widzą swoich adresów nawzajem. Żeby dopisać lub usunąć odbiorcę, nadpisz sekret pełną listą adresów po przecinku:
+
+```
+gh secret set MAIL_DO -R Climbat1ze/wczesne-ostrzezenie
+```
+
+## Jak to działa
+Workflow `.github/workflows/ostrzezenie.yml` uruchamia się co godzinę (minuta 47): pobiera kanały, tłumaczy bałtyckie nagłówki, liczy WW, wysyła alarmy i publikuje stronę na GitHub Pages. Stan (historia, wpisy, statystyki źródeł) żyje na gałęzi `dane`, nadpisywanej jednym commitem przy każdym przebiegu. Raz w tygodniu przegląd źródeł aktualizuje `app/zrodla.yaml` na `main`.
+
+Ręczne uruchomienie: Actions → wczesne-ostrzezenie → Run workflow (opcja „Wyślij raport mailem teraz”).
+
+## Konfiguracja
+| Nazwa | Rodzaj | Do czego |
+|---|---|---|
+| `SMTP_USER` | sekret | adres Gmail nadawcy |
+| `SMTP_PASS` | sekret | hasło aplikacji Gmail (myaccount.google.com/apppasswords) |
+| `MAIL_DO` | sekret | odbiorcy po przecinku |
+| `CLAUDE_CODE_OAUTH_TOKEN` | sekret | tłumaczenie nagłówków; wynik `claude setup-token`. Bez niego nagłówki zostają w oryginale |
+| `MAIL_ADMIN` | sekret, opcjonalny | odbiorca maili o przeglądzie źródeł (domyślnie nadawca) |
+| `SITE_URL` | zmienna | adres strony, wstawiany do maili |
+| `STATUS_GODZINY` | zmienna, opcjonalna | godzina raportu, czas Warszawy (domyślnie `7`) |
 
 ## Uruchomienie lokalne
 ```
@@ -9,21 +43,4 @@ pip install -r requirements.txt
 python ostrzezenie.py uruchom --bez-powiadomien
 # otwórz ../strona/index.html
 ```
-
-## Publikacja dla znajomych (raz, ok. 10 minut)
-1. Załóż publiczne repo, np. `wczesne-ostrzezenie`, i skopiuj do niego zawartość tego folderu.
-2. Przenieś `deploy/ostrzezenie.yml` do `.github/workflows/`.
-3. Settings → Pages → Source: **GitHub Actions**. Adres strony wpisz jako zmienną `SITE_URL` (Settings → Secrets and variables → Actions → Variables).
-4. Powiadomienia na telefon: wymyśl trudną do zgadnięcia nazwę tematu (np. `waw-ostrzezenie-7k3q`), zapisz jako sekret `NTFY_TOPIC`. Znajomi instalują aplikację **ntfy** (Android/iOS) i subskrybują ten temat.
-5. Mail: na koncie nadawcy (Gmail z weryfikacją dwuetapową) utwórz hasło aplikacji (myaccount.google.com/apppasswords). Sekrety: `SMTP_USER` (adres nadawcy), `SMTP_PASS` (hasło aplikacji, 16 znaków), `MAIL_DO` (odbiorcy po przecinku). Odbiorcy dostają mail w kopii ukrytej. Skrót dnia idzie rano, alarm przy wzroście do Ostrzeżenia lub Alarmu.
-6. Tłumaczenie bałtyckich nagłówków na subskrypcji Claude: na swoim komputerze `claude setup-token`, wynik jako sekret `CLAUDE_CODE_OAUTH_TOKEN` (bez niego nagłówki zostają w oryginale).
-7. Godziny skrótu: zmienna `STATUS_GODZINY` (czas Warszawy, np. `6` albo `6,18`).
-8. Uruchom workflow ręcznie (Actions → wczesne-ostrzezenie → Run workflow).
-
-## Jak czytać
-- **Kolor i indeks 0–100:** ile kategorii wskaźników naraz jest aktywnych wobec Polski i Bałtów, ważone oceną źródła.
-- **Spiętrzenie sygnałów:** Uwaga (1 kategoria z 3+ niezależnymi redakcjami w 72 h), Ostrzeżenie (2), Alarm (3, w tym ewakuacja, ostrzeżenia wywiadu, mobilizacja albo zamknięcia nieba). Powiadomienie idzie tylko przy wzroście do Ostrzeżenia lub Alarmu.
-- **Sygnał krytyczny:** ewakuacja ambasady, mobilizacja, art. 4/5 NATO, zamknięcie nieba albo atak zbrojny wobec Polski lub Bałtów, opisane przez 2 niezależne redakcje A/B w 24 h. Mail od razu, sprawdzane co godzinę.
-- **Analogia 2021/22:** 10 zdarzeń sprzed ataku na Ukrainę i czy mają dziś odpowiednik wobec flanki.
-
-To prywatne narzędzie, nie komunikat władz. Oficjalne alerty: Rządowe Centrum Bezpieczeństwa (gov.pl/web/rcb) i Alert RCB w telefonie.
+Źródła: `python ostrzezenie.py zrodla lista` (także `testuj`, `dodaj`, `ocen`, `status`, `przeglad`).
