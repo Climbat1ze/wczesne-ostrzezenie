@@ -1,0 +1,129 @@
+{
+ "wygenerowano": "2026-11-02T19:39+00:00",
+ "indeks": 21.2,
+ "prog": {
+  "od": 0,
+  "nazwa": "Spokojnie",
+  "kolor": "zielony",
+  "opis": "Tło informacyjne bez wyraźnych sygnałów wobec Polski i Bałtów.",
+  "luzno": "Pij kawę",
+  "luzno_opis": "Świat jak zwykle wariuje, ale nie celuje w nas."
+ },
+ "trend": {
+  "wczoraj": 1.8,
+  "sr_7": 4.0,
+  "sr_30": 3.3,
+  "dni_historii": 12
+ },
+ "natezenie": {
+  "wojska_granica": 0.214,
+  "gotowosc": 0.458,
+  "ewakuacja": 0.0,
+  "ostrzezenia_sojusznikow": 0.221,
+  "pretekst": 0.061,
+  "retoryka": 0.48,
+  "hybryda": 0.874,
+  "cyber": 0.915,
+  "granica_migracja": 0.0,
+  "przestrzen_transport": 0.0,
+  "cwiczenia": 0.265,
+  "deeskalacja": 0.817
+ },
+ "skrot": [
+  "Poziom: spokojnie, współczynnik wpierdolu 21/100. Wobec tygodnia: wzrost +17; wobec miesiąca: wzrost +18.",
+  "Najsilniejsze sygnały: cyberataki na państwo i infrastrukturę (92% skali); sabotaż, drony, naruszenia przestrzeni (87% skali); gotowość bojowa i mobilizacja (46% skali).",
+  "Spiętrzenie zbieżnych komunikatów: uwaga. Co najmniej 3 niezależne redakcje w 72 h w kategoriach: sabotaż, drony, naruszenia przestrzeni.",
+  "Sygnały deeskalacji obecne (82% skali), obniżają indeks.",
+  "Analogia do okresu przed 24.02.2022: 5 z 10 kamieni milowych ma dziś odpowiednik wobec flanki.",
+  "Alarm trendu: zbieram historię, 1 z 21 potrzebnych dni.",
+  "Nagły skok wobec średniej 30 dni: sabotaż, drony, naruszenia przestrzeni, cyberataki na państwo i infrastrukturę."
+ ],
+ "historia": [
+  {
+   "dzien": "2026-10-19",
+   "indeks": 4.0,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-20",
+   "indeks": 1.7,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-21",
+   "indeks": 3.2,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-22",
+   "indeks": 0.0,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-23",
+   "indeks": 2.4,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-26",
+   "indeks": 3.4,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-27",
+   "indeks": 0.0,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-28",
+   "indeks": 6.1,
+   "alarm": 1,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-29",
+   "indeks": 7.1,
+   "alarm": 1,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-30",
+   "indeks": 3.4,
+   "alarm": 1,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-31",
+   "indeks": 6.4,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-11-01",
+   "indeks": 1.8,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-11-02",
+   "indeks": 21.2,
+   "alarm": 1,
+   "rek": false
+  }
+ ],
+ "zbieznosc": {
+  "poziom": 1,
+  "nazwa": "Uwaga",
+  "zbiezne": [
+   "hybryda"
+  ]
+ },
+ "sekundy_do_polnocy": 709
+}

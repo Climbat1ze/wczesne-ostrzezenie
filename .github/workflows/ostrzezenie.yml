@@ -1,0 +1,114 @@
+# Workflow publicznego repo „wczesne-ostrzezenie”.
+# Co godzinę: pobranie kanałów, tłumaczenie bałtyckich nagłówków (subskrypcja Claude), WW, alarmy mailem, strona na GitHub Pages.
+# Raport tygodniowy mailem w poniedziałek o godzinie ze zmiennej STATUS_GODZINY (Warszawa, domyślnie 7).
+# Sekrety: SMTP_USER, SMTP_PASS (hasło aplikacji Gmail), MAIL_DO (odbiorcy po przecinku), CLAUDE_CODE_OAUTH_TOKEN.
+# Opcjonalnie: sekret MAIL_ADMIN; zmienne STATUS_GODZINY, STATUS_DNI, STATUS_FORMA, SITE_URL.
+# Settings → Pages → Source: GitHub Actions.
+name: wczesne-ostrzezenie
+
+on:
+  schedule:
+    - cron: '47 * * * *'
+  workflow_dispatch:
+    inputs:
+      mail_skrot:
+        description: 'Wyślij raport mailem teraz'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: wczesne-ostrzezenie
+  cancel-in-progress: false
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: app/requirements.txt
+
+      - run: pip install -r app/requirements.txt
+
+      - name: Claude Code CLI (tłumaczenie na subskrypcji)
+        run: npm install -g @anthropic-ai/claude-code >/dev/null 2>&1 && claude --version || echo "CLI niedostępne, nagłówki zostaną w oryginale"
+
+      - name: Wczytaj dane z gałęzi dane
+        run: |
+          if git ls-remote --exit-code --heads origin dane >/dev/null; then
+            git fetch -q --depth=1 origin dane
+            git checkout FETCH_HEAD -- app/dane
+          else
+            echo "Pierwsze uruchomienie: dane startowe z main"
+          fi
+
+      - name: Pobierz, przetłumacz, analizuj, powiadom
+        env:
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          MAIL_DO: ${{ secrets.MAIL_DO }}
+          MAIL_ADMIN: ${{ secrets.MAIL_ADMIN }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          STATUS_GODZINY: ${{ vars.STATUS_GODZINY || '7' }}
+          STATUS_DNI: ${{ vars.STATUS_DNI || '1' }}
+          STATUS_FORMA: ${{ vars.STATUS_FORMA || 'tydzien' }}
+          SITE_URL: ${{ vars.SITE_URL }}
+        run: |
+          EXTRA=""
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            EXTRA="--utrzymanie-zrodel"
+            if [ "${{ inputs.mail_skrot }}" = "true" ]; then EXTRA="$EXTRA --mail-skrot"; fi
+          fi
+          python app/ostrzezenie.py uruchom --harmonogram $EXTRA --status-md "$RUNNER_TEMP/status_auto.md" --znacznik-main "$RUNNER_TEMP/do_main"
+          cp app/zrodla.yaml "$RUNNER_TEMP/zrodla.yaml"
+          cp -r strona "$RUNNER_TEMP/strona"
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: strona
+      - id: deploy
+        uses: actions/deploy-pages@v4
+
+      - name: Zapisz dane na gałąź dane (jeden commit, bez narastającej historii)
+        run: |
+          TMP=$(mktemp -d)
+          cp -r app/dane "$TMP/dane"
+          git config user.name "ostrzezenie[bot]"
+          git config user.email "ostrzezenie-bot@users.noreply.github.com"
+          git branch -D dane-tmp >/dev/null 2>&1 || true
+          git checkout -q --orphan dane-tmp
+          git rm -rqf . >/dev/null
+          git clean -fdq
+          mkdir -p app && cp -r "$TMP/dane" app/dane
+          git add -A app
+          git commit -qm "dane $(date -u +%Y-%m-%dT%H:%M)"
+          git push -q -f origin HEAD:dane
+
+      - name: Rejestr źródeł do main (po przeglądzie źródeł)
+        run: |
+          [ -f "$RUNNER_TEMP/do_main" ] || { echo "Bez przeglądu źródeł w tym przebiegu"; exit 0; }
+          git fetch -q origin main
+          git checkout -q -f -B main origin/main
+          git clean -fdq
+          cp "$RUNNER_TEMP/zrodla.yaml" app/zrodla.yaml
+          git add app/zrodla.yaml
+          git diff --staged --quiet && exit 0
+          git commit -qm "zrodla $(date -u +%Y-%m-%d)"
+          for i in 1 2 3; do git push -q origin main && break; GIT_EDITOR=true git pull -q --rebase origin main; done

@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Codzienny odczyt sygnałów zagrożenia wobec Polski i Bałtów z ocenionych źródeł.">
+<title>Wczesne Ostrzeżenie: Metodyka</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap">
+<style>
+/* Układ: ekran terminala w obudowie; pasek zakładek u góry, licznik WW i zegar zagłady obok siebie, niżej panele. Jeden, celowo ciemny motyw. */
+:root {
+  --bg: #030a05; --case: #0c140e; --screen: #071a0e; --ph: #4dff91; --ph-2: #33d673; --ph-dim: #1d8a4b;
+  --ph-faint: #0f3d22; --ink-inv: #021007; --line: #15502e;
+  --f-display: "VT323", "Courier New", ui-monospace, monospace;
+  --f-body: "Share Tech Mono", ui-monospace, "Courier New", monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--bg); }
+body { background: var(--bg); color: var(--ph); font-family: var(--f-body); font-size: 15px; line-height: 1.55; margin: 0;
+  text-shadow: 0 0 5px rgba(77, 255, 145, .35); }
+body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50;
+  background: repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.22) 2px 3px),
+              radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,.45) 100%); }
+@media (prefers-reduced-motion: no-preference) {
+  .flicker { animation: flicker 6s infinite steps(1); }
+  @keyframes flicker { 0%, 96%, 100% { opacity: 1 } 97% { opacity: .82 } 98% { opacity: .95 } }
+  .blink { animation: blink 1.1s infinite steps(1); }
+  @keyframes blink { 50% { opacity: .25 } }
+  .igla { transition: transform 1.2s cubic-bezier(.2, 1.4, .4, 1); }
+}
+.wrap { max-width: 1120px; margin: 0 auto; padding-block: 18px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 18px; }
+a { color: var(--ph); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--ph-dim); }
+a:hover { background: var(--ph); color: var(--ink-inv); text-shadow: none; }
+a:focus-visible, select:focus-visible, input:focus-visible { outline: 2px dashed var(--ph); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 400; margin: 0; line-height: 1; letter-spacing: .04em; text-wrap: balance; }
+h2 { font-size: 1.9rem; text-transform: uppercase; }
+h3 { font-size: 1.4rem; text-transform: uppercase; }
+p { margin: 0; }
+.dim { color: var(--ph-dim); }
+.num { font-variant-numeric: tabular-nums; }
+.etykieta { font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ph-2); }
+
+/* obudowa i pasek */
+.obudowa { border: 2px solid var(--line); border-radius: 14px; background: var(--case); padding: 10px;
+  box-shadow: inset 0 0 0 4px #08100a, 0 0 40px rgba(77,255,145,.06); }
+.ekran { border-radius: 10px; background: radial-gradient(ellipse at 50% 30%, #0b2614 0%, var(--screen) 70%);
+  border: 1px solid var(--ph-faint); padding-block: 14px 20px; padding-inline: clamp(12px, 3vw, 26px); display: grid; gap: 18px; min-width: 0; }
+.belka { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 18px; }
+.marka { display: flex; align-items: center; gap: 10px; }
+.marka h1 { font-size: clamp(1.7rem, 4.5vw, 2.4rem); }
+.marka .sub { font-size: .75rem; letter-spacing: .14em; color: var(--ph-2); }
+.ikona { width: 1em; height: 1em; display: inline-block; vertical-align: -.12em; fill: currentColor; }
+.marka .ikona { width: 42px; height: 42px; }
+.zakladki { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 2px solid var(--ph-dim); }
+.zakladki a { font-family: var(--f-display); font-size: 1.35rem; letter-spacing: .08em; text-decoration: none; padding: 2px 12px 0;
+  border: 2px solid transparent; border-bottom: 0; color: var(--ph); }
+.zakladki a.aktywna, .zakladki a:hover { border-color: var(--ph-dim); background: var(--ph-faint); color: var(--ph); }
+.zegar-sys { font-size: .8rem; color: var(--ph-2); }
+
+/* panele */
+.panel { border: 1px solid var(--ph-dim); padding: 14px 16px; display: grid; gap: 12px; min-width: 0; position: relative; }
+.panel > *, .lista li > * { min-width: 0; }
+.lista a, .notatka, .meta span { overflow-wrap: anywhere; }
+.panel > .tytul { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 12px;
+  border-bottom: 1px dashed var(--ph-faint); padding-bottom: 6px; }
+.siatka { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 18px; }
+@media (max-width: 820px) { .siatka { grid-template-columns: 1fr; } }
+
+/* licznik WW */
+.ww { display: grid; gap: 6px; justify-items: center; text-align: center; }
+.ww > svg { width: 100%; max-width: 560px; height: auto; }
+.ww svg text { fill: var(--ph); font-family: var(--f-display); }
+.ww .poziom { font-family: var(--f-display); font-size: clamp(2.2rem, 7vw, 3.4rem); line-height: 1; text-transform: uppercase; }
+.ww .opis { max-width: 46ch; }
+.l3 .ww .poziom { background: var(--ph); color: var(--ink-inv); padding: 0 .3em; text-shadow: none; }
+
+/* zegar zagłady */
+.zz { display: grid; gap: 8px; justify-items: center; text-align: center; }
+.zz > svg { width: 100%; max-width: 230px; height: auto; }
+.tytul .ikona { width: 1.8rem; height: 1.8rem; }
+.zz .czas { font-family: var(--f-display); font-size: 2.6rem; line-height: 1; }
+
+/* kafle stanu */
+.kafle { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.kafel { border: 1px solid var(--ph-faint); padding: 8px 10px; display: grid; gap: 2px; background: rgba(77,255,145,.03); }
+.kafel .w { font-family: var(--f-display); font-size: 1.7rem; line-height: 1.05; }
+.kafel.on { border-color: var(--ph); background: var(--ph-faint); }
+.skrot { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; max-width: 90ch; }
+.skrot li::before { content: "> "; color: var(--ph-2); }
+
+/* wykres */
+.wykres svg { width: 100%; height: auto; display: block; }
+.wykres text { fill: var(--ph-2); font-family: var(--f-body); font-size: 11px; }
+
+/* kategorie */
+.kat { display: grid; gap: 8px; }
+.kat-row { display: grid; grid-template-columns: minmax(0, 17rem) minmax(0, 1fr) 7.5rem; gap: 12px; align-items: center; }
+.bar { height: 14px; border: 1px solid var(--ph-dim); padding: 2px; }
+.bar i { display: block; height: 100%; background: repeating-linear-gradient(90deg, var(--ph) 0 7px, transparent 7px 9px); }
+.bar i.neg { background: repeating-linear-gradient(90deg, var(--ph-dim) 0 7px, transparent 7px 9px); }
+.grupy { font-size: .8rem; text-align: right; }
+.grupy.zb { background: var(--ph); color: var(--ink-inv); text-shadow: none; padding: 0 4px; }
+@media (max-width: 640px) { .kat-row { grid-template-columns: 1fr 6.5rem; } .kat-row .bar { grid-column: 1 / -1; grid-row: 2; } }
+
+/* wiadomości i analogia */
+.lista { list-style: none; margin: 0; padding: 0; display: grid; }
+.lista li { padding: 10px 0; border-top: 1px dashed var(--ph-faint); display: grid; gap: 4px; min-width: 0; }
+.lista li:first-child { border-top: 0; }
+.lista .meta { font-size: .8rem; color: var(--ph-2); display: flex; flex-wrap: wrap; gap: 2px 12px; }
+.chip { font-size: .72rem; border: 1px solid var(--ph-dim); padding: 0 6px; margin: 0 4px 3px 0; display: inline-block; max-width: 100%; }
+.analog li { grid-template-columns: 2.2rem 8.5rem minmax(0, 1fr); column-gap: 12px; }
+.analog .znak { font-family: var(--f-display); font-size: 1.4rem; width: 1.8rem; height: 1.8rem; display: grid; place-items: center;
+  border: 1px solid var(--ph-dim); }
+.analog li.tak .znak { background: var(--ph); color: var(--ink-inv); text-shadow: none; }
+.analog .kiedy { font-size: .8rem; color: var(--ph-2); padding-top: 3px; }
+@media (max-width: 640px) { .analog li { grid-template-columns: 2.2rem minmax(0, 1fr); } .analog .kiedy, .analog .tresc { grid-column: 2; } }
+
+/* źródła */
+.filtry { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: end; }
+.filtry label { display: grid; gap: 3px; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ph-2); }
+.filtry select, .filtry input { font: inherit; font-size: .9rem; padding: 4px 8px; border: 1px solid var(--ph-dim); border-radius: 0;
+  background: var(--screen); color: var(--ph); min-width: 0; }
+.tabela { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .84rem; }
+th, td { text-align: left; padding: 6px 8px; border-bottom: 1px dashed var(--ph-faint); vertical-align: top; }
+th { font-weight: 400; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ph-2); white-space: nowrap; }
+td.num { white-space: nowrap; }
+.ocena { display: inline-block; width: 1.6rem; text-align: center; border: 1px solid var(--ph-dim); }
+.ocena-A, .ocena-B { background: var(--ph); color: var(--ink-inv); text-shadow: none; }
+.ocena-E, .ocena-D { text-decoration: line-through; }
+.notatka { color: var(--ph-dim); font-size: .78rem; max-width: 44ch; }
+.st-zablokowane { text-decoration: line-through; color: var(--ph-dim); }
+.flaga { font-size: .75rem; }
+.flaga::before { content: "! "; }
+
+/* proza (metodyka) */
+.proza { display: grid; gap: 12px; max-width: 74ch; }
+.proza ul, .proza ol { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.proza b { font-weight: 400; background: var(--ph-faint); padding: 0 3px; }
+.tab-prosta { overflow-x: auto; }
+footer { font-size: .78rem; color: var(--ph-2); display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: space-between;
+  border-top: 1px dashed var(--ph-faint); padding-top: 10px; }
+</style>
+</head>
+<body>
+
+<div class="wrap"><div class="obudowa"><div class="ekran">
+<div class="belka"><div class="marka"><svg class="ikona flicker" viewBox="-1 -1 2 2" role="img" aria-label="Znak promieniowania"><circle r="0.98" fill="none" stroke="currentColor" stroke-width="0.04"/><path d="M-0.120,-0.208 L-0.475,-0.823 A0.95,0.95 0 0 1 0.475,-0.823 L0.120,-0.208 A0.24,0.24 0 0 0 -0.120,-0.208 Z"/><path d="M0.240,0.000 L0.950,0.000 A0.95,0.95 0 0 1 0.475,0.823 L0.120,0.208 A0.24,0.24 0 0 0 0.240,0.000 Z"/><path d="M-0.120,0.208 L-0.475,0.823 A0.95,0.95 0 0 1 -0.950,0.000 L-0.240,0.000 A0.24,0.24 0 0 0 -0.120,0.208 Z"/><circle r="0.15"/></svg><div><h1>WCZESNE OSTRZEŻENIE</h1><div class="sub">TERMINAL OBRONY CYWILNEJ · WARSZAWA · MODEL WW-3000</div></div></div><div class="zegar-sys num">OSTATNI ODCZYT: 2 listopada 2026, 20:39</div></div><nav class="zakladki" aria-label="Zakładki"><a href="./#stan" class="">STAN</a><a href="./#sygnaly" class="">SYGNAŁY</a><a href="./#wiadomosci" class="">WIADOMOŚCI</a><a href="./#analogia" class="">ANALOGIA 2022</a><a href="./#zrodla" class="">ŹRÓDŁA</a><a href="metodyka.html" class="aktywna">METODYKA</a></nav>
+
+<section class="panel"><div class="proza">
+  <h2>Metodyka w 2 minuty</h2>
+  <p>Aplikacja codziennie czyta wiadomości z 66 sprawdzonych źródeł i szuka w nich zdarzeń, które w przeszłości poprzedzały wojnę. Nie zgaduje przyszłości. Liczy, ile wiarygodnych, niezależnych redakcji mówi naraz o tych samych niepokojących rzeczach wobec Polski i krajów bałtyckich.</p>
+  <p>Wynik to <b>współczynnik wpierdolu (WW)</b> od 0 do 100. Im więcej różnych sygnałów naraz i im lepsze źródła, tym wyżej.</p>
+</div></section>
+
+<section class="panel" id="pomiar"><div class="proza">
+  <h3>1. Jak mierzymy</h3>
+  <ol>
+    <li><b>Zbieramy wiadomości.</b> Co godzinę pobieramy kanały RSS: media publiczne, agencje, think tanki, rządy. Nagłówki po łotewsku, litewsku, estońsku, fińsku i rosyjsku tłumaczymy na polski.</li>
+    <li><b>Szukamy sygnałów.</b> Każdą wiadomość sprawdzamy słownikiem 12 kategorii, np. „koncentracja wojsk przy granicy”, „ewakuacja dyplomatów”, „mobilizacja”. Słownik ma ok. 149 wzorców w 3 językach.</li>
+    <li><b>Ważymy.</b> Wiadomość liczy się mocniej, gdy pochodzi z lepszego źródła (ocena A–E) i dotyczy Polski, Bałtów, Białorusi albo Kaliningradu. Wiadomość tylko o froncie w Ukrainie liczy się w 1/4.</li>
+    <li><b>Nie dajemy się zakrzyczeć.</b> To samo wydarzenie opisane 20 razy liczy się jak jedno. Każda kategoria ma sufit: 4 mocne wiadomości to ok. 63% jej skali, więcej niewiele dodaje.</li>
+    <li><b>Sumujemy.</b> WW to ważona suma kategorii. Wiadomości o rozejmie i rozmowach pokojowych obniżają wynik o maksymalnie 30%.</li>
+  </ol>
+  <div class="tab-prosta"><table><thead><tr><th>Kategoria</th><th>Waga</th><th>Liczy się do alarmu</th></tr></thead><tbody><tr><td>Ewakuacja dyplomatów i ostrzeżenia dla podróżnych</td><td class="num">+4</td><td>tak</td></tr><tr><td>Ostrzeżenia wywiadu i sojuszników</td><td class="num">+4</td><td>tak</td></tr><tr><td>Koncentracja wojsk przy granicy</td><td class="num">+3</td><td>tak</td></tr><tr><td>Gotowość bojowa i mobilizacja</td><td class="num">+3</td><td>tak</td></tr><tr><td>Budowanie pretekstu i oskarżenia</td><td class="num">+3</td><td>tak</td></tr><tr><td>Zamknięcia przestrzeni powietrznej i odwołane loty</td><td class="num">+3</td><td>tak</td></tr><tr><td>Retoryka i ultimata Kremla</td><td class="num">+2</td><td>tak</td></tr><tr><td>Sabotaż, drony, naruszenia przestrzeni</td><td class="num">+2</td><td>tak</td></tr><tr><td>Cyberataki na państwo i infrastrukturę</td><td class="num">+2</td><td>nie</td></tr><tr><td>Duże ćwiczenia Rosji i Białorusi</td><td class="num">+2</td><td>nie</td></tr><tr><td>Presja na granicy z Białorusią</td><td class="num">+1</td><td>nie</td></tr><tr><td>Sygnały deeskalacji</td><td class="num">-3</td><td>nie</td></tr></tbody></table></div>
+</div></section>
+
+<section class="panel" id="poziomy"><div class="proza">
+  <h3>2. Poziomy WW</h3>
+  <div class="tab-prosta"><table><thead><tr><th>WW</th><th>Na luzie</th><th>Oficjalnie</th><th>Co to znaczy</th></tr></thead><tbody><tr><td class="num">od 0</td><td>Pij kawę</td><td>Spokojnie</td><td>Tło informacyjne bez wyraźnych sygnałów wobec Polski i Bałtów.</td></tr><tr><td class="num">od 30</td><td>Sprawdź plecak</td><td>Podwyższona uwaga</td><td>Pojedyncze kategorie sygnałów aktywne. Warto czytać skrót codziennie.</td></tr><tr><td class="num">od 50</td><td>Zatankuj do pełna</td><td>Napięcie</td><td>Kilka kategorii naraz, z wielu niezależnych źródeł. Sprawdź plan rodzinny.</td></tr><tr><td class="num">od 70</td><td>Do schronu</td><td>Alarm</td><td>Spiętrzenie zbieżnych sygnałów jak przed 24.02.2022. Działaj według planu i komunikatów RCB.</td></tr></tbody></table></div>
+  <p class="dim">Progi są tymczasowe. Tło 2025–2026 (drony, sabotaż, wojna w Ukrainie) jest stale podwyższone, więc skalibrujemy je po 30 dniach działania, 2 grudnia 2026.</p>
+</div></section>
+
+<section class="panel" id="alarmy"><div class="proza">
+  <h3>3. Kiedy przychodzi alarm</h3>
+  <p>Są 4 rodzaje alarmów. Mail dostaje lista odbiorców; skrót dnia przychodzi niezależnie od alarmów.</p>
+  <ul>
+    <li><b>Spiętrzenie sygnałów.</b> Kategoria „świeci”, gdy pisze o niej min. 3 niezależne redakcje (ocena A–C) w 72 h, wobec Polski lub Bałtów. Redakcje jednego właściciela liczą się jako jedna. 1 kategoria: Uwaga (bez maila). 2 kategorie: Ostrzeżenie (mail). 3 kategorie, w tym ewakuacja, ostrzeżenia wywiadu, mobilizacja albo zamknięcia nieba: Alarm (mail pilny).</li>
+    <li><b>Sygnał krytyczny.</b> Pojedyncze, bardzo konkretne zdarzenie, które samo jest powodem do alarmu, opisane przez min. 2 niezależne redakcje z oceną A lub B w 24 h. Mail od razu. Lista:<ul><li>Ewakuacja ambasady albo wezwanie do wyjazdu</li><li>Mobilizacja albo stan wojenny w Polsce lub krajach bałtyckich</li><li>Konsultacje z art. 4 albo uruchomienie art. 5 NATO</li><li>Zamknięcie przestrzeni powietrznej nad Polską lub krajem bałtyckim</li><li>Atak zbrojny na terytorium NATO</li></ul></li>
+    <li><b>Alarm trendu.</b> Łapie powolne narastanie, jak jesienią 2021. Codziennie sumujemy, o ile WW przekracza swoją normę z 30 dni sprzed tygodnia (metoda CUSUM). Mail, gdy suma z 14 dni przekroczy próg, a średnia z tygodnia jest min. 8 pkt nad normą. Działa po 21 dniach historii.</li>
+    <li><b>Nagły skok kategorii.</b> Kategoria nagle 2 razy mocniejsza niż zwykle. Tylko wzmianka w skrócie dnia, bez osobnego maila.</li>
+  </ul>
+  <p>Ten sam sygnał krytyczny nie wraca w mailu przez 72 h, a alarm trendu przypomina się najwyżej raz w tygodniu.</p>
+</div></section>
+
+<section class="panel" id="zegar"><div class="proza">
+  <h3>4. Zegar zagłady</h3>
+  <p>To żart z poważnym przelicznikiem: WW 0 to 15 minut do północy, WW 100 to północ. Każdy punkt WW zabiera 9 sekund. Dziś WW 21, czyli 11 min 49 s. Prawdziwy Zegar Zagłady prowadzi Bulletin of the Atomic Scientists i liczy go inaczej.</p>
+</div></section>
+
+<section class="panel" id="zrodla"><div class="proza">
+  <h3>5. Skąd dane i jak oceniamy źródła</h3>
+  <ul>
+    <li><b>Rejestr źródeł:</b> 66 pozycji, 50 aktywnych, języki: en, et, fi, lt, lv, pl, ru. Każde źródło ma ocenę według skali wywiadu NATO: A zawsze wiarygodne, B zwykle, C dość, D zwykle niewiarygodne, E niewiarygodne, F nie da się ocenić.</li>
+    <li><b>Nowe źródło</b> przechodzi 30 dni próby: jest czytane i widoczne, ale nie liczy się do WW. Po próbie automat awansuje je albo blokuje według dwóch liczb: krzykliwości (ponad 15% sensacyjnych tytułów to blokada) i potwierdzalności (mniej niż 30% alarmów potwierdzonych przez inne redakcje to blokada).</li>
+    <li><b>Martwe kanały</b> automat sprawdza w każdy poniedziałek, szuka nowego adresu w tej samej redakcji, a bez zastępstwa po 30 dniach blokuje.</li>
+    <li><b>Kreml na podsłuchu.</b> Rosyjskie źródła państwowe (kremlin.ru, MSZ, TASS) czytamy tylko jako sygnał retoryki i budowania pretekstu. Nigdy nie potwierdzają faktów. RT i Sputnik są zablokowane.</li>
+    <li><b>Ocen A–E automat nie zmienia sam.</b> To decyzja człowieka.</li>
+  </ul>
+</div></section>
+
+<section class="panel" id="aktualizacja"><div class="proza">
+  <h3>6. Jak często się aktualizuje</h3>
+  <ul>
+    <li><b>Co godzinę</b> (ok. 47. minuty): pobranie wiadomości, tłumaczenie, przeliczenie WW, kontrola alarmów.</li>
+    <li><b>Codziennie ok. 6:47</b>: skrót dnia mailem. Godziny skrótu da się zmienić.</li>
+    <li><b>W poniedziałek rano</b>: przegląd źródeł (martwe kanały, koniec prób).</li>
+    <li><b>Strona</b>: obraz z ostatniego przeliczenia, godzina w prawym górnym rogu.</li>
+  </ul>
+</div></section>
+
+<section class="panel" id="ograniczenia"><div class="proza">
+  <h3>7. Czego aplikacja nie umie</h3>
+  <ul>
+    <li>Myli się w obie strony, bo czyta słowa, nie sens. „Ulica Wojska Polskiego” to nie wojsko, a ironia to nie groźba.</li>
+    <li>Nie zobaczy zagrożenia, którego nikt jeszcze nie opisał, ani nowego rodzaju zdarzeń spoza słownika.</li>
+    <li>Nie przewiduje dat. Mówi tylko, ile sygnałów widać naraz.</li>
+    <li>Nie jest komunikatem władz. Przy kolorze „Zatankuj do pełna” i „Do schronu” sprawdź <a href="https://www.gov.pl/web/rcb" target="_blank" rel="noopener">Rządowe Centrum Bezpieczeństwa</a> i Alert RCB w telefonie.</li>
+  </ul>
+</div></section>
+
+<section class="panel" id="bledy"><div class="proza">
+  <h3>8. Jak zgłosić błąd</h3>
+  <ol>
+    <li><b>Odpowiedz na dowolny mail z aplikacji.</b> Odpowiedź trafia do autora.</li>
+    <li>Napisz jedno zdanie: która wiadomość albo który alarm, co jest źle i dlaczego. Przykład: „Ostrzeżenie z 2.11 fałszywe: »prowokacja« dotyczyła sporu o Trybunał, nie Rosji”.</li>
+    <li>Chcesz dodać albo zakwestionować źródło: podaj nazwę, adres strony i powód.</li>
+  </ol>
+  <p>Zgłoszenia zbieramy do kalibracji słownika i progów. Pierwsza kalibracja: 2 grudnia 2026. Każda poprawka słownika działa wstecz na 90 dni zapisanych wiadomości.</p>
+</div></section>
+
+<section class="panel"><div class="proza">
+  <h3>Źródła metody</h3>
+  <ul>
+    <li>Cynthia M. Grabo, <i>Anticipating Surprise: Analysis for Strategic Warning</i> (2002): listy wskaźników ostrzegawczych.</li>
+    <li>NATO, skala oceny źródeł i informacji A–F, 1–6 (doktryna wywiadu sojuszu).</li>
+    <li>E. S. Page, „Continuous Inspection Schemes”, <i>Biometrika</i> (1954): metoda CUSUM do wykrywania powolnych zmian.</li>
+  </ul>
+</div></section>
+
+<footer><span><svg class="ikona" viewBox="-1 -1 2 2" role="img" aria-label="Znak schronu"><circle r="0.98" fill="none" stroke="currentColor" stroke-width="0.06"/><polygon points="-0.000,0.190 0.312,0.730 -0.312,0.730"/><polygon points="-0.165,-0.095 -0.788,-0.095 -0.476,-0.635"/><polygon points="0.165,-0.095 0.476,-0.635 0.788,-0.095"/></svg> Prywatne narzędzie znajomych, nie komunikat władz. Oficjalne alerty: <a href="https://www.gov.pl/web/rcb" target="_blank" rel="noopener">Rządowe Centrum Bezpieczeństwa</a>.</span><span>66 źródeł · odczyt co godzinę · <a href="metodyka.html">jak to działa i jak zgłosić błąd</a></span></footer>
+</div></div></div>
+
+</body>
+</html>

@@ -1,0 +1,252 @@
+{
+ "dni": {
+  "2026-10-19": {
+   "indeks": 4.0,
+   "natezenie": {
+    "wojska_granica": 0.0,
+    "gotowosc": 0.0,
+    "ewakuacja": 0.0,
+    "ostrzezenia_sojusznikow": 0.0,
+    "pretekst": 0.0,
+    "retoryka": 0.0,
+    "hybryda": 0.573,
+    "cyber": 0.0,
+    "granica_migracja": 0.0,
+    "przestrzen_transport": 0.0,
+    "cwiczenia": 0.0,
+    "deeskalacja": 0.0
+   },
+   "alarm": 0,
+   "rekonstrukcja": true
+  },
+  "2026-10-20": {
+   "indeks": 1.7,
+   "natezenie": {
+    "wojska_granica": 0.0,
+    "gotowosc": 0.0,
+    "ewakuacja": 0.0,
+    "ostrzezenia_sojusznikow": 0.12,
+    "pretekst": 0.0,
+    "retoryka": 0.0,
+    "hybryda": 0.0,
+    "cyber": 0.0,
+    "granica_migracja": 0.0,
+    "przestrzen_transport": 0.0,
+    "cwiczenia": 0.0,
+    "deeskalacja": 0.0
+   },
+   "alarm": 0,
+   "rekonstrukcja": true
+  },
+  "2026-10-21": {
+   "indeks": 3.2,
+   "natezenie": {
+    "wojska_granica": 0.0,
+    "gotowosc": 0.0,
+    "ewakuacja": 0.0,
+    "ostrzezenia_sojusznikow": 0.24,
+    "pretekst": 0.0,
+    "retoryka": 0.0,
+    "hybryda": 0.0,
+    "cyber": 0.0,
+    "granica_migracja": 0.0,
+    "przestrzen_transport": 0.0,
+    "cwiczenia": 0.0,
+    "deeskalacja": 0.12
+   },
+   "alarm": 0,
+   "rekonstrukcja": true
+  },
+  "2026-10-22": {
+   "indeks": 0.0,
+   "natezenie": {
+    "wojska_granica": 0.0,
+    "gotowosc": 0.0,
+    "ewakuacja": 0.0,
+    "ostrzezenia_sojusznikow": 0.0,
+    "pretekst": 0.0,
+    "retoryka": 0.0,
+    "hybryda": 0.0,
+    "cyber": 0.0,
+    "granica_migracja": 0.0,
+    "przestrzen_transport": 0.0,
+    "cwiczenia": 0.0,
+    "deeskalacja": 0.061
+   },
+   "alarm": 0,
+   "rekonstrukcja": true
+  },
+  "2026-10-23": {
+   "indeks": 2.4,
+   "natezenie": {
+    "wojska_granica": 0.0,
+    "gotowosc": 0.0,
+    "ewakuacja": 0.171,
+    "ostrzezenia_sojusznikow": 0.0,
+    "pretekst": 0.0,
+    "retoryka": 0.0,
+    "hybryda": 0.0,
+    "cyber": 0.0,
+    "granica_migracja": 0.0,
+    "przestrzen_transport": 0.0,
+    "cwiczenia": 0.0,
+    "deeskalacja": 0.0
+   },
+   "alarm": 0,
+   "rekonstrukcja": true
+  },
+  "2026-10-26": {
+   "indeks": 3.4,
+   "natezenie": {
+    "wojska_granica": 0.0,
+    "gotowosc": 0.0,
+    "ewakuacja": 0.0,
+    "ostrzezenia_sojusznikow": 0.0,
+    "pretekst": 0.0,
+    "retoryka": 0.0,
+    "hybryda": 0.191,
+    "cyber": 0.311,
+    "granica_migracja": 0.0,
+    "przestrzen_transport": 0.0,
+    "cwiczenia": 0.0,
+    "deeskalacja": 0.101
+   },
+   "alarm": 0,
+   "rekonstrukcja": true
+  },
+  "2026-10-27": {
+   "indeks": 0.0,
+   "natezenie": {
+    "wojska_granica": 0.0,
+    "gotowosc": 0.0,
+    "ewakuacja": 0.0,
+    "ostrzezenia_sojusznikow": 0.0,
+    "pretekst": 0.0,
+    "retoryka": 0.0,
+    "hybryda": 0.0,
+    "cyber": 0.0,
+    "granica_migracja": 0.0,
+    "przestrzen_transport": 0.0,
+    "cwiczenia": 0.0,
+    "deeskalacja": 0.255
+   },
+   "alarm": 0,
+   "rekonstrukcja": true
+  },
+  "2026-10-28": {
+   "indeks": 6.1,
+   "natezenie": {
+    "wojska_granica": 0.0,
+    "gotowosc": 0.0,
+    "ewakuacja": 0.0,
+    "ostrzezenia_sojusznikow": 0.052,
+    "pretekst": 0.0,
+    "retoryka": 0.0,
+    "hybryda": 0.346,
+    "cyber": 0.443,
+    "granica_migracja": 0.0,
+    "przestrzen_transport": 0.0,
+    "cwiczenia": 0.0,
+    "deeskalacja": 0.052
+   },
+   "alarm": 1,
+   "rekonstrukcja": true
+  },
+  "2026-10-29": {
+   "indeks": 7.1,
+   "natezenie": {
+    "wojska_granica": 0.233,
+    "gotowosc": 0.0,
+    "ewakuacja": 0.0,
+    "ostrzezenia_sojusznikow": 0.0,
+    "pretekst": 0.191,
+    "retoryka": 0.0,
+    "hybryda": 0.191,
+    "cyber": 0.233,
+    "granica_migracja": 0.0,
+    "przestrzen_transport": 0.0,
+    "cwiczenia": 0.0,
+    "deeskalacja": 0.087
+   },
+   "alarm": 1,
+   "rekonstrukcja": true
+  },
+  "2026-10-30": {
+   "indeks": 3.4,
+   "natezenie": {
+    "wojska_granica": 0.037,
+    "gotowosc": 0.052,
+    "ewakuacja": 0.0,
+    "ostrzezenia_sojusznikow": 0.139,
+    "pretekst": 0.0,
+    "retoryka": 0.0,
+    "hybryda": 0.037,
+    "cyber": 0.147,
+    "granica_migracja": 0.0,
+    "przestrzen_transport": 0.0,
+    "cwiczenia": 0.0,
+    "deeskalacja": 0.534
+   },
+   "alarm": 1,
+   "rekonstrukcja": true
+  },
+  "2026-10-31": {
+   "indeks": 6.4,
+   "natezenie": {
+    "wojska_granica": 0.037,
+    "gotowosc": 0.037,
+    "ewakuacja": 0.0,
+    "ostrzezenia_sojusznikow": 0.323,
+    "pretekst": 0.139,
+    "retoryka": 0.191,
+    "hybryda": 0.0,
+    "cyber": 0.052,
+    "granica_migracja": 0.0,
+    "przestrzen_transport": 0.0,
+    "cwiczenia": 0.0,
+    "deeskalacja": 0.756
+   },
+   "alarm": 0,
+   "rekonstrukcja": true
+  },
+  "2026-11-01": {
+   "indeks": 1.8,
+   "natezenie": {
+    "wojska_granica": 0.0,
+    "gotowosc": 0.052,
+    "ewakuacja": 0.0,
+    "ostrzezenia_sojusznikow": 0.0,
+    "pretekst": 0.0,
+    "retoryka": 0.0,
+    "hybryda": 0.12,
+    "cyber": 0.087,
+    "granica_migracja": 0.0,
+    "przestrzen_transport": 0.0,
+    "cwiczenia": 0.0,
+    "deeskalacja": 0.34
+   },
+   "alarm": 0,
+   "rekonstrukcja": true
+  },
+  "2026-11-02": {
+   "indeks": 23.7,
+   "natezenie": {
+    "wojska_granica": 0.364,
+    "gotowosc": 0.513,
+    "ewakuacja": 0.0,
+    "ostrzezenia_sojusznikow": 0.221,
+    "pretekst": 0.24,
+    "retoryka": 0.48,
+    "hybryda": 0.898,
+    "cyber": 0.937,
+    "granica_migracja": 0.0,
+    "przestrzen_transport": 0.0,
+    "cwiczenia": 0.195,
+    "deeskalacja": 0.858
+   },
+   "alarm": 1,
+   "rekonstrukcja": false,
+   "aktualizacja": "2026-11-02T20:01+00:00"
+  }
+ }
+}

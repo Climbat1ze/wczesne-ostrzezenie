@@ -1,0 +1,286 @@
+# Słownik wskaźników (metoda Indications & Warnings: lista zdarzeń, które poprzedzają atak).
+# Wzorce to wyrażenia regularne, sprawdzane na małych literach tytułu i leadu (PL, EN, RU).
+# waga: ile kategoria znaczy w indeksie. wysoka: liczy się do alarmu zbieżności.
+# propaganda_jako_sygnal: źródła w statusie „monitoring” (Kreml, MSZ Rosji, TASS) liczą się tu z pełną wagą,
+#   bo w tej kategorii sygnałem jest samo to, co mówi Kreml.
+
+kategorie:
+  wojska_granica:
+    nazwa: "Koncentracja wojsk przy granicy"
+    waga: 3
+    wysoka: true
+    wzorce:
+      - '\btroops?\b.{0,30}\b(build-?up|concentrat\w*|massing|amass\w*|moving|deploy\w*)'
+      - '\b(massing|amassing|concentrat\w*) (of )?(troops|forces)'
+      - '\b(troops|forces|units)\b.{0,25}\b(near|along|at|to) the (border|frontier)'
+      - '\bsatellite (images?|imagery|photos?)\b'
+      - '\biskander'
+      - '\b(redeploy\w*|deploy\w*)\b.{0,30}\b(troops|forces|brigades?|divisions?|missiles?|nuclear)'
+      - '\bkoncentracj\w* (wojsk|sił|oddział)'
+      - '\bgromadz\w* (wojsk|sił|sprzęt)'
+      - '\b(przerzut|przemieszcz|rozmieszcz)\w* (wojsk|sił|sprzętu|jednost|rakiet|broni)'
+      - '\bzdjęci\w* satelitarn'
+      - '\bwojsk\w* (przy|na|wzdłuż) granic'
+      - 'стягива\w*'
+      - 'переброск\w* (войск|техники)'
+      - 'сосредоточени\w* войск'
+  gotowosc:
+    nazwa: "Gotowość bojowa i mobilizacja"
+    waga: 3
+    wysoka: true
+    wzorce:
+      - '\bmobili[sz]\w*'
+      - '\breservists?\b'
+      - '\bcall-?ups?\b'
+      - '\bcombat readiness\b'
+      - '\bsnap (drills?|exercises?|inspections?)'
+      - '\bblood (supplies|supply|banks?|reserves)'
+      - '\bfield hospitals?'
+      - '\bmartial law'
+      - '\bmobilizac\w*'
+      - '\brezerwi\w*'
+      - '\bgotowoś\w* bojow'
+      - '\bszpital\w* polow'
+      - '\bzapas\w* krwi'
+      - '\bstan\w* wojenn'
+      - 'мобилизац\w*'
+      - 'военное положение'
+      - 'боеготовност\w*'
+  ewakuacja:
+    nazwa: "Ewakuacja dyplomatów i ostrzeżenia dla podróżnych"
+    waga: 4
+    wysoka: true
+    wzorce:
+      - '\b(embass(y|ies)|diplomats?|consulates?)\b.{0,40}\b(evacuat\w*|withdraw\w*|drawdown|relocat\w*|leave)'
+      - '\b(ordered|authori[sz]ed) departure'
+      - '\b(leave|depart)\b.{0,25}\bimmediately'
+      - '\bdo not travel\b'
+      - '\blevel 4\b'
+      - '\bexpel\w*\b.{0,30}\bdiplomats?'
+      - '\bdiplomats?\b.{0,15}\bexpelled'
+      - '\b(clos\w*)\b.{0,20}\b(embassy|consulate)'
+      - '\bewakuac\w* (ambasad|placówk|dyplomat|personel|obywatel)'
+      - '\b(opu[sś]ci\w*|wyjecha\w*|wyjazd\w*)\b.{0,30}\b(natychmiast|niezwłocznie)'
+      - '\bwydal\w*\b.{0,30}\bdyplomat'
+      - '\bzamkn\w*\b.{0,20}\b(ambasad|konsulat)'
+      - 'эвакуац\w* (посольств|дипломат)'
+      - 'высыл\w* дипломат'
+  ostrzezenia_sojusznikow:
+    nazwa: "Ostrzeżenia wywiadu i sojuszników"
+    waga: 4
+    wysoka: true
+    wzorce:
+      - '\b(intelligence|intel)\b.{0,20}\b(warn\w*|assess\w*|suggest\w*|indicat\w*)\b.{0,60}\b(attack\w*|invasion|invade|aggression|offensive|war)\b'
+      - '\b(could|may|might|ready to|preparing to)\b.{0,10}\b(attack|invade|strike)\b'
+      - '\bimminent (attack|invasion|threat|war)'
+      - '\bdeclassif\w*'
+      - '\bwarn\w*\b.{0,40}\b(attack|invasion|aggression|war)\b'
+      - '\bwywiad\w*\b.{0,40}\b(ostrzeg\w*|oceni\w*|alarm\w*)\b.{0,60}\b(atak\w*|inwazj\w*|agresj\w*|ofensyw\w*|wojn\w*)'
+      - '\b(zbliżając\w*|nieuchronn\w*|realn\w*) (atak|agresj|wojn|inwazj)'
+      - '\bostrzeg\w*\b.{0,40}\b(atak|agresj|inwazj|wojn)'
+      - '\b(przygotow\w*|szykuj\w*)\b.{0,15}\b(atak|agresj|inwazj|wojn)'
+  pretekst:
+    nazwa: "Budowanie pretekstu i oskarżenia"
+    waga: 3
+    wysoka: true
+    propaganda_jako_sygnal: true
+    wzorce:
+      - '\bfalse[- ]flag'
+      - '\b(russia\w*|kremlin|moscow|lavrov|zakharova|peskov|putin|minsk|belarus\w*|lukashenk\w*)\b.{0,60}\bprovocat\w*'
+      - '\bstaged (attack|incident|provocation)'
+      - '\bpretext'
+      - '\b(genocide|persecution|oppression|discrimination) of (russians|russian[- ]speak\w*)'
+      - '\bprotect\w* (russian|compatriots)'
+      - '\brussophob\w*'
+      - '\b(poland|polish|warsaw|lithuania|latvia|estonia|baltic\w*)\b.{0,60}\b(militari[sz]ation|preparing (an )?attack|threat to (russia|belarus))'
+      - '\bfałszyw\w* flag'
+      - '\b(rosj\w*|rosyjsk\w*|kreml\w*|moskw\w*|ławrow\w*|zacharow\w*|pieskow\w*|putin\w*|mińsk\w*|białoru\w*|łukaszenk\w*)\b.{0,60}\bprowokacj\w*'
+      - '\bpreteks\w*'
+      - '\binscenizac\w*'
+      - '\brusofob\w*'
+      - 'провокац\w*'
+      - 'русофоб\w*'
+      - 'геноцид'
+  retoryka:
+    nazwa: "Retoryka i ultimata Kremla"
+    waga: 2
+    wysoka: true
+    propaganda_jako_sygnal: true
+    wzorce:
+      - '\bultimatum'
+      - '\bsecurity guarantees'
+      - '\bnuclear\b.{0,30}\b(threat\w*|warn\w*|weapons?|strike|use|doctrine|drills?)'
+      - '\bred lines?\b'
+      - '\b(consequences|retaliat\w*|countermeasures|response)\b.{0,40}\b(poland|polish|baltic\w*|lithuania|latvia|estonia|finland)'
+      - '\bmilitary-technical'
+      - '\blegitimate targets?'
+      - '\bultimat\w*'
+      - '\bgwarancj\w* bezpieczeństwa'
+      - '\b(broń|broni|uderzen\w*|arsenał\w*) (jądrow|nuklearn)'
+      - '\bczerwon\w* lini'
+      - '\b(odwet\w*|konsekwencj\w*)\b.{0,40}\b(polsk|litw|łotw|eston|bałt|finland)'
+      - 'ультиматум'
+      - 'гарантии безопасности'
+      - 'ядерн\w*'
+      - 'ответные меры'
+  hybryda:
+    nazwa: "Sabotaż, drony, naruszenia przestrzeni"
+    waga: 2
+    wysoka: true
+    wzorce:
+      - '\bsabotag\w*'
+      - '\bsaboteurs?'
+      - '\barson\w*'
+      - '\b(undersea|subsea|baltic)\b.{0,20}\b(cables?|pipelines?)'
+      - '\b(drones?|uavs?)\b.{0,40}\b(airspace|incursion|crash\w*|shot down|violat\w*)'
+      - '\bairspace violation'
+      - '\b(gps|gnss)\b.{0,20}\b(jamm\w*|spoof\w*|interferen\w*)'
+      - '\bshadow fleet'
+      - '\bsabota\w*'
+      - '\bdywersj\w*'
+      - '\bpodpal\w*'
+      - '\b(dron\w*|bezzałogow\w*|obiekt\w* latając\w*)\b.{0,40}\b(przestrze\w*|zestrzel\w*|naruszen\w*|spad\w*|wlecia\w*|wleci\w*)'
+      - '\bnarusz\w* przestrzeni powietrznej'
+      - '\bzagłusz\w*\b.{0,15}\b(gps|sygnał|nawigac)'
+      - '\bkabl\w* podmorsk'
+      - '\bflot\w* cieni'
+      - 'диверси\w*'
+      - 'саботаж'
+  cyber:
+    nazwa: "Cyberataki na państwo i infrastrukturę"
+    waga: 2
+    wysoka: false
+    wzorce:
+      - '\bcyber-?attacks?'
+      - '\bddos'
+      - '\bwiper\b'
+      - '\bransomware\b.{0,30}\b(hospital|government|ministry|infrastructure|grid|water)'
+      - '\bhack\w*\b.{0,30}\b(government|ministry|grid|water|railway|energy)'
+      - '\b(sandworm|apt28|apt29|fancy bear|cozy bear|ghostwriter)\b'
+      - '\bcyberatak\w*'
+      - '\batak\w* hakersk'
+      - '\bwłaman\w*\b.{0,30}\b(system|serwer|skrzyn|poczt)'
+      - 'кибератак\w*'
+  granica_migracja:
+    nazwa: "Presja na granicy z Białorusią"
+    waga: 1
+    wysoka: false
+    wzorce:
+      - '\bbelarus\w*\b.{0,40}\bborder\b.{0,40}\b(migrants?|storm\w*|push\w*|clos\w*|attack\w*)'
+      - '\binstrumentali[sz]\w*'
+      - '\bborder crossings?\b.{0,15}\b(closed|shut|suspend\w*)'
+      - '\bgranic\w*\b.{0,40}\bbiałoru\w*\b.{0,40}\b(migrant\w*|szturm\w*|forsow\w*|atak\w*|żołnierz\w*)'
+      - '\bmigranc\w*\b.{0,30}\bgranic'
+      - '\binstrumentalizac\w*'
+      - '\bzamkn\w*\b.{0,15}\bprzejś\w* granicz'
+  przestrzen_transport:
+    nazwa: "Zamknięcia przestrzeni powietrznej i odwołane loty"
+    waga: 3
+    wysoka: true
+    wzorce:
+      - '\bnotams?\b'
+      - '\bairspace\b.{0,15}\b(closed|closure|clos\w*|restrict\w*|shut)'
+      - '\b(flights?|airlines?)\b.{0,30}\b(cancel\w*|suspend\w*|halt\w*|divert\w*)'
+      - '\b(insurers?|insurance)\b.{0,30}\b(withdraw\w*|pull\w*|cancel\w*)'
+      - '\b(zamkn|zamyka|zamknięci)\w*\b.{0,10}\bprzestrze\w* powietrzn'
+      - '\b(odwoła|zawiesz|wstrzym)\w*\b.{0,10}\b(lot|połącze)'
+      - '\bubezpiecz\w*\b.{0,30}\b(wycof\w*|lot\w*)'
+  cwiczenia:
+    nazwa: "Duże ćwiczenia Rosji i Białorusi"
+    waga: 2
+    wysoka: false
+    wzorce:
+      - '\bzapad\b'
+      - '\bunion resolve'
+      - '\b(exercises?|drills?|manoeuvres?|maneuvers?)\b.{0,40}\b(belarus\w*|kaliningrad|baltic fleet|leningrad military|western military|russia\w*)'
+      - '\b(belarus\w*|kaliningrad|russia\w*)\b.{0,40}\b(exercises?|drills?|manoeuvres?|maneuvers?)\b'
+      - '\btactical nuclear\b.{0,15}\b(drills?|exercises?)'
+      - '\b(ćwiczen\w*|manewr\w*)\b.{0,40}\b(białoru\w*|rosj\w*|królewieck\w*|kaliningrad\w*|floty bałtyck)'
+      - '\b(białoru\w*|rosj\w*|królewieck\w*|kaliningrad\w*)\b.{0,40}\b(ćwiczen\w*|manewr\w*)'
+      - 'учени[яйе]\w*'
+  deeskalacja:
+    nazwa: "Sygnały deeskalacji"
+    waga: -3
+    wysoka: false
+    wzorce:
+      - '\bceasefire'
+      - '\btruce'
+      - '\bpeace (talks|deal|agreement|plan|summit|negotiations)'
+      - '\b(troops|forces)\b.{0,30}\b(withdraw\w*|pull\w* back|return\w* to (their )?bases?)'
+      - '\bde-?escalat\w*'
+      - '\bzawiesz\w* broni'
+      - '\brozejm\w*'
+      - '\b(rozmow\w*|negocjac\w*|porozumieni\w*) pokojow'
+      - '\bwycof\w* (wojsk|oddział|sił)'
+      - '\bdeeskalac\w*'
+      - 'перемири\w*'
+      - 'мирн\w* переговор\w*'
+      - 'отвод войск'
+
+# Czy wiadomość dotyczy Polski i wschodniej flanki NATO. Mnożnik wagi wpisu w indeksie.
+geografia:
+  flanka:
+    mnoznik: 1.0
+    wzorce:
+      - '\b(polsk|polsc|polan|poland|polish|warszaw|warsaw|rzesz[oó]w|lubli|białyst|bialyst|suwał|suwalk|przesmyk|litw|lithuan|vilni|wilni|wilno|łotw|latvi|ryg|riga|eston|tallin|bałty|balty|baltic|kaliningrad|królewiec|królewc|krolewiec|białoru|belarus|mińsk|minsk|gotland|finland|finlandi|finns?\b|eastern flank|wschodni\w* flank|narva|narwa)'
+      - '(польш|литв|латви|эстони|прибалт|калининград|белорус|финлянд)'
+  nato:
+    mnoznik: 0.6
+    wzorce:
+      - '\b(nato|sojusz\w* północnoatlantyck|alliance)\b'
+      - '\bнато\b'
+  reszta:
+    mnoznik: 0.25
+
+# Pierwsza połowa skali indeksu jest zawężona, bo w 2025-2026 tło (drony, sabotaż, wojna w Ukrainie) jest stale wysokie.
+# Progi do kalibracji po 30 dniach historii.
+progi:
+  - {od: 0, nazwa: "Spokojnie", kolor: zielony, opis: "Tło informacyjne bez wyraźnych sygnałów wobec Polski i Bałtów.", luzno: "Pij kawę", luzno_opis: "Świat jak zwykle wariuje, ale nie celuje w nas."}
+  - {od: 30, nazwa: "Podwyższona uwaga", kolor: zolty, opis: "Pojedyncze kategorie sygnałów aktywne. Warto czytać skrót codziennie.", luzno: "Sprawdź plecak", luzno_opis: "Latarka, powerbank, dokumenty w jednym miejscu. Bez paniki."}
+  - {od: 50, nazwa: "Napięcie", kolor: pomaranczowy, opis: "Kilka kategorii naraz, z wielu niezależnych źródeł. Sprawdź plan rodzinny.", luzno: "Zatankuj do pełna", luzno_opis: "Pełny bak, gotówka w portfelu, plan rodzinny na stół."}
+  - {od: 70, nazwa: "Alarm", kolor: czerwony, opis: "Spiętrzenie zbieżnych sygnałów jak przed 24.02.2022. Działaj według planu i komunikatów RCB.", luzno: "Do schronu", luzno_opis: "Słuchaj RCB, nie internetu. Działaj według planu."}
+
+# Kamienie milowe sprzed inwazji na Ukrainę (X 2021 – II 2022). Aplikacja sprawdza, które z nich mają
+# dziś odpowiednik wobec Polski lub Bałtów: kategoria + co najmniej 2 niezależne grupy źródeł w 30 dniach.
+analogia_2022:
+  - {kategoria: wojska_granica, kiedy: "XI 2021", co: "Zdjęcia satelitarne i dokument wywiadu USA: ok. 175 tys. żołnierzy przy granicy Ukrainy (Washington Post, 3.12.2021)."}
+  - {kategoria: ostrzezenia_sojusznikow, kiedy: "XI–XII 2021", co: "USA i Wielka Brytania publicznie ostrzegają, że Rosja może zaatakować; odtajniają wywiad."}
+  - {kategoria: retoryka, kiedy: "17.12.2021", co: "Rosja publikuje projekty traktatów z NATO i USA: żądanie gwarancji bezpieczeństwa i wycofania NATO."}
+  - {kategoria: cyber, kiedy: "14.01.2022", co: "Atak na ukraińskie strony rządowe i złośliwe oprogramowanie WhisperGate."}
+  - {kategoria: pretekst, kiedy: "14.01.2022", co: "USA ostrzegają, że Rosja przygotowuje operację pod fałszywą flagą jako pretekst."}
+  - {kategoria: gotowosc, kiedy: "I 2022", co: "Doniesienia o zapasach krwi i szpitalach polowych przy granicy."}
+  - {kategoria: ewakuacja, kiedy: "23.01 i 11.02.2022", co: "USA ewakuują rodziny dyplomatów z Kijowa, potem wzywają obywateli do wyjazdu."}
+  - {kategoria: cwiczenia, kiedy: "10–20.02.2022", co: "Ćwiczenia Union Resolve na Białorusi; wojska rosyjskie nie wracają po ich końcu."}
+  - {kategoria: przestrzen_transport, kiedy: "II 2022", co: "Ubezpieczyciele i linie lotnicze wycofują się z ukraińskiego nieba; 24.02 zamknięcie przestrzeni."}
+  - {kategoria: hybryda, kiedy: "II 2022", co: "Incydenty i ostrzał w Donbasie przedstawiane przez Rosję jako ataki Ukrainy."}
+
+# Sygnały krytyczne: pojedyncze, bardzo konkretne zdarzenia, które same w sobie są powodem do alarmu.
+# Mail idzie od razu (kontrola co godzinę), gdy sygnał wobec Polski lub Bałtów opiszą co najmniej
+# 2 niezależne redakcje z oceną A lub B w ciągu 24 h. Ten sam sygnał nie wraca w mailu przez 72 h.
+# W 2022 takim sygnałem było wezwanie USA do opuszczenia Ukrainy (11.02) i ewakuacja ambasady.
+sygnaly_krytyczne:
+  - nazwa: "Ewakuacja ambasady albo wezwanie do wyjazdu"
+    wzorce:
+      - '\b(ordered|authori[sz]ed) departure'
+      - '\b(embass\w*)\b.{0,40}\b(evacuat\w*|ordered to leave|drawdown)'
+      - '\b(leave|depart)\b.{0,30}\b(poland|lithuania|latvia|estonia)\b.{0,20}\bimmediately'
+      - '\b(poland|lithuania|latvia|estonia)\b.{0,40}\b(level 4|do not travel)'
+      - '\bewakuac\w* (ambasad|placówk|personelu dyplomat)'
+      - '\bwezwa\w*\b.{0,40}\b(opuszczeni|wyjazd)\w*\b.{0,30}\b(polsk|litw|łotw|eston)'
+  - nazwa: "Mobilizacja albo stan wojenny w Polsce lub krajach bałtyckich"
+    wzorce:
+      - '\b(declar\w*|announc\w*|order\w*)\b.{0,25}\b(general |full |partial )?mobili[sz]ation'
+      - '\bmartial law\b.{0,30}\b(declared|imposed|introduced)'
+      - '\b(ogłosz\w*|ogłasza\w*|zarządz\w*|wprowadz\w*)\b.{0,25}\b(mobilizacj\w*|stan\w* wojenn\w*)'
+  - nazwa: "Konsultacje z art. 4 albo uruchomienie art. 5 NATO"
+    wzorce:
+      - '\b(invok\w*|request\w*|trigger\w*|call\w* for|hold\w*)\b.{0,30}\barticle (4|5|four|five)\b'
+      - '\b(wnios\w*|uruchom\w*|zwoła\w*|powoła\w*)\b.{0,30}\b(art\.|artykuł\w*) ?(4|5)\b'
+  - nazwa: "Zamknięcie przestrzeni powietrznej nad Polską lub krajem bałtyckim"
+    wzorce:
+      - '\b(clos\w*|shut\w*)\b.{0,15}\b(its |the )?(entire )?airspace\b'
+      - '\b(zamkn\w*|zamyka\w*)\b.{0,15}\b(cał\w* )?przestrze\w* powietrzn'
+  - nazwa: "Atak zbrojny na terytorium NATO"
+    wzorce:
+      - '\b(russia\w*|belarus\w*)\b.{0,40}\b(attack\w*|invad\w*|struck|strikes?)\b.{0,40}\b(poland|lithuania|latvia|estonia|nato territory)'
+      - '\b(rosj\w*|białoru\w*)\b.{0,40}\b(zaatakował\w*|najechał\w*|uderzył\w*|ostrzelał\w*)\b.{0,40}\b(polsk\w*|litw\w*|łotw\w*|eston\w*|terytorium nato)'
