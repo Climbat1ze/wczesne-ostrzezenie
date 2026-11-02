@@ -866,6 +866,10 @@ def cmd_uruchom(args):
     import strona  # noqa: E402
     strona.zbuduj(w, zrodla, slownik)
     zapisz_skrot_md(w, slownik)
+    kontrola_zdrowia(stan_pobrania, args.bez_powiadomien)
+    if w.get("raport_admin"):
+        import jakosc  # noqa: E402
+        w["ocena"] = jakosc.ocena_trafnosci(czytaj_wpisy_analizy(zrodla, slownik), slownik.kat)
     if not args.bez_powiadomien:
         powiadom(w, slownik)
         if powiadom_trend(w):
@@ -910,8 +914,28 @@ def godzina_raportu(t: dt.datetime) -> bool:
 
 
 def sekcje_admin(w: dict) -> list[tuple[str, list[str]]]:
-    """Dodatkowe sekcje raportu administracyjnego (rozszerzane w kolejnych etapach)."""
-    return []
+    """Dodatkowe sekcje raportu administracyjnego."""
+    import jakosc  # noqa: E402
+    return [("ZDROWIE PRZEBIEGÓW", jakosc.linie_zdrowia()), ("JAKOŚĆ KLASYFIKACJI", jakosc.linie_jakosci(w.get("ocena")))]
+
+
+def kontrola_zdrowia(stan_pobrania: dict | None, bez_powiadomien: bool):
+    import jakosc, tlumacz  # noqa: E402
+    pob = stan_pobrania or {}
+    plik = STRONA / "dane.json"
+    dane_ts = dt.datetime.fromtimestamp(plik.stat().st_mtime, dt.timezone.utc).isoformat(timespec="minutes") if plik.exists() else None
+    wynik = jakosc.zapisz_zdrowie(pob.get("ok"), pob.get("razem"), tlumacz._stan["bledy"], dane_ts)
+    if wynik["nowy_incydent"]:
+        print("INCYDENT ZDROWIA:", wynik["nowy_incydent"])
+        if not bez_powiadomien:
+            import koszty, poczta  # noqa: E402
+            tekst = (f"Problem z działaniem aplikacji: {wynik['nowy_incydent']}.\n"
+                     "Sprawdź log ostatnich przebiegów w zakładce Actions. Kolejny mail przyjdzie dopiero przy następnym incydencie.")
+            if poczta.wyslij("Incydent: aplikacja działa nieprawidłowo", tekst,
+                             poczta.ramka_tekstu(tekst, "WCZESNE OSTRZEŻENIE · INCYDENT"), odbiorcy=poczta.admin()):
+                koszty.zapisz_mail("admin", "incydent zdrowia")
+    elif wynik["koniec_incydentu"]:
+        print("Incydent zdrowia zakończony")
 
 
 def wyslij_raport_admin(w: dict):

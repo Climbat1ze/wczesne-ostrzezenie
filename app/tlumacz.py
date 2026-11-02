@@ -14,8 +14,6 @@ import json
 import os
 import re
 import shutil
-import subprocess
-import tempfile
 from concurrent.futures import ThreadPoolExecutor
 
 JEZYKI_BEZ_TLUMACZENIA = {"pl", "en"}
@@ -57,24 +55,15 @@ def _parsuj(tekst: str) -> dict[int, dict]:
 
 
 def _paczka_cli(wejscie: str, jezyk: str) -> dict[int, dict]:
-    """Claude Code CLI na subskrypcji. Bez narzędzi, w pustym katalogu (żeby nie wczytywał CLAUDE.md repo)."""
-    env = {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}  # gdyby klucz płatnego API był w środowisku, CLI wybrałoby go zamiast subskrypcji
-    polecenie = ["claude", "-p", "--model", "haiku", "--tools", "", "--system-prompt", SYSTEM,
-                 "--output-format", "text", "--no-session-persistence"]
-    with tempfile.TemporaryDirectory() as tmp:
-        try:
-            r = subprocess.run(polecenie, input=f"Przetłumacz z {NAZWY.get(jezyk, jezyk)} na polski:\n{wejscie}",
-                               capture_output=True, text=True, timeout=240, cwd=tmp, env=env)
-        except subprocess.TimeoutExpired:
-            print("Tłumaczenie (subskrypcja): przekroczony czas")
-            _stan["bledy"] += 1
-            return {}
+    """Claude Code CLI na subskrypcji, bez narzędzi (claude_cli.zapytaj)."""
+    import claude_cli  # noqa: E402
+    ok, wynik = claude_cli.zapytaj(SYSTEM, f"Przetłumacz z {NAZWY.get(jezyk, jezyk)} na polski:\n{wejscie}", model="haiku")
     _stan["wywolan"] += 1
-    if r.returncode != 0:
-        print("Tłumaczenie (subskrypcja): błąd", r.returncode, (r.stderr or r.stdout)[-300:])
+    if not ok:
+        print("Tłumaczenie (subskrypcja): błąd,", wynik)
         _stan["bledy"] += 1
         return {}
-    return _parsuj(r.stdout)
+    return _parsuj(wynik)
 
 
 def _paczka(elementy: list[dict], jezyk: str) -> dict[int, dict]:

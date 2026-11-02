@@ -46,7 +46,7 @@ Ręczne uruchomienie: Actions → wczesne-ostrzezenie → Run workflow (opcja �
 cd app
 pip install -r requirements-dev.txt
 python ostrzezenie.py uruchom --bez-powiadomien
-cd .. && python -m pytest -q   # testy
+cd .. && python -m pytest -q   # testy: regresja klasyfikacji (tests/dane/przypadki.jsonl), koszty, zdrowie
 # otwórz ../strona/index.html
 ```
 Źródła: `python ostrzezenie.py zrodla lista` (także `testuj`, `dodaj`, `ocen`, `status`, `przeglad`).
