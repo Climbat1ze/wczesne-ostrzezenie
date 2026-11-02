@@ -2,7 +2,8 @@
 # Co godzinę: pobranie kanałów, tłumaczenie bałtyckich nagłówków (subskrypcja Claude), WW, alarmy mailem, strona na GitHub Pages.
 # Raport tygodniowy mailem w poniedziałek o godzinie ze zmiennej STATUS_GODZINY (Warszawa, domyślnie 7).
 # Sekrety: SMTP_USER, SMTP_PASS (hasło aplikacji Gmail), MAIL_DO (odbiorcy po przecinku), CLAUDE_CODE_OAUTH_TOKEN.
-# Opcjonalnie: sekret MAIL_ADMIN; zmienne STATUS_GODZINY, STATUS_DNI, STATUS_FORMA, SITE_URL.
+# Opcjonalnie: sekret MAIL_ADMIN; zmienne STATUS_GODZINY, STATUS_DNI, STATUS_FORMA, SITE_URL,
+# CLAUDE_BUDZET_DZIENNY (domyślnie 150), CLAUDE_WYLACZ (1 = bez Claude), ALARMY_DZIENNIE (domyślnie 3).
 # Settings → Pages → Source: GitHub Actions.
 name: wczesne-ostrzezenie
 
@@ -25,9 +26,6 @@ concurrency:
   group: wczesne-ostrzezenie
   cancel-in-progress: false
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -36,9 +34,9 @@ jobs:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
           cache: pip
@@ -47,7 +45,7 @@ jobs:
       - run: pip install -r app/requirements.txt
 
       - name: Claude Code CLI (tłumaczenie na subskrypcji)
-        run: npm install -g @anthropic-ai/claude-code >/dev/null 2>&1 && claude --version || echo "CLI niedostępne, nagłówki zostaną w oryginale"
+        run: npm install -g @anthropic-ai/claude-code@2.1.316 >/dev/null 2>&1 && claude --version || echo "CLI niedostępne, nagłówki zostaną w oryginale"
 
       - name: Wczytaj dane z gałęzi dane
         run: |
@@ -69,6 +67,9 @@ jobs:
           STATUS_DNI: ${{ vars.STATUS_DNI || '1' }}
           STATUS_FORMA: ${{ vars.STATUS_FORMA || 'tydzien' }}
           SITE_URL: ${{ vars.SITE_URL }}
+          CLAUDE_BUDZET_DZIENNY: ${{ vars.CLAUDE_BUDZET_DZIENNY }}
+          CLAUDE_WYLACZ: ${{ vars.CLAUDE_WYLACZ }}
+          ALARMY_DZIENNIE: ${{ vars.ALARMY_DZIENNIE }}
         run: |
           EXTRA=""
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
@@ -79,12 +80,12 @@ jobs:
           cp app/zrodla.yaml "$RUNNER_TEMP/zrodla.yaml"
           cp -r strona "$RUNNER_TEMP/strona"
 
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: strona
       - id: deploy
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
 
       - name: Zapisz dane na gałąź dane (jeden commit, bez narastającej historii)
         run: |

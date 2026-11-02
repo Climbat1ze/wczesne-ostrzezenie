@@ -30,10 +30,13 @@ SYSTEM = (
     "Zwróć wyłącznie tablicę JSON, bez komentarza: [{\"i\": numer, \"t\": \"tytuł po polsku\", \"l\": \"lead po polsku\"}]."
 )
 
-_stan = {"wywolan": 0, "przetlumaczono": 0, "bledy": 0, "pominieto": None, "odlozono": 0}
+_stan = {"wywolan": 0, "przetlumaczono": 0, "bledy": 0, "pominieto": None, "odlozono": 0, "budzet": False}
 
 
 def tryb() -> str | None:
+    import koszty  # noqa: E402
+    if koszty.wylaczone():
+        return None
     if os.environ.get("CLAUDE_CODE_OAUTH_TOKEN") and shutil.which("claude"):
         return "subskrypcja"
     return None
@@ -85,13 +88,19 @@ def przetlumacz(wpisy: list[dict], jezyk: str, pamiec: dict) -> None:
         return
     brak = [w for w in wpisy if w["id"] not in pamiec]
     if brak and not dostepne():
-        _stan["pominieto"] = "brak CLAUDE_CODE_OAUTH_TOKEN"
+        import koszty  # noqa: E402
+        _stan["pominieto"] = "wyłącznik CLAUDE_WYLACZ=1" if koszty.wylaczone() else "brak CLAUDE_CODE_OAUTH_TOKEN"
     elif brak:
         # Limit na przebieg: pierwsze uruchomienie ma ok. 1000 zaległych nagłówków, a workflow ma 10 minut.
         # Najnowsze idą pierwsze; reszta w kolejnych godzinach (pamięć podręczna pamięta, co już jest).
         brak.sort(key=lambda w: w.get("data", ""), reverse=True)
         wolne = max(0, MAKS_ZAPYTAN - _stan["wywolan"])
         paczki = [brak[i:i + PACZKA] for i in range(0, len(brak), PACZKA)][:wolne]
+        import koszty  # noqa: E402
+        przyznane = koszty.przydziel(len(paczki))  # dzienny budżet zapytań (CLAUDE_BUDZET_DZIENNY)
+        if przyznane < len(paczki):
+            _stan["budzet"] = True
+        paczki = paczki[:przyznane]
         if len(paczki) * PACZKA < len(brak):
             _stan["odlozono"] += len(brak) - len(paczki) * PACZKA
         with ThreadPoolExecutor(max_workers=ROWNOLEGLE) as ex:
@@ -121,4 +130,5 @@ def raport() -> str:
     if _stan["pominieto"]:
         return f"Tłumaczenie: pominięte ({_stan['pominieto']}), nagłówki zostają w oryginale"
     return (f"Tłumaczenie ({tryb() or 'brak'}): {_stan['przetlumaczono']} nagłówków w {_stan['wywolan']} zapytaniach, "
-            f"błędy: {_stan['bledy']}, odłożone na kolejne przebiegi: {_stan['odlozono']}")
+            f"błędy: {_stan['bledy']}, odłożone na kolejne przebiegi: {_stan['odlozono']}"
+            + (", dzienny budżet wyczerpany" if _stan["budzet"] else ""))

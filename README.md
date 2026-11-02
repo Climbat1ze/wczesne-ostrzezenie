@@ -35,12 +35,18 @@ Ręczne uruchomienie: Actions → wczesne-ostrzezenie → Run workflow (opcja �
 | `MAIL_ADMIN` | sekret, opcjonalny | odbiorca maili o przeglądzie źródeł (domyślnie nadawca) |
 | `SITE_URL` | zmienna | adres strony, wstawiany do maili |
 | `STATUS_GODZINY` | zmienna, opcjonalna | godzina raportu, czas Warszawy (domyślnie `7`) |
+| `STATUS_DNI` | zmienna, opcjonalna | dni raportu, 1 = poniedziałek (domyślnie `1`) |
+| `STATUS_FORMA` | zmienna, opcjonalna | `tydzien` (raport tygodniowy, domyślnie) albo `dzien` (pełny skrót) |
+| `CLAUDE_BUDZET_DZIENNY` | zmienna, opcjonalna | dzienny limit zapytań do Claude (domyślnie `150`); po wyczerpaniu nagłówki zostają w oryginale, jeden mail do administratora na dobę |
+| `CLAUDE_WYLACZ` | zmienna, opcjonalna | `1` = żadnych wywołań Claude (tłumaczenie, oceny, przeglądy) |
+| `ALARMY_DZIENNIE` | zmienna, opcjonalna | najwyżej tyle alarmów mailem na dobę (domyślnie `3`); kolejne czekają w kolejce i idą zbiorczo o godzinie raportu albo z następnym alarmem |
 
 ## Uruchomienie lokalne
 ```
 cd app
-pip install -r requirements.txt
+pip install -r requirements-dev.txt
 python ostrzezenie.py uruchom --bez-powiadomien
+cd .. && python -m pytest -q   # testy
 # otwórz ../strona/index.html
 ```
 Źródła: `python ostrzezenie.py zrodla lista` (także `testuj`, `dodaj`, `ocen`, `status`, `przeglad`).
