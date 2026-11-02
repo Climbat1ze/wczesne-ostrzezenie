@@ -141,6 +141,8 @@ class Slownik:
         d = wczytaj_yaml(PLIK_WSKAZNIKI)
         self.kat = d["kategorie"]
         self.wz = {k: [re.compile(p, re.I) for p in v["wzorce"]] for k, v in self.kat.items()}
+        # wykluczenia: wzorce, które zdejmują kategorię mimo trafienia (np. „ulica Wojska Polskiego”); dopisuje je autoulepszanie
+        self.wyk = {k: [re.compile(p, re.I) for p in v.get("wykluczenia", [])] for k, v in self.kat.items()}
         self.geo = d["geografia"]
         self.geo_wz = {k: [re.compile(p, re.I) for p in v.get("wzorce", [])] for k, v in self.geo.items()}
         self.progi = d["progi"]
@@ -151,7 +153,8 @@ class Slownik:
         return [n for n, wz in self.krytyczne_wz if any(w.search(tekst) for w in wz)]
 
     def kategorie(self, tekst: str) -> list[str]:
-        return [k for k, wz in self.wz.items() if any(w.search(tekst) for w in wz)]
+        return [k for k, wz in self.wz.items()
+                if any(w.search(tekst) for w in wz) and not any(x.search(tekst) for x in self.wyk[k])]
 
     def geografia(self, tekst: str) -> str:
         for k in ("flanka", "nato"):

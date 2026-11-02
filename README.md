@@ -21,9 +21,18 @@ gh secret set MAIL_DO -R Climbat1ze/wczesne-ostrzezenie
 ```
 
 ## Jak to działa
-Workflow `.github/workflows/ostrzezenie.yml` uruchamia się co godzinę (minuta 47): pobiera kanały, tłumaczy bałtyckie nagłówki, liczy WW, wysyła alarmy i publikuje stronę na GitHub Pages. Stan (historia, wpisy, statystyki źródeł) żyje na gałęzi `dane`, nadpisywanej jednym commitem przy każdym przebiegu. Raz w tygodniu przegląd źródeł aktualizuje `app/zrodla.yaml` na `main`.
+Workflow `.github/workflows/ostrzezenie.yml` uruchamia się co godzinę (minuta 47): pobiera kanały, tłumaczy bałtyckie nagłówki (Claude haiku na subskrypcji, w ramach dziennego budżetu), liczy WW, wysyła alarmy (najwyżej 3 na dobę, reszta zbiorczo) i publikuje stronę na GitHub Pages. Stan (historia, wpisy, statystyki źródeł, budżet, dziennik maili i alarmów, zdrowie) żyje na gałęzi `dane`, nadpisywanej jednym commitem przy każdym przebiegu.
 
-Ręczne uruchomienie: Actions → wczesne-ostrzezenie → Run workflow (opcja „Wyślij raport mailem teraz”).
+W poniedziałek rano ten sam przebieg dodatkowo:
+- przegląda źródła (martwe kanały, koniec 30 dni próby) i zapisuje `app/zrodla.yaml` na `main`;
+- ocenia trafność klasyfikacji na losowej próbce 30 wpisów z tygodnia (Claude haiku);
+- przelicza mnożniki wiarygodności źródeł z danych (0,6–1,2, po 30 dniach statystyk);
+- czyta oceny właściciela z issue (`ocena-trafny`, `ocena-pomylka`) i dopisuje je do `tests/dane/`;
+- wysyła raport administracyjny do `MAIL_ADMIN`: zużycie, przegląd źródeł, zdrowie, jakość, linki do ocen alarmów.
+
+O 8:30 UTC `autoulepszanie.yml` prosi Claude (sonnet) o propozycję poprawek reguł dopasowania i zakłada PR do przeglądu. 1. dnia miesiąca `przeglad-bezpieczenstwa.yml` zakłada issue z przeglądem bezpieczeństwa.
+
+Ręczne uruchomienie: Actions → wczesne-ostrzezenie → Run workflow (opcja „Wyślij raport mailem teraz”; ręczny przebieg zawsze robi też przegląd poniedziałkowy).
 
 ## Konfiguracja
 | Nazwa | Rodzaj | Do czego |
@@ -40,6 +49,16 @@ Ręczne uruchomienie: Actions → wczesne-ostrzezenie → Run workflow (opcja �
 | `CLAUDE_BUDZET_DZIENNY` | zmienna, opcjonalna | dzienny limit zapytań do Claude (domyślnie `150`); po wyczerpaniu nagłówki zostają w oryginale, jeden mail do administratora na dobę |
 | `CLAUDE_WYLACZ` | zmienna, opcjonalna | `1` = żadnych wywołań Claude (tłumaczenie, oceny, przeglądy) |
 | `ALARMY_DZIENNIE` | zmienna, opcjonalna | najwyżej tyle alarmów mailem na dobę (domyślnie `3`); kolejne czekają w kolejce i idą zbiorczo o godzinie raportu albo z następnym alarmem |
+
+## Jakość i bezpieczeństwo
+- **Testy** (`testy.yml`, każdy push i PR): regresja klasyfikacji na zamrożonych prawdziwych nagłówkach (`tests/dane/przypadki.jsonl`; znane pomyłki jako xfail), budżet i limity, zdrowie, samouczenie. Na PR dodatkowo **strażnik** (`app/straznik.py`): zmiana progów, wag lub flag kategorii zatrzymuje PR. Te wartości zmienia tylko właściciel.
+- **Zdrowie**: incydent, gdy przez 3 przebiegi z rzędu pobrano mniej niż 80% kanałów albo tłumaczenie zwraca błędy; jeden mail do administratora na incydent.
+- **Samouczenie** nie rusza progów ani wag: zmienia tylko mnożnik wiarygodności źródła (0,6–1,2) i dopisuje przypadki testowe z ocen właściciela.
+- **Autoulepszanie** proponuje zmiany wyłącznie we wzorcach i wykluczeniach `app/wskazniki.yaml` oraz w `app/zrodla.yaml`; PR zawsze przegląda człowiek. PR założony przez Actions nie uruchamia `testy.yml`: wynik testów jest w opisie PR.
+- **Łańcuch dostaw**: akcje przypięte do pełnych SHA, Claude Code i pakiety pip do wersji, Dependabot co tydzień, CodeQL na push i PR.
+- **Claude**: zawsze jawny model i `--tools ""` (tłumaczenie, oceny) albo tylko odczyt (przegląd bezpieczeństwa); treść RSS idzie przez stdin, nigdy do powłoki. Budżet `CLAUDE_BUDZET_DZIENNY`, wyłącznik `CLAUDE_WYLACZ=1`.
+- **Logi są publiczne**: aplikacja nie wypisuje adresów e-mail ani treści błędów SMTP; przegląd bezpieczeństwa liczy adresy w logach i maskuje je w wyniku.
+- **Nowe źródła**: 30 dni próby i 30 dni karencji w sygnałach krytycznych (pole `dodano` w `app/zrodla.yaml`; źródła z rejestru startowego 2026-11-02 są bez karencji).
 
 ## Uruchomienie lokalne
 ```
