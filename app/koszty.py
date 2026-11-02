@@ -159,8 +159,22 @@ def _kolejka() -> list[dict]:
     return _czytaj("kolejka_alarmow.json", [])
 
 
+def _zapisz_alarm(temat: str, rodzaj: str, status: str):
+    """Dziennik alarmów do ocen właściciela (linki trafny/pomyłka w raporcie administracyjnym)."""
+    import samouczenie  # noqa: E402
+    ts = dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes")
+    _dopisz("alarmy.jsonl", {"ts": ts, "id": samouczenie.id_alarmu(ts, temat), "rodzaj": rodzaj, "temat": temat[:160],
+                             "status": status}, zachowaj_dni=90)
+
+
 def wyslij_alarm(temat: str, tekst: str, html: str, rodzaj: str) -> str:
     """Wysyła alarm do MAIL_DO z poszanowaniem limitu dziennego. Zwraca 'wyslany', 'w_kolejce' albo 'blad'."""
+    wynik = _wyslij_alarm(temat, tekst, html, rodzaj)
+    _zapisz_alarm(temat, rodzaj, wynik)
+    return wynik
+
+
+def _wyslij_alarm(temat: str, tekst: str, html: str, rodzaj: str) -> str:
     import poczta  # noqa: E402
     kolejka = _kolejka()
     if alarmy_dzis() >= limit_alarmow():

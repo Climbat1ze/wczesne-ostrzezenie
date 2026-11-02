@@ -21,6 +21,7 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  issues: read      # oceny właściciela (etykiety ocena-trafny, ocena-pomylka)
 
 concurrency:
   group: wczesne-ostrzezenie
@@ -70,6 +71,7 @@ jobs:
           CLAUDE_BUDZET_DZIENNY: ${{ vars.CLAUDE_BUDZET_DZIENNY }}
           CLAUDE_WYLACZ: ${{ vars.CLAUDE_WYLACZ }}
           ALARMY_DZIENNIE: ${{ vars.ALARMY_DZIENNIE }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           EXTRA=""
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
@@ -78,6 +80,7 @@ jobs:
           fi
           python app/ostrzezenie.py uruchom --harmonogram $EXTRA --status-md "$RUNNER_TEMP/status_auto.md" --znacznik-main "$RUNNER_TEMP/do_main"
           cp app/zrodla.yaml "$RUNNER_TEMP/zrodla.yaml"
+          mkdir -p "$RUNNER_TEMP/tests_dane" && cp tests/dane/*.jsonl "$RUNNER_TEMP/tests_dane/" 2>/dev/null || true
           cp -r strona "$RUNNER_TEMP/strona"
 
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
@@ -102,14 +105,15 @@ jobs:
           git commit -qm "dane $(date -u +%Y-%m-%dT%H:%M)"
           git push -q -f origin HEAD:dane
 
-      - name: Rejestr źródeł do main (po przeglądzie źródeł)
+      - name: Rejestr źródeł i oceny właściciela do main (poniedziałek)
         run: |
           [ -f "$RUNNER_TEMP/do_main" ] || { echo "Bez przeglądu źródeł w tym przebiegu"; exit 0; }
           git fetch -q origin main
           git checkout -q -f -B main origin/main
           git clean -fdq
           cp "$RUNNER_TEMP/zrodla.yaml" app/zrodla.yaml
-          git add app/zrodla.yaml
+          mkdir -p tests/dane && cp "$RUNNER_TEMP"/tests_dane/*.jsonl tests/dane/ 2>/dev/null || true
+          git add app/zrodla.yaml tests/dane
           git diff --staged --quiet && exit 0
-          git commit -qm "zrodla $(date -u +%Y-%m-%d)"
+          git commit -qm "[dane] $(date -u +%Y-%m-%d) rejestr zrodel i oceny wlasciciela"
           for i in 1 2 3; do git push -q origin main && break; GIT_EDITOR=true git pull -q --rebase origin main; done

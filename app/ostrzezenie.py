@@ -324,7 +324,8 @@ def waga_wpisu(w: dict, z: dict | None, kat: str, slownik: Slownik) -> float:
             return 0.0
         mn = 1.0  # Kreml jest wiarygodnym źródłem tego, co mówi Kreml
     elif status == "aktywne":
-        mn = OCENA_MNOZNIK.get(z["wiarygodnosc"], 0.4)
+        import samouczenie  # noqa: E402
+        mn = OCENA_MNOZNIK.get(z["wiarygodnosc"], 0.4) * samouczenie.mnoznik(z["id"])  # 0,6–1,2 z potwierdzalności
     else:
         return 0.0
     return mn * slownik.geo[w["geo"]]["mnoznik"]
@@ -868,8 +869,14 @@ def cmd_uruchom(args):
     zapisz_skrot_md(w, slownik)
     kontrola_zdrowia(stan_pobrania, args.bez_powiadomien)
     if w.get("raport_admin"):
-        import jakosc  # noqa: E402
+        import jakosc, samouczenie  # noqa: E402
         w["ocena"] = jakosc.ocena_trafnosci(czytaj_wpisy_analizy(zrodla, slownik), slownik.kat)
+        _, w["zmiany_wiarygodnosci"] = samouczenie.zapisz_mnozniki(w["jakosc"])
+        w["oceny"] = samouczenie.wczytaj_oceny({x["id"]: x for x in czytaj_wpisy()}, slownik)
+        print(f"Oceny właściciela: nowe przypadki wpisów {w['oceny']['nowe_wpisy']}, alarmów {w['oceny']['nowe_alarmy']}"
+              + (f", błąd: {w['oceny']['blad']}" if w["oceny"]["blad"] else ""))
+        if (w["oceny"]["nowe_wpisy"] or w["oceny"]["nowe_alarmy"]) and args.znacznik_main:
+            Path(args.znacznik_main).write_text("1")
     if not args.bez_powiadomien:
         powiadom(w, slownik)
         if powiadom_trend(w):
@@ -916,7 +923,15 @@ def godzina_raportu(t: dt.datetime) -> bool:
 def sekcje_admin(w: dict) -> list[tuple[str, list[str]]]:
     """Dodatkowe sekcje raportu administracyjnego."""
     import jakosc  # noqa: E402
-    return [("ZDROWIE PRZEBIEGÓW", jakosc.linie_zdrowia()), ("JAKOŚĆ KLASYFIKACJI", jakosc.linie_jakosci(w.get("ocena")))]
+    import samouczenie  # noqa: E402
+    oc = w.get("oceny") or {}
+    return [("ZDROWIE PRZEBIEGÓW", jakosc.linie_zdrowia()),
+            ("JAKOŚĆ KLASYFIKACJI", jakosc.linie_jakosci(w.get("ocena"))),
+            ("WIARYGODNOŚĆ ŹRÓDEŁ Z DANYCH", (w.get("zmiany_wiarygodnosci") or ["Bez zmian mnożników (0,6–1,2 do oceny A–F)."])
+             + [f"Mnożnik liczy się od {samouczenie.MIN_TRAFIEN} alarmowych trafień źródła w 30 dniach."]),
+            ("OCEŃ ALARMY I POMYŁKI", samouczenie.linie_ocen((w.get("ocena") or {}).get("bledne", []))
+             + [f"Wczytane od ostatniego razu: {oc.get('nowe_wpisy', 0)} wpisów, {oc.get('nowe_alarmy', 0)} alarmów."
+                + (f" Błąd odczytu issue: {oc['blad']}." if oc.get("blad") else "")])]
 
 
 def kontrola_zdrowia(stan_pobrania: dict | None, bez_powiadomien: bool):
