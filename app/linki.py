@@ -44,6 +44,17 @@ def domena(url_lub_host: str) -> str:
     return ".".join(czlony[-2:])
 
 
+PLIK_WYJATKI = APP / "linki_wyjatki.yaml"
+
+
+def wczytaj_wyjatki() -> dict:
+    """Znane fałszywe alarmy VirusTotal (decyzja właściciela): nie blokują linków i nie zakładają issue."""
+    if not PLIK_WYJATKI.exists():
+        return {}
+    d = yaml.safe_load(PLIK_WYJATKI.read_text(encoding="utf-8")) or {}
+    return {x["domena"]: x for x in (d.get("domeny") or [])}
+
+
 def wczytaj_blokade() -> dict:
     if not PLIK_BLOKADA.exists():
         return {}
@@ -185,13 +196,17 @@ def domeny_do_sprawdzenia(wpisy_jsonl: Path | None, dni: int = 7) -> list[str]:
 
 def skanuj(wpisy_jsonl: Path | None, wynik_md: Path, klucz: str, przerwa: float = PRZERWA_S) -> dict:
     domeny = domeny_do_sprawdzenia(wpisy_jsonl)
-    print(f"VirusTotal: {len(domeny)} domen do sprawdzenia")
+    wyjatki = wczytaj_wyjatki()
+    print(f"VirusTotal: {len(domeny)} domen do sprawdzenia, znane fałszywe alarmy: {', '.join(sorted(wyjatki)) or 'brak'}")
     wyniki = []
     for i, d in enumerate(domeny):
         if i:
             time.sleep(przerwa)
         r = raport_vt(d, klucz)
         r["werdykt"] = werdykt(r)
+        if d in wyjatki and r["werdykt"] in ("do sprawdzenia", "groźna"):
+            r["werdykt_vt"], r["werdykt"] = r["werdykt"], "czysta"  # znany fałszywy alarm (app/linki_wyjatki.yaml)
+            r["wyjatek"] = wyjatki[d].get("powod", "")
         wyniki.append(r)
         print(f"  {d}: {r['werdykt']}" + (f" ({r['blad']})" if r.get("blad") else f" (malicious {r['malicious']}, suspicious {r['suspicious']})"))
 
@@ -217,6 +232,10 @@ def skanuj(wpisy_jsonl: Path | None, wynik_md: Path, klucz: str, przerwa: float 
         if r["werdykt"] in ("groźna", "do sprawdzenia", "błąd"):
             szcz = r.get("blad") or f"malicious {r['malicious']}, suspicious {r['suspicious']}, reputacja {r['reputacja']}, silniki: {', '.join(r['silniki']) or 'brak'}"
             linie.append(f"- **{r['domena']}**: {r['werdykt']} ({szcz}). Raport: https://www.virustotal.com/gui/domain/{r['domena']}")
+    znane = [r for r in wyniki if r.get("wyjatek")]
+    if znane:
+        linie += ["", "Znane fałszywe alarmy (app/linki_wyjatki.yaml, bez blokady i bez issue):"]
+        linie += [f"- {r['domena']}: VirusTotal „{r['werdykt_vt']}” (malicious {r['malicious']}, suspicious {r['suspicious']}). {r['wyjatek']}" for r in znane]
     if nowe_blokady:
         linie += ["", f"Nowe blokady w `app/linki_blokada.yaml`: {', '.join(nowe_blokady)}. Linki z tych domen aplikacja zastępuje stroną główną redakcji."]
     linie += ["", "Reguła: groźna = co najmniej 2 silniki „malicious” (automatyczna blokada linków); do sprawdzenia = 1 silnik „malicious” albo co najmniej 2 „suspicious” (bez blokady, decyzja właściciela)."]
