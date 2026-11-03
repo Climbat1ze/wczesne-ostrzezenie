@@ -1,0 +1,32 @@
+{
+ "name": "Wczesne Ostrzeżenie",
+ "short_name": "Ostrzeżenie",
+ "lang": "pl",
+ "description": "Sygnały zagrożenia wobec Polski, Bałtów i krajów nordyckich z ocenionych źródeł, odczyt co godzinę.",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "portrait",
+ "background_color": "#030a05",
+ "theme_color": "#030a05",
+ "icons": [
+  {
+   "src": "ikona-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "ikona-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any"
+  },
+  {
+   "src": "ikona-maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

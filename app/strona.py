@@ -419,12 +419,14 @@ def naglowek(aktywna: str, wygenerowano: str) -> str:
 def stopka(n_zrodel: int) -> str:
     return (f'<footer><span>{ikona_schron()} Prywatne narzędzie znajomych, nie komunikat władz. Oficjalne alerty: '
             f'<a href="https://www.gov.pl/web/rcb" target="_blank" rel="noopener">Rządowe Centrum Bezpieczeństwa</a>.</span>'
-            f'<span>{n_zrodel} źródeł · odczyt co godzinę · <a href="metodyka.html">jak to działa i jak zgłosić błąd</a></span></footer>')
+            f'<span>{n_zrodel} źródeł · odczyt co godzinę · <a href="metodyka.html#telefon">ikona na telefon i maile</a> · '
+            f'<a href="metodyka.html">jak to działa i jak zgłosić błąd</a></span></footer>')
 
 
 def dokument(tytul: str, tresc: str, skrypt: str = "") -> str:
+    import ikony  # noqa: E402
     glowa = (f'<title>{e(tytul)}</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n'
-             f'{FONTY}<style>{CSS}</style>\n')
+             f'{ikony.GLOWA}{FONTY}<style>{CSS}</style>\n')
     return glowa, tresc + (f"<script>{skrypt}</script>" if skrypt else "")
 
 
@@ -440,6 +442,8 @@ def zapisz_pelny(nazwa: str, glowa: str, cialo: str):
 
 def zbuduj(w: dict, zrodla: list[dict], slownik) -> None:
     STRONA.mkdir(exist_ok=True)
+    import ikony  # noqa: E402
+    ikony.zapisz(STRONA)  # ikona na pulpit telefonu i manifest (deterministyczne, ok. 0,2 s)
     prog, kat, zb, t = w["prog"], slownik.kat, w["zbieznosc"], w["trend"]
     poz = POZIOM_KLASA[prog["kolor"]]
     zegar_svg, zegar_txt = zegar_zaglady(w["indeks"])
@@ -613,12 +617,26 @@ def zbuduj_metodyke(w: dict, zrodla: list[dict], slownik) -> None:
   <p>Wynik to <b>współczynnik wpierdolu (WW)</b> od 0 do 100. Im więcej różnych sygnałów naraz i im lepsze źródła, tym wyżej.</p>
 </div></section>
 
+<section class="panel" id="telefon"><div class="proza">
+  <h3>Dla znajomych: ikona na telefonie i maile</h3>
+  <p><b>Ikona na Androidzie.</b> Otwórz ten adres w Chrome, stuknij menu ⋮ w prawym górnym rogu i wybierz „Dodaj do ekranu głównego” albo „Zainstaluj aplikację”. Na pulpicie pojawi się zielony znak radiacji z podpisem „Ostrzeżenie”. Otwiera pulpit na pełnym ekranie, bez paska przeglądarki. Dane odświeżają się co godzinę.</p>
+  <p><b>Ikona na iPhonie.</b> Otwórz adres w Safari, stuknij „Udostępnij” (kwadrat ze strzałką) i wybierz „Do ekranu początkowego”.</p>
+  <p><b>Maile.</b> Na listę dopisuje osoba, która przysłała Ci link. Mail przychodzi tylko w tych sytuacjach:</p>
+  <ul>
+    <li><b>Raport tygodniowy</b> w poniedziałek ok. 7:00: poziom WW, co się działo w tygodniu. Przy okazji potwierdza, że system działa.</li>
+    <li><b>Ostrzeżenie</b> albo <b>Alarm</b>: kilka kategorii sygnałów naraz z wielu niezależnych redakcji (opis w punkcie 3).</li>
+    <li><b>Sygnał krytyczny</b>: jedno bardzo konkretne zdarzenie, np. ewakuacja ambasad albo mobilizacja, potwierdzone przez min. 2 wiarygodne redakcje. Mail od razu.</li>
+    <li><b>Alarm trendu</b>: powolne narastanie zagrożenia przez kilka tygodni.</li>
+  </ul>
+  <p>Najwyżej 3 alarmy na dobę; kolejne przychodzą razem w jednym mailu. Poziom „Uwaga” i codzienne wahania nie wysyłają maili, widać je tylko na pulpicie. Cisza w skrzynce znaczy: nic ważnego się nie dzieje.</p>
+</div></section>
+
 <section class="panel" id="pomiar"><div class="proza">
   <h3>1. Jak mierzymy</h3>
   <ol>
-    <li><b>Zbieramy wiadomości.</b> Co godzinę pobieramy kanały RSS: media publiczne, agencje, think tanki, rządy. Nagłówki po łotewsku, litewsku, estońsku, fińsku i rosyjsku tłumaczymy na polski.</li>
+    <li><b>Zbieramy wiadomości.</b> Co godzinę pobieramy kanały RSS: media publiczne, agencje, think tanki, rządy. Nagłówki po łotewsku, litewsku, estońsku, fińsku, szwedzku, norwesku, duńsku i rosyjsku tłumaczymy na polski.</li>
     <li><b>Szukamy sygnałów.</b> Każdą wiadomość sprawdzamy słownikiem {len(kat)} kategorii, np. „koncentracja wojsk przy granicy”, „ewakuacja dyplomatów”, „mobilizacja”. Słownik ma ok. {sum(len(v["wzorce"]) for v in kat.values())} wzorców w 3 językach.</li>
-    <li><b>Ważymy.</b> Wiadomość liczy się mocniej, gdy pochodzi z lepszego źródła (ocena A–E) i dotyczy Polski, Bałtów, Białorusi albo Kaliningradu. Wiadomość tylko o froncie w Ukrainie liczy się w 1/4.</li>
+    <li><b>Ważymy.</b> Wiadomość liczy się mocniej, gdy pochodzi z lepszego źródła (ocena A–E) i dotyczy Polski, Bałtów, krajów nordyckich, Białorusi albo Kaliningradu. Wiadomość tylko o froncie w Ukrainie liczy się w 1/4.</li>
     <li><b>Nie dajemy się zakrzyczeć.</b> To samo wydarzenie opisane 20 razy liczy się jak jedno. Każda kategoria ma sufit: 4 mocne wiadomości to ok. 63% jej skali, więcej niewiele dodaje.</li>
     <li><b>Sumujemy.</b> WW to ważona suma kategorii. Wiadomości o rozejmie i rozmowach pokojowych obniżają wynik o maksymalnie 30%.</li>
   </ol>
@@ -633,12 +651,12 @@ def zbuduj_metodyke(w: dict, zrodla: list[dict], slownik) -> None:
 
 <section class="panel" id="alarmy"><div class="proza">
   <h3>3. Kiedy przychodzi alarm</h3>
-  <p>Są 4 rodzaje alarmów. Mail dostaje lista odbiorców; skrót dnia przychodzi niezależnie od alarmów.</p>
+  <p>Są 4 rodzaje alarmów. Mail dostaje lista odbiorców, najwyżej 3 alarmy na dobę (kolejne razem w jednym mailu). Niezależnie od alarmów w poniedziałek przychodzi raport tygodniowy.</p>
   <ul>
     <li><b>Spiętrzenie sygnałów.</b> Kategoria „świeci”, gdy pisze o niej min. 3 niezależne redakcje (ocena A–C) w 72 h, wobec Polski lub Bałtów. Redakcje jednego właściciela liczą się jako jedna. 1 kategoria: Uwaga (bez maila). 2 kategorie: Ostrzeżenie (mail). 3 kategorie, w tym ewakuacja, ostrzeżenia wywiadu, mobilizacja albo zamknięcia nieba: Alarm (mail pilny).</li>
     <li><b>Sygnał krytyczny.</b> Pojedyncze, bardzo konkretne zdarzenie, które samo jest powodem do alarmu, opisane przez min. 2 niezależne redakcje z oceną A lub B w 24 h. Mail od razu. Lista:<ul>{kryt}</ul></li>
     <li><b>Alarm trendu.</b> Łapie powolne narastanie, jak jesienią 2021. Codziennie sumujemy, o ile WW przekracza swoją normę z 30 dni sprzed tygodnia (metoda CUSUM). Mail, gdy suma z 14 dni przekroczy próg, a średnia z tygodnia jest min. 8 pkt nad normą. Działa po 21 dniach historii.</li>
-    <li><b>Nagły skok kategorii.</b> Kategoria nagle 2 razy mocniejsza niż zwykle. Tylko wzmianka w skrócie dnia, bez osobnego maila.</li>
+    <li><b>Nagły skok kategorii.</b> Kategoria nagle 2 razy mocniejsza niż zwykle. Tylko wzmianka na pulpicie i w raporcie tygodniowym, bez osobnego maila.</li>
   </ul>
   <p>Ten sam sygnał krytyczny nie wraca w mailu przez 72 h, a alarm trendu przypomina się najwyżej raz w tygodniu.</p>
 </div></section>
@@ -662,9 +680,10 @@ def zbuduj_metodyke(w: dict, zrodla: list[dict], slownik) -> None:
 <section class="panel" id="aktualizacja"><div class="proza">
   <h3>6. Jak często się aktualizuje</h3>
   <ul>
-    <li><b>Co godzinę</b> (ok. 47. minuty): pobranie wiadomości, tłumaczenie, przeliczenie WW, kontrola alarmów.</li>
-    <li><b>Codziennie ok. 6:47</b>: skrót dnia mailem. Godziny skrótu da się zmienić.</li>
-    <li><b>W poniedziałek rano</b>: przegląd źródeł (martwe kanały, koniec prób).</li>
+    <li><b>Co godzinę</b>: pobranie wiadomości, tłumaczenie, przeliczenie WW, kontrola alarmów. Gdy GitHub opuści przebieg, zapasowy uruchamia się po 30 minutach.</li>
+    <li><b>W poniedziałek ok. 7:00</b>: raport tygodniowy mailem.</li>
+    <li><b>W poniedziałek rano</b>: przegląd źródeł (martwe kanały, koniec prób) i sprawdzenie domen linków w VirusTotal.</li>
+    <li><b>Każdy link</b> do artykułu przechodzi kontrolę bezpieczeństwa; podejrzany zastępuje strona główna redakcji.</li>
     <li><b>Strona</b>: obraz z ostatniego przeliczenia, godzina w prawym górnym rogu.</li>
   </ul>
 </div></section>
