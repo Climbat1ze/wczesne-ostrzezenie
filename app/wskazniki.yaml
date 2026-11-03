@@ -24,6 +24,16 @@ kategorie:
       - 'стягива\w*'
       - 'переброск\w* (войск|техники)'
       - 'сосредоточени\w* войск'
+    wykluczenia:
+      # Własne i sojusznicze siły (Polska, UK, NATO, Europa, USA), gdy w tekście nie pada Rosja ani Białoruś jako strona.
+      - '^(?!.*\b(russia\w*|russian|rosj\w*|rosyjsk\w*|belarus\w*|białoru\w*|kremlin|kreml\w*|россия|российск|белорус)).*\b(poland|polish|polsk\w*|polsc\w*|uk|british|brytyjsk\w*|european|europejsk\w*|nato|allied|sojusznicz\w*|german|niemieck\w*|american|amerykańsk\w*|lithuanian|litewsk\w*|latvian|łotewsk\w*|estonian|estońsk\w*)\b.{0,40}\b(troops|forces|soldiers|police|żołnierz\w*|wojsk\w*|sił\w*|policj\w*)'
+      # Państwo flanki samo wysyła swoje siły (także „do granicy z Rosją”): to reakcja obronna, nie koncentracja przeciwnika.
+      - '\b(poland|polska|lithuania|litwa|latvia|łotwa|estonia|finland|finlandia)\b.{0,15}\b(deploys?|deployed|sends?|sent|moves?|wysyła\w*|wysłała|kieruje\w*|przerzuca\w*)\b.{0,40}\b(troops|forces|soldiers|police|żołnierz\w*|wojsk\w*|sił\w*|policj\w*|policjant\w*)'
+      - '^(?!.*\b(russia\w*|russian|rosj\w*|rosyjsk\w*|belarus\w*|białoru\w*)).*\bpolice forces\b'
+      # Policja i antyterroryści wysłani na granicę (operacje porządkowe, nie wojsko przeciwnika).
+      - '\b(police officers|policjanci|policjant\w*|counter-terrorism|antyterroryst\w*)\b.{0,60}\b(sent|deployed|wysłan\w*|skierowan\w*)'
+      # Wojska sojusznicze przybywające DO państwa flanki (wzmocnienie NATO, ćwiczenia).
+      - '\b(troops|forces|soldiers|żołnierz\w*|wojsk\w*)\b.{0,20}\b(deploy\w*|arriv\w*|przyb\w*|rozmieszcz\w*)\b.{0,10}\b(to|in|do|w|na)\s+(poland|polsce|polski|lithuania|litwie|litwy|latvia|łotwie|łotwy|estonia|estonii)\b'
   gotowosc:
     nazwa: "Gotowość bojowa i mobilizacja"
     waga: 3
