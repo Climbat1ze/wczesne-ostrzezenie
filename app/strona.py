@@ -20,6 +20,56 @@ MIESIACE = ["stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca", "lipca
 TYP_OPIS = {"think-tank": "think tank", "agencja": "agencja", "media": "media", "media-publiczne": "media publiczne",
             "media-branzowe": "media branżowe", "rzad": "rząd", "osint": "OSINT", "agregator": "agregator"}
 STATUS_OPIS = {"aktywne": "aktywne", "obserwacja": "na próbie", "monitoring": "podsłuch Kremla", "zablokowane": "zablokowane"}
+# Lista źródeł na pulpicie: grupy według regionu i kraju (kolejność = kolejność na stronie).
+REGIONY = [("Polska", ["PL"]), ("Kraje bałtyckie", ["LT", "LV", "EE"]), ("Kraje nordyckie", ["FI", "SE", "NO", "DK", "IS"]),
+           ("Europa Zachodnia i UE", ["GB", "DE", "FR", "NL", "EU"]), ("Ukraina", ["UA"]), ("Stany Zjednoczone", ["US"]),
+           ("Rosja (podsłuch propagandy)", ["RU"])]
+KRAJE = {"PL": "Polska", "LT": "Litwa", "LV": "Łotwa", "EE": "Estonia", "FI": "Finlandia", "SE": "Szwecja", "NO": "Norwegia",
+         "DK": "Dania", "IS": "Islandia", "GB": "Wielka Brytania", "DE": "Niemcy", "FR": "Francja", "NL": "Holandia",
+         "EU": "Unia Europejska", "UA": "Ukraina", "US": "USA", "RU": "Rosja", "QA": "Katar"}
+JEZYKI = {"pl": "polski", "en": "angielski", "lv": "łotewski", "lt": "litewski", "et": "estoński", "fi": "fiński",
+          "ru": "rosyjski", "sv": "szwedzki", "no": "norweski", "da": "duński", "uk": "ukraiński", "de": "niemiecki", "fr": "francuski"}
+BEZ_TLUMACZENIA = {"pl", "en"}
+
+
+def region(kraj: str) -> tuple[int, str, int]:
+    """(kolejność regionu, nazwa regionu, kolejność kraju w regionie); kraje spoza listy trafiają do „Pozostałe”."""
+    for i, (nazwa, kraje) in enumerate(REGIONY):
+        if kraj in kraje:
+            return i, nazwa, kraje.index(kraj)
+    return len(REGIONY), "Pozostałe", 0
+
+
+def _opis_grupy(zr: list[dict]) -> str:
+    """„4 źródła · szwedzki · tłumaczone na polski: szwedzki”."""
+    jez = sorted({x.get("jezyk", "") for x in zr if x.get("jezyk")})
+    tl = [JEZYKI.get(j, j) for j in jez if j not in BEZ_TLUMACZENIA]
+    n = len(zr)
+    return (f'{n} {"źródło" if n == 1 else "źródła" if 1 < n % 10 < 5 and not 11 < n % 100 < 15 else "źródeł"} · '
+            + ", ".join(JEZYKI.get(j, j) for j in jez) + (f" · tłumaczone na polski: {', '.join(tl)}" if tl else ""))
+
+
+def wiersze_zrodel_grupami(zrodla: list[dict], wiersz) -> list[str]:
+    """Wiersze tabeli źródeł z nagłówkami regionu i kraju. `wiersz(z, reg)` zwraca <tr> jednego źródła."""
+    kol = ["aktywne", "obserwacja", "monitoring", "zablokowane"]
+    posort = sorted(zrodla, key=lambda z: (region(z["kraj"])[0], region(z["kraj"])[2], z["kraj"],
+                                           kol.index(z["status"]), z["wiarygodnosc"], z["nazwa"]))
+    wynik, akt_reg, akt_kraj = [], None, None
+    for z in posort:
+        _, reg, _ = region(z["kraj"])
+        reg_zr = [x for x in zrodla if region(x["kraj"])[1] == reg]
+        jeden_kraj = len({x["kraj"] for x in reg_zr}) == 1
+        if reg != akt_reg:
+            opis = f" · {_opis_grupy(reg_zr)}" if jeden_kraj else f" · {len(reg_zr)}"
+            wynik.append(f'<tr class="reg" data-naglowek="r:{e(reg)}"><th colspan="9">{e(reg)}{e(opis)}</th></tr>')
+            akt_reg, akt_kraj = reg, None
+        if z["kraj"] != akt_kraj and not jeden_kraj:
+            kraj_zr = [x for x in zrodla if x["kraj"] == z["kraj"]]
+            wynik.append(f'<tr class="kraj" data-naglowek="k:{e(z["kraj"])}"><th colspan="9"><b>{e(KRAJE.get(z["kraj"], z["kraj"]))}</b>'
+                         f' · {e(_opis_grupy(kraj_zr))}</th></tr>')
+            akt_kraj = z["kraj"]
+        wynik.append(wiersz(z, reg))
+    return wynik
 POZIOM_KLASA = {"zielony": "l0", "zolty": "l1", "pomaranczowy": "l2", "czerwony": "l3"}
 FONTY = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n'
          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap">\n')
@@ -153,6 +203,9 @@ td.num { white-space: nowrap; }
 .st-zablokowane { text-decoration: line-through; color: var(--ph-dim); }
 .flaga { font-size: .75rem; }
 .flaga::before { content: "! "; }
+tr.reg th { font-size: .82rem; color: var(--ph); padding-top: 16px; border-bottom: 1px solid var(--ph-dim); }
+tr.kraj th { color: var(--ph-2); padding-left: 14px; text-transform: none; letter-spacing: .04em; }
+tr.kraj th b { font-weight: 400; color: var(--ph); }
 
 /* proza (metodyka) */
 .proza { display: grid; gap: 12px; max-width: 74ch; }
@@ -168,19 +221,22 @@ JS = r"""
   var f = { s: document.getElementById('f-status'), o: document.getElementById('f-ocena'), k: document.getElementById('f-kraj'),
             t: document.getElementById('f-typ'), q: document.getElementById('f-szukaj') };
   if (!f.s) return;
-  var rows = Array.prototype.slice.call(document.querySelectorAll('#tab-zrodla tbody tr'));
+  var rows = Array.prototype.slice.call(document.querySelectorAll('#tab-zrodla tbody tr[data-status]'));
+  var naglowki = Array.prototype.slice.call(document.querySelectorAll('#tab-zrodla tbody tr[data-naglowek]'));
   var licznik = document.getElementById('f-licznik');
   var rang = 'ABCDEF';
   function filtruj() {
-    var n = 0, q = (f.q.value || '').toLowerCase();
+    var n = 0, q = (f.q.value || '').toLowerCase(), widoczne = {};
     rows.forEach(function (r) {
       var ok = (!f.s.value || r.dataset.status === f.s.value)
         && (!f.o.value || rang.indexOf(r.dataset.ocena) <= rang.indexOf(f.o.value))
         && (!f.k.value || r.dataset.kraj === f.k.value)
         && (!f.t.value || r.dataset.typ === f.t.value)
-        && (!q || r.textContent.toLowerCase().indexOf(q) >= 0);
-      r.hidden = !ok; if (ok) n++;
+        && (!q || (r.dataset.szukaj + ' ' + r.textContent).toLowerCase().indexOf(q) >= 0);
+      r.hidden = !ok;
+      if (ok) { n++; widoczne['k:' + r.dataset.kraj] = 1; widoczne['r:' + r.dataset.region] = 1; }
     });
+    naglowki.forEach(function (h) { h.hidden = !widoczne[h.dataset.naglowek]; });
     licznik.textContent = n + ' / ' + rows.length;
   }
   Object.keys(f).forEach(function (k) { f[k].addEventListener('input', filtruj); });
@@ -423,17 +479,20 @@ def zbuduj(w: dict, zrodla: list[dict], slownik) -> None:
     jak = w["jakosc"]
     def proc(v):
         return "–" if v is None else f"{v * 100:.0f}%"
-    wiersze_zr = []
-    for z in sorted(zrodla, key=lambda z: (["aktywne", "obserwacja", "monitoring", "zablokowane"].index(z["status"]), z["wiarygodnosc"], z["nazwa"])):
+    def wiersz_zrodla(z, reg):
         j = jak.get(z["id"], {})
         flagi = "".join(f'<div class="flaga">{e(f)}</div>' for f in j.get("flagi", []))
-        wiersze_zr.append(
-            f'<tr data-status="{e(z["status"])}" data-ocena="{e(z["wiarygodnosc"])}" data-kraj="{e(z["kraj"])}" data-typ="{e(z["typ"])}">'
+        jez = z.get("jezyk", "")
+        jez_opis = JEZYKI.get(jez, jez) + ("" if jez in BEZ_TLUMACZENIA or not jez else " → PL")
+        return (
+            f'<tr data-status="{e(z["status"])}" data-ocena="{e(z["wiarygodnosc"])}" data-kraj="{e(z["kraj"])}" data-typ="{e(z["typ"])}"'
+            f' data-region="{e(reg)}" data-szukaj="{e(KRAJE.get(z["kraj"], z["kraj"]) + " " + reg)}">'
             f'<td><a href="{e(z["url"])}" target="_blank" rel="noopener">{e(z["nazwa"])}</a><div class="notatka">{e(z.get("notatka", ""))}</div></td>'
-            f'<td>{e(TYP_OPIS.get(z["typ"], z["typ"]))}</td><td class="num">{e(z["kraj"])}</td><td>{e(z.get("jezyk", ""))}</td>'
+            f'<td>{e(TYP_OPIS.get(z["typ"], z["typ"]))}</td><td class="num">{e(z["kraj"])}</td><td>{e(jez_opis)}</td>'
             f'<td><span class="ocena ocena-{e(z["wiarygodnosc"])}">{e(z["wiarygodnosc"])}</span></td>'
             f'<td class="st-{e(z["status"])}">{e(STATUS_OPIS[z["status"]])}</td>'
             f'<td class="num">{proc(j.get("krzykliwosc"))}</td><td class="num">{proc(j.get("potwierdzalnosc"))}</td><td>{flagi}</td></tr>')
+    wiersze_zr = wiersze_zrodel_grupami(zrodla, wiersz_zrodla)
     def opcje(pole, opis=None):
         return "".join(f'<option value="{e(v)}">{e((opis or {}).get(v, v))}</option>' for v in sorted({z[pole] for z in zrodla}))
     n_akt = sum(z["status"] == "aktywne" for z in zrodla)
@@ -510,9 +569,9 @@ def zbuduj(w: dict, zrodla: list[dict], slownik) -> None:
   <div class="filtry">
     <label for="f-status">Status<select id="f-status"><option value="">wszystkie</option>{opcje("status", STATUS_OPIS)}</select></label>
     <label for="f-ocena">Ocena min.<select id="f-ocena"><option value="">dowolna</option>{"".join(f'<option value="{x}">{x}</option>' for x in "ABCDE")}</select></label>
-    <label for="f-kraj">Kraj<select id="f-kraj"><option value="">wszystkie</option>{opcje("kraj")}</select></label>
+    <label for="f-kraj">Kraj<select id="f-kraj"><option value="">wszystkie</option>{opcje("kraj", KRAJE)}</select></label>
     <label for="f-typ">Typ<select id="f-typ"><option value="">wszystkie</option>{opcje("typ", TYP_OPIS)}</select></label>
-    <label for="f-szukaj">Szukaj<input id="f-szukaj" type="search" placeholder="np. LRT, Łotwa"></label>
+    <label for="f-szukaj">Szukaj<input id="f-szukaj" type="search" placeholder="np. LRT, Szwecja, nordyckie"></label>
     <span class="num etykieta" id="f-licznik" style="padding-bottom:6px"></span>
   </div>
   <div class="tabela"><table id="tab-zrodla"><thead><tr><th>Źródło</th><th>Typ</th><th>Kraj</th><th>Język</th><th>Ocena</th><th>Status</th><th>Krzyk</th><th>Potw.</th><th>Uwagi</th></tr></thead>

@@ -17,7 +17,8 @@ import shutil
 from concurrent.futures import ThreadPoolExecutor
 
 JEZYKI_BEZ_TLUMACZENIA = {"pl", "en"}
-NAZWY = {"lv": "łotewskiego", "lt": "litewskiego", "et": "estońskiego", "fi": "fińskiego", "ru": "rosyjskiego"}
+NAZWY = {"lv": "łotewskiego", "lt": "litewskiego", "et": "estońskiego", "fi": "fińskiego", "ru": "rosyjskiego",
+         "sv": "szwedzkiego", "no": "norweskiego", "da": "duńskiego"}
 PACZKA = 40  # nagłówków w jednym zapytaniu
 MAKS_ZAPYTAN = 16  # na jeden przebieg workflow (ok. 640 nagłówków)
 ROWNOLEGLE = 4
