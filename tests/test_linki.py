@@ -53,8 +53,22 @@ def test_werdykt():
     assert linki.werdykt({"blad": "HTTP 429"}) == "błąd"
 
 
+def test_znany_falszywy_alarm_bez_blokady_i_issue(tmp_path, monkeypatch):
+    monkeypatch.setattr(linki, "PLIK_BLOKADA", tmp_path / "blokada.yaml")
+    (tmp_path / "wyjatki.yaml").write_text('domeny:\n  - {domena: "google.com", powod: "test"}\n', encoding="utf-8")
+    monkeypatch.setattr(linki, "PLIK_WYJATKI", tmp_path / "wyjatki.yaml")
+    monkeypatch.setattr(linki, "domeny_do_sprawdzenia", lambda *_: ["google.com"])
+    monkeypatch.setattr(linki, "raport_vt", lambda d, k: {"domena": d, "malicious": 3, "suspicious": 0, "harmless": 60,
+                                                          "reputacja": 0, "silniki": ["X"]})
+    w = linki.skanuj(None, tmp_path / "wynik.md", "klucz", przerwa=0)
+    assert w["nowe_blokady"] == [] and w["licz"]["czysta"] == 1
+    md = (tmp_path / "wynik.md").read_text(encoding="utf-8")
+    assert "Znane fałszywe alarmy" in md and "- **" not in md  # workflow zakłada issue tylko przy liniach „- **”
+
+
 def test_skanuj_blokuje_grozne(tmp_path, monkeypatch):
     monkeypatch.setattr(linki, "PLIK_BLOKADA", tmp_path / "blokada.yaml")
+    monkeypatch.setattr(linki, "PLIK_WYJATKI", tmp_path / "brak.yaml")
     monkeypatch.setattr(linki, "domeny_do_sprawdzenia", lambda *_: ["dobra.pl", "zla.example", "srednia.example"])
     odp = {"dobra.pl": (0, 0), "zla.example": (5, 1), "srednia.example": (1, 0)}
 

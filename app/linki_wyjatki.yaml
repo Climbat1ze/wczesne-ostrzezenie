@@ -1,0 +1,4 @@
+# Znane fałszywe alarmy VirusTotal. Domena z tej listy nie jest blokowana i nie zakłada issue,
+# nawet gdy pojedyncze silniki ją oznaczą. Dopisuje tylko właściciel (decyzja, nie automat).
+domeny:
+  - {domena: "google.com", od: "2026-11-03", powod: "1 silnik na kilkadziesiąt (issue #8); linki z agregatora Google News, decyzja właściciela"}

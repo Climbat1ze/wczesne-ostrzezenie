@@ -234,6 +234,9 @@ geografia:
     wzorce:
       - '\b(polsk|polsc|polan|poland|polish|warszaw|warsaw|rzesz[oó]w|lubli|białyst|bialyst|suwał|suwalk|przesmyk|litw|lithuan|vilni|wilni|wilno|łotw|latvi|ryg|riga|eston|tallin|bałty|balty|baltic|kaliningrad|królewiec|królewc|krolewiec|białoru|belarus|mińsk|minsk|gotland|finland|finlandi|finns?\b|eastern flank|wschodni\w* flank|narva|narwa)'
       - '(польш|литв|латви|эстони|прибалт|калининград|белорус|финлянд)'
+      # Kraje nordyckie (decyzja właściciela 2026-11-03): tak samo narażone na działania Rosji jak Bałtyk.
+      - '\b(szwec|szwedz|sweden|swedish|sverige|svensk|sztokholm|stockholm|norweg|norwes|norwa|norway|norge|norsk|oslo|dani[ię]\b|danii\b|duńs|dunsk|denmark|danish|danmark|kopenhag|copenhag|bornholm|øresund|islandi|iceland|reykjav|skandynaw|scandinav|nordyc|nordic)'
+      - '(швец|шведск|норвеги|норвежск|дани[июя]|датск|исланди|скандинав)'
   nato:
     mnoznik: 0.6
     wzorce:
