@@ -682,14 +682,23 @@ def zbuduj_metodyke(w: dict, zrodla: list[dict], slownik) -> None:
   <ul>
     <li><b>Co godzinę</b>: pobranie wiadomości, tłumaczenie, przeliczenie WW, kontrola alarmów. Gdy GitHub opuści przebieg, zapasowy uruchamia się po 30 minutach.</li>
     <li><b>W poniedziałek ok. 7:00</b>: raport tygodniowy mailem.</li>
-    <li><b>W poniedziałek rano</b>: przegląd źródeł (martwe kanały, koniec prób) i sprawdzenie domen linków w VirusTotal.</li>
-    <li><b>Każdy link</b> do artykułu przechodzi kontrolę bezpieczeństwa; podejrzany zastępuje strona główna redakcji.</li>
+    <li><b>W poniedziałek rano</b>: przegląd źródeł (martwe kanały, koniec prób) i sprawdzenie domen linków w VirusTotal (punkt 7).</li>
     <li><b>Strona</b>: obraz z ostatniego przeliczenia, godzina w prawym górnym rogu.</li>
   </ul>
 </div></section>
 
+<section class="panel" id="linki"><div class="proza">
+  <h3>7. Bezpieczeństwo linków</h3>
+  <p>Każdy link do artykułu, który widzisz na pulpicie albo w mailu, jest sprawdzany pod kątem bezpieczeństwa, zanim się pojawi. Kanał RSS może zostać przejęty albo podsunąć link do fałszywej strony, więc linkom nie ufamy z góry.</p>
+  <ol>
+    <li><b>Przy każdym przebiegu, co godzinę.</b> Link musi prowadzić do domeny tej samej redakcji, z której pochodzi wiadomość (wyjątki: inne domeny tego samego wydawcy, np. BBC, Sveriges Radio). Odrzucamy też adresy IP zamiast nazwy, domeny zapisane w punycode (podmienione litery, np. cyrylica udająca łacinę), adresy z wpisanym loginem, nietypowe porty i wszystko poza http i https. Podejrzany link zastępuje strona główna redakcji, a powód trafia do dziennika.</li>
+    <li><b>Raz w tygodniu, w poniedziałek.</b> Wszystkie domeny źródeł i linków z ostatnich 7 dni sprawdzamy w <a href="https://www.virustotal.com/" target="_blank" rel="noopener">VirusTotal</a>, który zbiera oceny kilkudziesięciu programów antywirusowych. Pobieramy tylko gotowy raport o domenie, niczego nie wysyłamy do skanowania. Domena oznaczona jako groźna przez co najmniej 2 programy jest blokowana automatycznie; pojedyncze zgłoszenie sprawdza człowiek. Znane fałszywe alarmy (np. google.com) są na osobnej liście.</li>
+  </ol>
+  <p class="dim">Pierwsze sprawdzenie 3 listopada 2026: 52 domeny, żadna groźna. Kontrola zmniejsza ryzyko, ale go nie usuwa: strona prawdziwej redakcji też może zostać zhakowana. Nie podawaj haseł na stronach, do których prowadzą linki.</p>
+</div></section>
+
 <section class="panel" id="ograniczenia"><div class="proza">
-  <h3>7. Czego aplikacja nie umie</h3>
+  <h3>8. Czego aplikacja nie umie</h3>
   <ul>
     <li>Myli się w obie strony, bo czyta słowa, nie sens. „Ulica Wojska Polskiego” to nie wojsko, a ironia to nie groźba.</li>
     <li>Nie zobaczy zagrożenia, którego nikt jeszcze nie opisał, ani nowego rodzaju zdarzeń spoza słownika.</li>
@@ -699,7 +708,7 @@ def zbuduj_metodyke(w: dict, zrodla: list[dict], slownik) -> None:
 </div></section>
 
 <section class="panel" id="bledy"><div class="proza">
-  <h3>8. Jak zgłosić błąd</h3>
+  <h3>9. Jak zgłosić błąd</h3>
   <ol>
     <li><b>Odpowiedz na dowolny mail z aplikacji.</b> Odpowiedź trafia do autora.</li>
     <li>Napisz jedno zdanie: która wiadomość albo który alarm, co jest źle i dlaczego. Przykład: „Ostrzeżenie z 2.11 fałszywe: »prowokacja« dotyczyła sporu o Trybunał, nie Rosji”.</li>
