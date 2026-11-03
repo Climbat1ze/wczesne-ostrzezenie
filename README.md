@@ -21,7 +21,7 @@ gh secret set MAIL_DO -R Climbat1ze/wczesne-ostrzezenie
 ```
 
 ## Jak to działa
-Workflow `.github/workflows/ostrzezenie.yml` uruchamia się co godzinę (minuta 47): pobiera kanały, tłumaczy bałtyckie nagłówki (Claude haiku na subskrypcji, w ramach dziennego budżetu), liczy WW, wysyła alarmy (najwyżej 3 na dobę, reszta zbiorczo) i publikuje stronę na GitHub Pages. Stan (historia, wpisy, statystyki źródeł, budżet, dziennik maili i alarmów, zdrowie) żyje na gałęzi `dane`, nadpisywanej jednym commitem przy każdym przebiegu.
+Workflow `.github/workflows/ostrzezenie.yml` ma w harmonogramie minuty 13 i 43, ale pomija przebieg, gdy dane mają mniej niż 40 minut, więc zwykle działa raz na godzinę, a zgubione przez GitHub uruchomienie nadrabia drugi wpis. Pobiera kanały, tłumaczy bałtyckie nagłówki (Claude haiku na subskrypcji, w ramach dziennego budżetu), liczy WW, wysyła alarmy (najwyżej 3 na dobę, reszta zbiorczo) i publikuje stronę na GitHub Pages. Stan (historia, wpisy, statystyki źródeł, budżet, dziennik maili i alarmów, zdrowie) żyje na gałęzi `dane`, nadpisywanej jednym commitem przy każdym przebiegu.
 
 W poniedziałek rano ten sam przebieg dodatkowo:
 - przegląda źródła (martwe kanały, koniec 30 dni próby) i zapisuje `app/zrodla.yaml` na `main`;
@@ -51,6 +51,9 @@ Ręczne uruchomienie: Actions → wczesne-ostrzezenie → Run workflow (opcja �
 | `ALARMY_DZIENNIE` | zmienna, opcjonalna | najwyżej tyle alarmów mailem na dobę (domyślnie `3`); kolejne czekają w kolejce i idą zbiorczo o godzinie raportu albo z następnym alarmem |
 
 ## Jakość i bezpieczeństwo
+
+Czuwanie (`.github/workflows/czuwanie.yml`, co godzinę): gdy dane na gałęzi `dane` mają ponad 90 minut, uruchamia główny workflow ręcznie; po 3 godzinach zakłada issue z etykietą `przerwa` (powiadomienie mailem od GitHuba) i zamyka je samo po powrocie danych.
+
 - **Testy** (`testy.yml`, każdy push i PR): regresja klasyfikacji na zamrożonych prawdziwych nagłówkach (`tests/dane/przypadki.jsonl`; znane pomyłki jako xfail), budżet i limity, zdrowie, samouczenie. Na PR dodatkowo **strażnik** (`app/straznik.py`): zmiana progów, wag lub flag kategorii zatrzymuje PR. Te wartości zmienia tylko właściciel.
 - **Zdrowie**: incydent, gdy przez 3 przebiegi z rzędu pobrano mniej niż 80% kanałów albo tłumaczenie zwraca błędy; jeden mail do administratora na incydent.
 - **Samouczenie** nie rusza progów ani wag: zmienia tylko mnożnik wiarygodności źródła (0,6–1,2) i dopisuje przypadki testowe z ocen właściciela.

@@ -7,15 +7,23 @@
 # Settings → Pages → Source: GitHub Actions.
 name: wczesne-ostrzezenie
 
+# Harmonogram z zapasem: GitHub gubi część uruchomień z crona (w nocy 2–3.11 przeszło 1 z ok. 9).
+# Dwa wpisy co 30 minut; job „sprawdz” pomija przebieg, jeśli dane zapisano mniej niż 40 minut temu.
+# Efekt: zwykle jeden przebieg na godzinę, a zgubiony wpis nadrabia drugi. Czuwanie: workflow czuwanie.yml.
 on:
   schedule:
-    - cron: '47 * * * *'
+    - cron: '13,43 * * * *'
   workflow_dispatch:
     inputs:
       mail_skrot:
         description: 'Wyślij raport mailem teraz'
         type: boolean
         default: false
+      tryb:
+        description: 'reczny = z przeglądem źródeł; harmonogram = jak przebieg z crona (używa czuwanie.yml)'
+        type: choice
+        options: [reczny, harmonogram]
+        default: reczny
 
 permissions:
   contents: write
@@ -28,7 +36,26 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  sprawdz:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      uruchom: ${{ steps.wiek.outputs.uruchom }}
+    steps:
+      - id: wiek
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ]; then echo "uruchom=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          OST=$(gh api "repos/$GITHUB_REPOSITORY/commits/dane" --jq '.commit.committer.date' 2>/dev/null || echo "")
+          if [ -z "$OST" ]; then echo "uruchom=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          MIN=$(( ( $(date -u +%s) - $(date -u -d "$OST" +%s) ) / 60 ))
+          echo "Ostatni zapis danych: $OST ($MIN min temu)"
+          if [ "$MIN" -lt 40 ]; then echo "Pomijam: świeże dane"; echo "uruchom=false" >> "$GITHUB_OUTPUT"; else echo "uruchom=true" >> "$GITHUB_OUTPUT"; fi
+
   run:
+    needs: sprawdz
+    if: needs.sprawdz.outputs.uruchom == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     environment:
@@ -74,7 +101,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           EXTRA=""
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.tryb }}" != "harmonogram" ]; then
             EXTRA="--utrzymanie-zrodel"
             if [ "${{ inputs.mail_skrot }}" = "true" ]; then EXTRA="$EXTRA --mail-skrot"; fi
           fi

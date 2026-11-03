@@ -1,0 +1,57 @@
+# Czuwanie nad przebiegami głównego workflow „wczesne-ostrzezenie”.
+# Co godzinę sprawdza wiek ostatniego zapisu na gałęzi dane (zapisuje ją każdy udany przebieg).
+# Ponad 90 min: uruchamia główny workflow ręcznie (workflow_dispatch, tryb harmonogram), bo GitHub gubi uruchomienia z crona.
+# Ponad 180 min: zakłada issue z etykietą „przerwa” (GitHub wysyła właścicielowi powiadomienie mailem). Jedno issue na incydent.
+# Po powrocie świeżych danych (poniżej 90 min) zamyka otwarte issue z komentarzem.
+name: czuwanie
+
+on:
+  schedule:
+    - cron: '29 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write    # uruchomienie głównego workflow
+  issues: write     # issue przy przerwie
+
+concurrency:
+  group: czuwanie
+  cancel-in-progress: true
+
+jobs:
+  czuwaj:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    env:
+      GH_TOKEN: ${{ github.token }}
+      R: ${{ github.repository }}
+    steps:
+      - name: Wiek danych, naprawa, powiadomienie
+        run: |
+          OST=$(gh api "repos/$R/commits/dane" --jq '.commit.committer.date')
+          MIN=$(( ( $(date -u +%s) - $(date -u -d "$OST" +%s) ) / 60 ))
+          echo "Ostatni zapis danych: $OST ($MIN min temu)"
+          OTWARTE=$(gh issue list -R "$R" --label przerwa --state open --json number --jq '.[0].number // empty')
+
+          if [ "$MIN" -lt 90 ]; then
+            if [ -n "$OTWARTE" ]; then
+              gh issue close "$OTWARTE" -R "$R" --comment "Przebiegi wróciły: ostatni zapis danych $OST ($MIN min temu)."
+            fi
+            echo "OK"; exit 0
+          fi
+
+          AKTYWNE=$(gh run list -R "$R" --workflow ostrzezenie.yml --json status --jq '[.[] | select(.status != "completed")] | length')
+          if [ "$AKTYWNE" = "0" ]; then
+            gh workflow run ostrzezenie.yml -R "$R" -f tryb=harmonogram
+            echo "Uruchomiono główny workflow (przerwa $MIN min)"
+          else
+            echo "Główny workflow już trwa lub czeka ($AKTYWNE)"
+          fi
+
+          if [ "$MIN" -ge 180 ] && [ -z "$OTWARTE" ]; then
+            gh label create przerwa -R "$R" --color FBCA04 --description "Brak przebiegów głównego workflow" --force
+            gh issue create -R "$R" --label przerwa \
+              --title "Przerwa w przebiegach: $MIN min bez nowych danych" \
+              --body "Ostatni zapis na gałęzi dane: $OST. Czuwanie uruchomiło główny workflow ręcznie. Jeśli przebiegi kończą się błędem, sprawdź zakładkę Actions. Issue zamknie się samo po powrocie świeżych danych."
+          fi
