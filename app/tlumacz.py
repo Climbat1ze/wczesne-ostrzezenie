@@ -14,8 +14,6 @@ import json
 import os
 import re
 import shutil
-import subprocess
-import tempfile
 from concurrent.futures import ThreadPoolExecutor
 
 JEZYKI_BEZ_TLUMACZENIA = {"pl", "en"}
@@ -30,10 +28,13 @@ SYSTEM = (
     "Zwróć wyłącznie tablicę JSON, bez komentarza: [{\"i\": numer, \"t\": \"tytuł po polsku\", \"l\": \"lead po polsku\"}]."
 )
 
-_stan = {"wywolan": 0, "przetlumaczono": 0, "bledy": 0, "pominieto": None, "odlozono": 0}
+_stan = {"wywolan": 0, "przetlumaczono": 0, "bledy": 0, "pominieto": None, "odlozono": 0, "budzet": False}
 
 
 def tryb() -> str | None:
+    import koszty  # noqa: E402
+    if koszty.wylaczone():
+        return None
     if os.environ.get("CLAUDE_CODE_OAUTH_TOKEN") and shutil.which("claude"):
         return "subskrypcja"
     return None
@@ -54,24 +55,15 @@ def _parsuj(tekst: str) -> dict[int, dict]:
 
 
 def _paczka_cli(wejscie: str, jezyk: str) -> dict[int, dict]:
-    """Claude Code CLI na subskrypcji. Bez narzędzi, w pustym katalogu (żeby nie wczytywał CLAUDE.md repo)."""
-    env = {k: v for k, v in os.environ.items() if k != "ANTHROPIC_API_KEY"}  # gdyby klucz płatnego API był w środowisku, CLI wybrałoby go zamiast subskrypcji
-    polecenie = ["claude", "-p", "--model", "haiku", "--tools", "", "--system-prompt", SYSTEM,
-                 "--output-format", "text", "--no-session-persistence"]
-    with tempfile.TemporaryDirectory() as tmp:
-        try:
-            r = subprocess.run(polecenie, input=f"Przetłumacz z {NAZWY.get(jezyk, jezyk)} na polski:\n{wejscie}",
-                               capture_output=True, text=True, timeout=240, cwd=tmp, env=env)
-        except subprocess.TimeoutExpired:
-            print("Tłumaczenie (subskrypcja): przekroczony czas")
-            _stan["bledy"] += 1
-            return {}
+    """Claude Code CLI na subskrypcji, bez narzędzi (claude_cli.zapytaj)."""
+    import claude_cli  # noqa: E402
+    ok, wynik = claude_cli.zapytaj(SYSTEM, f"Przetłumacz z {NAZWY.get(jezyk, jezyk)} na polski:\n{wejscie}", model="haiku")
     _stan["wywolan"] += 1
-    if r.returncode != 0:
-        print("Tłumaczenie (subskrypcja): błąd", r.returncode, (r.stderr or r.stdout)[-300:])
+    if not ok:
+        print("Tłumaczenie (subskrypcja): błąd,", wynik)
         _stan["bledy"] += 1
         return {}
-    return _parsuj(r.stdout)
+    return _parsuj(wynik)
 
 
 def _paczka(elementy: list[dict], jezyk: str) -> dict[int, dict]:
@@ -85,13 +77,19 @@ def przetlumacz(wpisy: list[dict], jezyk: str, pamiec: dict) -> None:
         return
     brak = [w for w in wpisy if w["id"] not in pamiec]
     if brak and not dostepne():
-        _stan["pominieto"] = "brak CLAUDE_CODE_OAUTH_TOKEN"
+        import koszty  # noqa: E402
+        _stan["pominieto"] = "wyłącznik CLAUDE_WYLACZ=1" if koszty.wylaczone() else "brak CLAUDE_CODE_OAUTH_TOKEN"
     elif brak:
         # Limit na przebieg: pierwsze uruchomienie ma ok. 1000 zaległych nagłówków, a workflow ma 10 minut.
         # Najnowsze idą pierwsze; reszta w kolejnych godzinach (pamięć podręczna pamięta, co już jest).
         brak.sort(key=lambda w: w.get("data", ""), reverse=True)
         wolne = max(0, MAKS_ZAPYTAN - _stan["wywolan"])
         paczki = [brak[i:i + PACZKA] for i in range(0, len(brak), PACZKA)][:wolne]
+        import koszty  # noqa: E402
+        przyznane = koszty.przydziel(len(paczki))  # dzienny budżet zapytań (CLAUDE_BUDZET_DZIENNY)
+        if przyznane < len(paczki):
+            _stan["budzet"] = True
+        paczki = paczki[:przyznane]
         if len(paczki) * PACZKA < len(brak):
             _stan["odlozono"] += len(brak) - len(paczki) * PACZKA
         with ThreadPoolExecutor(max_workers=ROWNOLEGLE) as ex:
@@ -121,4 +119,5 @@ def raport() -> str:
     if _stan["pominieto"]:
         return f"Tłumaczenie: pominięte ({_stan['pominieto']}), nagłówki zostają w oryginale"
     return (f"Tłumaczenie ({tryb() or 'brak'}): {_stan['przetlumaczono']} nagłówków w {_stan['wywolan']} zapytaniach, "
-            f"błędy: {_stan['bledy']}, odłożone na kolejne przebiegi: {_stan['odlozono']}")
+            f"błędy: {_stan['bledy']}, odłożone na kolejne przebiegi: {_stan['odlozono']}"
+            + (", dzienny budżet wyczerpany" if _stan["budzet"] else ""))

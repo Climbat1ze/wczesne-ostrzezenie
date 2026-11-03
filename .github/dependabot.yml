@@ -1,0 +1,11 @@
+# Aktualizacje zależności: akcje GitHuba (przypięte do SHA) i biblioteki Pythona (przypięte ==).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: pip
+    directory: /app
+    schedule:
+      interval: weekly

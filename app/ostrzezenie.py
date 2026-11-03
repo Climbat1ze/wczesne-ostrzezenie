@@ -141,6 +141,8 @@ class Slownik:
         d = wczytaj_yaml(PLIK_WSKAZNIKI)
         self.kat = d["kategorie"]
         self.wz = {k: [re.compile(p, re.I) for p in v["wzorce"]] for k, v in self.kat.items()}
+        # wykluczenia: wzorce, które zdejmują kategorię mimo trafienia (np. „ulica Wojska Polskiego”); dopisuje je autoulepszanie
+        self.wyk = {k: [re.compile(p, re.I) for p in v.get("wykluczenia", [])] for k, v in self.kat.items()}
         self.geo = d["geografia"]
         self.geo_wz = {k: [re.compile(p, re.I) for p in v.get("wzorce", [])] for k, v in self.geo.items()}
         self.progi = d["progi"]
@@ -151,7 +153,8 @@ class Slownik:
         return [n for n, wz in self.krytyczne_wz if any(w.search(tekst) for w in wz)]
 
     def kategorie(self, tekst: str) -> list[str]:
-        return [k for k, wz in self.wz.items() if any(w.search(tekst) for w in wz)]
+        return [k for k, wz in self.wz.items()
+                if any(w.search(tekst) for w in wz) and not any(x.search(tekst) for x in self.wyk[k])]
 
     def geografia(self, tekst: str) -> str:
         for k in ("flanka", "nato"):
@@ -324,7 +327,8 @@ def waga_wpisu(w: dict, z: dict | None, kat: str, slownik: Slownik) -> float:
             return 0.0
         mn = 1.0  # Kreml jest wiarygodnym źródłem tego, co mówi Kreml
     elif status == "aktywne":
-        mn = OCENA_MNOZNIK.get(z["wiarygodnosc"], 0.4)
+        import samouczenie  # noqa: E402
+        mn = OCENA_MNOZNIK.get(z["wiarygodnosc"], 0.4) * samouczenie.mnoznik(z["id"])  # 0,6–1,2 z potwierdzalności
     else:
         return 0.0
     return mn * slownik.geo[w["geo"]]["mnoznik"]
@@ -613,12 +617,29 @@ def skrot(w: dict, slownik: Slownik) -> list[str]:
 
 # ---------------------------------------------------------------- sygnały krytyczne i harmonogram
 
+KARENCJA_DNI = 30
+START_REJESTRU = "2026-11-02"  # źródła z pierwotnego rejestru (sprawdzone ręcznie przy starcie) są bez karencji
+
+
+def w_karencji(z: dict, dzis: dt.date | None = None) -> bool:
+    """Źródło dodane do rejestru po starcie projektu nie liczy się do sygnału krytycznego przez 30 dni."""
+    dodano = z.get("dodano") or START_REJESTRU
+    if dodano <= START_REJESTRU:
+        return False
+    dzis = dzis or teraz().astimezone(WAW).date()
+    return (dzis - dt.date.fromisoformat(dodano[:10])).days < KARENCJA_DNI
+
+
 def sygnaly_krytyczne(wpisy, zrodla_idx, koniec: dt.datetime) -> list[dict]:
-    """Sygnał krytyczny: konkretne zdarzenie wobec flanki, opisane przez min. 2 niezależne redakcje A/B w 24 h."""
+    """Sygnał krytyczny: konkretne zdarzenie wobec flanki, opisane przez min. 2 niezależne redakcje A/B w 24 h.
+    Źródła w karencji (dodane w ostatnich 30 dniach) się nie liczą."""
     po_nazwie = defaultdict(dict)
+    dzis = koniec.astimezone(WAW).date()
     for w in okno(wpisy, koniec, 24):
         z = zrodla_idx.get(w["zrodlo"])
         if not z or z["status"] != "aktywne" or z["wiarygodnosc"] not in "AB" or w["geo"] != "flanka":
+            continue
+        if w_karencji(z, dzis):
             continue
         for n in w.get("krytyczne", []):
             po_nazwie[n].setdefault(w["grupa"], w)
@@ -668,8 +689,8 @@ def powiadom_trend(w: dict) -> bool:
         wyslac = stan.get("stan") != "alarm" or not ost or \
             (teraz() - dt.datetime.fromisoformat(ost)).total_seconds() >= 7 * 86400
     if wyslac:
-        import poczta  # noqa: E402
-        poczta.wyslij(*poczta.zbuduj_trend(w), pilne=True)
+        import koszty, poczta  # noqa: E402
+        koszty.wyslij_alarm(*poczta.zbuduj_trend(w), rodzaj="trend")
         stan["ostatni_mail"] = teraz().isoformat(timespec="minutes")
     stan["stan"] = ta.get("stan", "norma")
     zapisz_json(DANE / "stan_trendu.json", stan)
@@ -686,8 +707,8 @@ def powiadom_krytyczne(w: dict) -> list[dict]:
         nowe.append(k)
         stan[k["nazwa"]] = teraz().isoformat(timespec="minutes")
     if nowe:
-        import poczta  # noqa: E402
-        poczta.wyslij(*poczta.zbuduj_krytyczny(nowe, w), pilne=True)
+        import koszty, poczta  # noqa: E402
+        koszty.wyslij_alarm(*poczta.zbuduj_krytyczny(nowe, w), rodzaj="krytyczny")
         zapisz_json(DANE / "krytyczne_wyslane.json", stan)
     return nowe
 
@@ -735,32 +756,8 @@ def powiadom(w: dict, slownik: "Slownik"):
     if not (wzrost and poziom >= 2):
         print(f"Powiadomienie: nie (poziom alarmu {poziom}, poprzednio {stan.get('poziom', 0)})")
         return
-    tytul = f"{w['zbieznosc']['nazwa']}: spiętrzenie sygnałów wobec Polski/Bałtów"
-    tresc = "\n".join(w["skrot"][:3])
-    import poczta  # noqa: E402
-    poczta.wyslij(*poczta.zbuduj(w, slownik, "alarm"), pilne=True)
-    url = os.environ.get("SITE_URL", "")
-    topic = os.environ.get("NTFY_TOPIC")
-    if topic:
-        req = urllib.request.Request(f"https://ntfy.sh/{topic}", data=tresc.encode(), method="POST", headers={
-            "Title": tytul.encode("utf-8").decode("latin-1", "ignore") or "Alarm",
-            "Priority": "urgent" if poziom == 3 else "high", "Tags": "warning", **({"Click": url} if url else {})})
-        try:
-            urllib.request.urlopen(req, timeout=15)
-            print("Wysłano ntfy")
-        except Exception as e:  # noqa: BLE001
-            print("ntfy błąd:", e)
-    token, repo = os.environ.get("GITHUB_TOKEN"), os.environ.get("GITHUB_REPOSITORY")
-    if token and repo:
-        body = json.dumps({"title": f"[{w['dzien']}] {tytul}", "body": tresc + (f"\n\n{url}" if url else ""),
-                           "labels": ["alarm"]}).encode()
-        req = urllib.request.Request(f"https://api.github.com/repos/{repo}/issues", data=body, method="POST",
-                                     headers={"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"})
-        try:
-            urllib.request.urlopen(req, timeout=15)
-            print("Utworzono issue z alarmem")
-        except Exception as e:  # noqa: BLE001
-            print("issue błąd:", e)
+    import koszty, poczta  # noqa: E402
+    koszty.wyslij_alarm(*poczta.zbuduj(w, slownik, "alarm"), rodzaj="spietrzenie")
 
 
 # ---------------------------------------------------------------- CLI: źródła
@@ -819,7 +816,7 @@ def cmd_zrodla(args):
             return 1
         zrodla.append({"id": args.id, "nazwa": args.nazwa, "url": args.url, "typ": args.typ, "kraj": args.kraj,
                        "perspektywa": args.perspektywa, "grupa": args.grupa or args.id, "jezyk": args.jezyk,
-                       "wiarygodnosc": args.wiarygodnosc, "status": "obserwacja", "status_od": dt.date.today().isoformat(),
+                       "wiarygodnosc": args.wiarygodnosc, "status": "obserwacja", "status_od": dt.date.today().isoformat(), "dodano": dt.date.today().isoformat(),
                        "notatka": f"Dodane {dt.date.today()}; okres próbny 30 dni. {args.notatka or ''}".strip()})
         zapisz_zrodla(zrodla)
         print(f"Dodano {args.id} w statusie „obserwacja”. Po 30 dniach sprawdź krzykliwość i potwierdzalność, potem: zrodla status {args.id} aktywne")
@@ -849,6 +846,8 @@ def cmd_zrodla(args):
 # ---------------------------------------------------------------- main
 
 def cmd_uruchom(args):
+    import time  # noqa: E402
+    start = time.monotonic()
     zrodla = wczytaj_zrodla()
     slownik = Slownik()
     DANE.mkdir(exist_ok=True)
@@ -864,18 +863,32 @@ def cmd_uruchom(args):
         args.utrzymanie_zrodel = args.utrzymanie_zrodel or h["utrzymanie"]
     if args.utrzymanie_zrodel:
         w["utrzymanie"] = utrzymaj_zrodla(zrodla, w["jakosc"], zastosuj=True)
+        w["raport_admin"] = True
         if args.znacznik_main:
             Path(args.znacznik_main).write_text("1")
     w["krytyczne"] = sygnaly_krytyczne(czytaj_wpisy_analizy(zrodla, slownik), {z["id"]: z for z in zrodla}, teraz())
     import strona  # noqa: E402
     strona.zbuduj(w, zrodla, slownik)
     zapisz_skrot_md(w, slownik)
+    kontrola_zdrowia(stan_pobrania, args.bez_powiadomien)
+    if w.get("raport_admin"):
+        import jakosc, samouczenie  # noqa: E402
+        w["ocena"] = jakosc.ocena_trafnosci(czytaj_wpisy_analizy(zrodla, slownik), slownik.kat)
+        _, w["zmiany_wiarygodnosci"] = samouczenie.zapisz_mnozniki(w["jakosc"])
+        w["oceny"] = samouczenie.wczytaj_oceny({x["id"]: x for x in czytaj_wpisy()}, slownik)
+        print(f"Oceny właściciela: nowe przypadki wpisów {w['oceny']['nowe_wpisy']}, alarmów {w['oceny']['nowe_alarmy']}"
+              + (f", błąd: {w['oceny']['blad']}" if w["oceny"]["blad"] else ""))
+        if (w["oceny"]["nowe_wpisy"] or w["oceny"]["nowe_alarmy"]) and args.znacznik_main:
+            Path(args.znacznik_main).write_text("1")
     if not args.bez_powiadomien:
         powiadom(w, slownik)
         if powiadom_trend(w):
             print("ALARM TRENDU:", w["trend_alarm"]["opis"])
         for k in powiadom_krytyczne(w):
             print(f"SYGNAŁ KRYTYCZNY: {k['nazwa']} ({k['grup']} redakcje)")
+        import koszty  # noqa: E402
+        if koszty.oproznij_kolejke(godzina_raportu(teraz())):
+            print("Wysłano zbiorczo wstrzymane alarmy")
     if args.status_md:
         Path(args.status_md).write_text(status_md(w, slownik), encoding="utf-8")
         print("Status:", args.status_md)
@@ -888,12 +901,66 @@ def cmd_uruchom(args):
         if args.podglad_maila:
             Path(args.podglad_maila).write_text(html_, encoding="utf-8")
             print("Podgląd maila:", args.podglad_maila, "|", temat)
-        if args.mail_skrot:
-            poczta.wyslij(temat, tekst, html_)
+        if args.mail_skrot and poczta.wyslij(temat, tekst, html_):
+            import koszty  # noqa: E402
+            koszty.zapisz_mail("raport", temat)
     if h:
         zapisz_harmonogram(h, bool(args.mail_skrot), bool(args.utrzymanie_zrodel))
+    import koszty  # noqa: E402
+    pob = stan_pobrania or {}
+    koszty.zapisz_przebieg(time.monotonic() - start, pob.get("ok"), pob.get("razem"))
+    if w.get("raport_admin") and not args.bez_powiadomien:
+        wyslij_raport_admin(w)
     print("\n".join(w["skrot"]))
     return 0
+
+
+def godzina_raportu(t: dt.datetime) -> bool:
+    try:
+        godziny = {int(x) % 24 for x in os.environ.get("STATUS_GODZINY", "7").replace(" ", "").split(",") if x}
+    except ValueError:
+        godziny = {7}
+    return t.astimezone(WAW).hour in godziny
+
+
+def sekcje_admin(w: dict) -> list[tuple[str, list[str]]]:
+    """Dodatkowe sekcje raportu administracyjnego."""
+    import jakosc  # noqa: E402
+    import samouczenie  # noqa: E402
+    oc = w.get("oceny") or {}
+    return [("ZDROWIE PRZEBIEGÓW", jakosc.linie_zdrowia()),
+            ("JAKOŚĆ KLASYFIKACJI", jakosc.linie_jakosci(w.get("ocena"))),
+            ("WIARYGODNOŚĆ ŹRÓDEŁ Z DANYCH", (w.get("zmiany_wiarygodnosci") or ["Bez zmian mnożników (0,6–1,2 do oceny A–F)."])
+             + [f"Mnożnik liczy się od {samouczenie.MIN_TRAFIEN} alarmowych trafień źródła w 30 dniach."]),
+            ("OCEŃ ALARMY I POMYŁKI", samouczenie.linie_ocen((w.get("ocena") or {}).get("bledne", []))
+             + [f"Wczytane od ostatniego razu: {oc.get('nowe_wpisy', 0)} wpisów, {oc.get('nowe_alarmy', 0)} alarmów."
+                + (f" Błąd odczytu issue: {oc['blad']}." if oc.get("blad") else "")])]
+
+
+def kontrola_zdrowia(stan_pobrania: dict | None, bez_powiadomien: bool):
+    import jakosc, tlumacz  # noqa: E402
+    pob = stan_pobrania or {}
+    plik = STRONA / "dane.json"
+    dane_ts = dt.datetime.fromtimestamp(plik.stat().st_mtime, dt.timezone.utc).isoformat(timespec="minutes") if plik.exists() else None
+    wynik = jakosc.zapisz_zdrowie(pob.get("ok"), pob.get("razem"), tlumacz._stan["bledy"], dane_ts)
+    if wynik["nowy_incydent"]:
+        print("INCYDENT ZDROWIA:", wynik["nowy_incydent"])
+        if not bez_powiadomien:
+            import koszty, poczta  # noqa: E402
+            tekst = (f"Problem z działaniem aplikacji: {wynik['nowy_incydent']}.\n"
+                     "Sprawdź log ostatnich przebiegów w zakładce Actions. Kolejny mail przyjdzie dopiero przy następnym incydencie.")
+            if poczta.wyslij("Incydent: aplikacja działa nieprawidłowo", tekst,
+                             poczta.ramka_tekstu(tekst, "WCZESNE OSTRZEŻENIE · INCYDENT"), odbiorcy=poczta.admin()):
+                koszty.zapisz_mail("admin", "incydent zdrowia")
+    elif wynik["koniec_incydentu"]:
+        print("Incydent zdrowia zakończony")
+
+
+def wyslij_raport_admin(w: dict):
+    import koszty, poczta  # noqa: E402
+    temat, tekst, html_ = poczta.zbuduj_admin(koszty.raport_7dni(), w.get("utrzymanie"), sekcje_admin(w))
+    if poczta.wyslij(temat, tekst, html_, odbiorcy=poczta.admin()):
+        koszty.zapisz_mail("admin", temat)
 
 
 def utrzymaj_zrodla(zrodla, jakosc, zastosuj=True) -> dict:
@@ -907,10 +974,7 @@ def utrzymaj_zrodla(zrodla, jakosc, zastosuj=True) -> dict:
     if zastosuj and wynik["zmiany"]:
         zapisz_zrodla(zrodla)
         utrzymanie.zapisz_log(DANE / "zmiany_zrodel.jsonl", wynik["zmiany"])
-    if zastosuj and (wynik["zmiany"] or any("brak zastępstwa" in u for u in wynik["uwagi"])):
-        import poczta  # noqa: E402
-        poczta.wyslij(*poczta.zbuduj_przeglad_zrodel(wynik), odbiorcy=poczta.admin())
-    return wynik
+    return wynik  # mail z przeglądem idzie w poniedziałkowym raporcie administracyjnym (wyslij_raport_admin)
 
 
 def status_md(w: dict, slownik: "Slownik") -> str:

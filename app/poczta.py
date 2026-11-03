@@ -112,6 +112,46 @@ def _metodyka_skrot(slownik) -> str:
     return _zakladka("METODYKA W 1 MINUTĘ") + f'<div style="font-size:12px;line-height:1.5">{linie}</div>'
 
 
+class Html(str):
+    """Fragment HTML zbudowany w kodzie (już bezpieczny); zwykłe napisy są escapowane."""
+
+
+def ramka_tekstu(tekst: str, naglowek: str) -> str:
+    """Prosty mail tekstowy w ramce terminala (admin, budżet, zbiorcze alarmy)."""
+    return _ramka(_wiersz("".join(f'<p style="margin:0 0 8px">{e(l)}</p>' if l.strip() else "" for l in tekst.split("\n"))), naglowek)
+
+
+def blok_wstrzymanych(kolejka: list[dict]) -> str:
+    wiersze = "".join(f'<div style="margin-bottom:4px">&gt; {e(k["ts"][:16])} UTC · {e(k["temat"])}</div>' for k in kolejka)
+    return (f'<div style="font-family:{FONT};color:{T["ph"]};background:{T["ekran"]};max-width:640px;margin:10px auto;padding:12px 18px;'
+            f'border:1px dashed {T["dim"]};font-size:13px"><b>WCZEŚNIEJ WSTRZYMANE ALARMY (LIMIT DZIENNY)</b>{wiersze}</div>')
+
+
+def zbuduj_admin(raport: dict, utrzymanie: dict | None, sekcje: list[tuple[str, list[str]]] | None = None) -> tuple[str, str, str]:
+    """Poniedziałkowy raport dla administratora: zużycie, przegląd źródeł i sekcje dodatkowe (zdrowie, jakość, oceny)."""
+    r = raport
+    po_typie = ", ".join(f"{k}: {v}" for k, v in sorted(r["maile_po_typie"].items())) or "brak"
+    linie_zuzycie = [
+        f"Wywołania Claude w 7 dniach: {r['claude_7d']} (limit dzienny {r['claude_limit']}"
+        + (", WYŁĄCZNIK CLAUDE_WYLACZ=1 włączony" if r["claude_wylaczone"] else "") + ").",
+        "Po dniach: " + (", ".join(f"{d[5:]}: {n}" for d, n in sorted(r["claude_dni"].items())) or "brak") + ".",
+        f"Maile w 7 dniach: {r['maile_7d']} ({po_typie}). Alarmy w kolejce: {r['alarmy_w_kolejce']}.",
+        f"Przebiegi: {r['przebiegi_7d']}, czas średni {r['czas_sredni_s']} s, najdłuższy {r['czas_max_s']} s, "
+        f"razem ok. {r['minuty_actions_7d']} min Actions.",
+    ]
+    zm = (utrzymanie or {}).get("zmiany", [])
+    uw = (utrzymanie or {}).get("uwagi", [])
+    linie_zrodla = [f"{z['nazwa']}: {z['z']} -> {z['na']}. Powód: {z['powod']}." for z in zm] or ["Bez zmian w rejestrze."]
+    linie_zrodla += uw
+    wszystkie = [("ZUŻYCIE", linie_zuzycie), ("PRZEGLĄD ŹRÓDEŁ", linie_zrodla)] + (sekcje or [])
+    temat = f"Raport administracyjny: {r['claude_7d']} wywołań Claude, {r['maile_7d']} maili, {len(zm)} zmian źródeł"
+    tekst = "\n".join([temat, ""] + [f"{n}\n" + "\n".join(f"- {x}" for x in l) + "\n" for n, l in wszystkie]
+                      + ["Cofnięcie zmiany źródła: python app/ostrzezenie.py zrodla status <id> aktywne."])
+    srodek = "".join(_wiersz(_zakladka(n) + "".join(f'<div style="margin-bottom:4px;font-size:13px">&gt; {x if isinstance(x, Html) else e(x)}</div>' for x in l))
+                     for n, l in wszystkie)
+    return temat, tekst, _ramka(srodek, "WCZESNE OSTRZEŻENIE · RAPORT ADMINISTRACYJNY")
+
+
 def _link_metodyki() -> str:
     url = os.environ.get("SITE_URL", "")
     return f' <a href="{e(url.rstrip("/"))}/metodyka.html" style="color:{T["ph"]}">Jak to działa</a>.' if url else ""
@@ -359,5 +399,6 @@ def wyslij(temat: str, tekst: str, html: str, pilne: bool = False, odbiorcy: lis
         print(f"Mail wysłany do {len(odbiorcy)} odbiorców: {temat}")
         return True
     except Exception as ex:  # noqa: BLE001  — błąd poczty nie może zatrzymać aktualizacji strony
-        print("Mail błąd:", type(ex).__name__, ex)
+        # Repo jest publiczne: komunikat wyjątku SMTP może zawierać adresy, więc w logu tylko typ i kod.
+        print("Mail błąd:", type(ex).__name__, getattr(ex, "smtp_code", ""))
         return False

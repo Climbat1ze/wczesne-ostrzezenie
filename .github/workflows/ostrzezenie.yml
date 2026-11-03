@@ -2,7 +2,8 @@
 # Co godzinę: pobranie kanałów, tłumaczenie bałtyckich nagłówków (subskrypcja Claude), WW, alarmy mailem, strona na GitHub Pages.
 # Raport tygodniowy mailem w poniedziałek o godzinie ze zmiennej STATUS_GODZINY (Warszawa, domyślnie 7).
 # Sekrety: SMTP_USER, SMTP_PASS (hasło aplikacji Gmail), MAIL_DO (odbiorcy po przecinku), CLAUDE_CODE_OAUTH_TOKEN.
-# Opcjonalnie: sekret MAIL_ADMIN; zmienne STATUS_GODZINY, STATUS_DNI, STATUS_FORMA, SITE_URL.
+# Opcjonalnie: sekret MAIL_ADMIN; zmienne STATUS_GODZINY, STATUS_DNI, STATUS_FORMA, SITE_URL,
+# CLAUDE_BUDZET_DZIENNY (domyślnie 150), CLAUDE_WYLACZ (1 = bez Claude), ALARMY_DZIENNIE (domyślnie 3).
 # Settings → Pages → Source: GitHub Actions.
 name: wczesne-ostrzezenie
 
@@ -20,13 +21,11 @@ permissions:
   contents: write
   pages: write
   id-token: write
+  issues: read      # oceny właściciela (etykiety ocena-trafny, ocena-pomylka)
 
 concurrency:
   group: wczesne-ostrzezenie
   cancel-in-progress: false
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   run:
@@ -36,9 +35,9 @@ jobs:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.12'
           cache: pip
@@ -47,7 +46,7 @@ jobs:
       - run: pip install -r app/requirements.txt
 
       - name: Claude Code CLI (tłumaczenie na subskrypcji)
-        run: npm install -g @anthropic-ai/claude-code >/dev/null 2>&1 && claude --version || echo "CLI niedostępne, nagłówki zostaną w oryginale"
+        run: npm install -g @anthropic-ai/claude-code@2.1.316 >/dev/null 2>&1 && claude --version || echo "CLI niedostępne, nagłówki zostaną w oryginale"
 
       - name: Wczytaj dane z gałęzi dane
         run: |
@@ -69,6 +68,10 @@ jobs:
           STATUS_DNI: ${{ vars.STATUS_DNI || '1' }}
           STATUS_FORMA: ${{ vars.STATUS_FORMA || 'tydzien' }}
           SITE_URL: ${{ vars.SITE_URL }}
+          CLAUDE_BUDZET_DZIENNY: ${{ vars.CLAUDE_BUDZET_DZIENNY }}
+          CLAUDE_WYLACZ: ${{ vars.CLAUDE_WYLACZ }}
+          ALARMY_DZIENNIE: ${{ vars.ALARMY_DZIENNIE }}
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           EXTRA=""
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
@@ -77,14 +80,15 @@ jobs:
           fi
           python app/ostrzezenie.py uruchom --harmonogram $EXTRA --status-md "$RUNNER_TEMP/status_auto.md" --znacznik-main "$RUNNER_TEMP/do_main"
           cp app/zrodla.yaml "$RUNNER_TEMP/zrodla.yaml"
+          mkdir -p "$RUNNER_TEMP/tests_dane" && cp tests/dane/*.jsonl "$RUNNER_TEMP/tests_dane/" 2>/dev/null || true
           cp -r strona "$RUNNER_TEMP/strona"
 
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: strona
       - id: deploy
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
 
       - name: Zapisz dane na gałąź dane (jeden commit, bez narastającej historii)
         run: |
@@ -101,14 +105,15 @@ jobs:
           git commit -qm "dane $(date -u +%Y-%m-%dT%H:%M)"
           git push -q -f origin HEAD:dane
 
-      - name: Rejestr źródeł do main (po przeglądzie źródeł)
+      - name: Rejestr źródeł i oceny właściciela do main (poniedziałek)
         run: |
           [ -f "$RUNNER_TEMP/do_main" ] || { echo "Bez przeglądu źródeł w tym przebiegu"; exit 0; }
           git fetch -q origin main
           git checkout -q -f -B main origin/main
           git clean -fdq
           cp "$RUNNER_TEMP/zrodla.yaml" app/zrodla.yaml
-          git add app/zrodla.yaml
+          mkdir -p tests/dane && cp "$RUNNER_TEMP"/tests_dane/*.jsonl tests/dane/ 2>/dev/null || true
+          git add app/zrodla.yaml tests/dane
           git diff --staged --quiet && exit 0
-          git commit -qm "zrodla $(date -u +%Y-%m-%d)"
+          git commit -qm "[dane] $(date -u +%Y-%m-%d) rejestr zrodel i oceny wlasciciela"
           for i in 1 2 3; do git push -q origin main && break; GIT_EDITOR=true git pull -q --rebase origin main; done
