@@ -227,13 +227,14 @@ def parsuj(zrodlo: dict, dane: bytes, pobrano: dt.datetime, zablokowani_wydawcy:
                 continue
         lead = bez_html(e.get("summary", ""))[:600]
         link = e.get("link", "")
-        wpisy.append({
+        import linki  # noqa: E402
+        wpisy.append(linki.zabezpiecz({
             "id": hashlib.sha1((link or tytul).encode()).hexdigest()[:16],
             "zrodlo": zrodlo["id"], "grupa": grupa, "wydawca": wydawca,
             "tytul": tytul, "lead": lead[:300], "link": link,
             "data": data_wpisu(e, pobrano).isoformat(timespec="minutes"),
             "_tekst": f"{tytul}. {lead}",
-        })
+        }, LINKI_ODRZUCONE))
     return wpisy
 
 
@@ -309,11 +310,16 @@ def pobierz(zrodla: list[dict], slownik: Slownik) -> dict:
     return {"ok": ok, "razem": len(aktywne), "nowe": nowe}
 
 
+LINKI_ODRZUCONE: list[dict] = []  # odrzucone linki z bieżącego przebiegu (zapis do dane/linki_odrzucone.jsonl)
+
+
 def czytaj_wpisy() -> list[dict]:
+    """Wpisy z dysku; każdy link przechodzi kontrolę bezpieczeństwa (app/linki.py), podejrzany zastępuje strona główna redakcji."""
     if not PLIK_WPISY.exists():
         return []
+    import linki  # noqa: E402
     with open(PLIK_WPISY, encoding="utf-8") as f:
-        return [json.loads(l) for l in f if l.strip()]
+        return [linki.zabezpiecz(json.loads(l), LINKI_ODRZUCONE) for l in f if l.strip()]
 
 
 # ---------------------------------------------------------------- analiza
@@ -911,6 +917,10 @@ def cmd_uruchom(args):
     koszty.zapisz_przebieg(time.monotonic() - start, pob.get("ok"), pob.get("razem"))
     if w.get("raport_admin") and not args.bez_powiadomien:
         wyslij_raport_admin(w)
+    import linki  # noqa: E402
+    n_odrz = linki.zapisz_odrzucone(DANE, LINKI_ODRZUCONE)
+    if LINKI_ODRZUCONE:
+        print(f"Linki: odrzucone {len({x['id'] for x in LINKI_ODRZUCONE})} (nowe {n_odrz}), zastąpione stroną główną redakcji")
     print("\n".join(w["skrot"]))
     return 0
 

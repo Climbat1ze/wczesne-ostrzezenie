@@ -42,6 +42,7 @@ Ręczne uruchomienie: Actions → wczesne-ostrzezenie → Run workflow (opcja �
 | `MAIL_DO` | sekret | odbiorcy po przecinku |
 | `CLAUDE_CODE_OAUTH_TOKEN` | sekret | tłumaczenie nagłówków; wynik `claude setup-token`. Bez niego nagłówki zostają w oryginale |
 | `MAIL_ADMIN` | sekret, opcjonalny | odbiorca maili o przeglądzie źródeł (domyślnie nadawca) |
+| `VIRUSTOTAL_API_KEY` | sekret, opcjonalny | klucz darmowego API VirusTotal do cotygodniowego sprawdzenia domen linków; bez niego sprawdzenie jest pomijane |
 | `SITE_URL` | zmienna | adres strony, wstawiany do maili |
 | `STATUS_GODZINY` | zmienna, opcjonalna | godzina raportu, czas Warszawy (domyślnie `7`) |
 | `STATUS_DNI` | zmienna, opcjonalna | dni raportu, 1 = poniedziałek (domyślnie `1`) |
@@ -53,6 +54,10 @@ Ręczne uruchomienie: Actions → wczesne-ostrzezenie → Run workflow (opcja �
 ## Jakość i bezpieczeństwo
 
 Czuwanie (`.github/workflows/czuwanie.yml`, co godzinę): gdy dane na gałęzi `dane` mają ponad 90 minut, uruchamia główny workflow ręcznie; po 3 godzinach zakłada issue z etykietą `przerwa` (powiadomienie mailem od GitHuba) i zamyka je samo po powrocie danych.
+
+Linki z kanałów, dwie warstwy (`app/linki.py`):
+1. Przy każdym przebiegu, lokalnie: link musi być http/https, bez adresu IP, punycode, danych logowania i niestandardowego portu, z domeny kanału (albo z pola `domeny_linkow` źródła) i spoza `app/linki_blokada.yaml`. Link, który nie przejdzie, zastępuje strona główna redakcji; powód trafia do `dane/linki_odrzucone.jsonl`.
+2. W poniedziałek (`.github/workflows/linki-virustotal.yml`): domeny kanałów i linków z 7 dni sprawdzane w VirusTotal (raport domeny, nic nie jest wysyłane do skanowania). Co najmniej 2 silniki „malicious” = automatyczna blokada domeny; 1 silnik albo co najmniej 2 „suspicious” = issue `bezpieczenstwo` do decyzji właściciela.
 
 - **Testy** (`testy.yml`, każdy push i PR): regresja klasyfikacji na zamrożonych prawdziwych nagłówkach (`tests/dane/przypadki.jsonl`; znane pomyłki jako xfail), budżet i limity, zdrowie, samouczenie. Na PR dodatkowo **strażnik** (`app/straznik.py`): zmiana progów, wag lub flag kategorii zatrzymuje PR. Te wartości zmienia tylko właściciel.
 - **Zdrowie**: incydent, gdy przez 3 przebiegi z rzędu pobrano mniej niż 80% kanałów albo tłumaczenie zwraca błędy; jeden mail do administratora na incydent.

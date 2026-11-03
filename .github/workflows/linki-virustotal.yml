@@ -1,0 +1,61 @@
+# Raz w tygodniu (poniedziałek): domeny kanałów źródeł i linków z ostatnich 7 dni sprawdzane w VirusTotal.
+# Tylko odczyt raportu domeny (GET /api/v3/domains/<domena>), nic nie jest wysyłane do skanowania.
+# Darmowe API: 4 zapytania na minutę, ok. 55 domen = ok. 15 minut.
+# Groźna domena (co najmniej 2 silniki „malicious”) trafia do app/linki_blokada.yaml (commit do main);
+# główny workflow przestaje pokazywać jej linki. Cokolwiek poza „czysta” zakłada issue z etykietą „bezpieczenstwo”.
+# Sekret: VIRUSTOTAL_API_KEY (darmowe konto na virustotal.com). Bez sekretu workflow kończy się bez działania.
+name: linki-virustotal
+
+on:
+  schedule:
+    - cron: '23 9 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write   # blokada domen do main
+  issues: write     # issue z wynikiem
+
+concurrency:
+  group: linki-virustotal
+  cancel-in-progress: false
+
+jobs:
+  sprawdz:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+
+      - run: pip install PyYAML==6.0.3
+
+      - name: Wpisy z gałęzi dane
+        run: |
+          git fetch -q --depth=1 origin dane && git show FETCH_HEAD:app/dane/wpisy.jsonl > "$RUNNER_TEMP/wpisy.jsonl" || touch "$RUNNER_TEMP/wpisy.jsonl"
+          wc -l < "$RUNNER_TEMP/wpisy.jsonl"
+
+      - name: Sprawdzenie w VirusTotal
+        env:
+          VIRUSTOTAL_API_KEY: ${{ secrets.VIRUSTOTAL_API_KEY }}
+        run: python app/linki.py --wpisy "$RUNNER_TEMP/wpisy.jsonl" --wynik "$RUNNER_TEMP/wynik.md"
+
+      - name: Blokada domen do main
+        run: |
+          git diff --quiet -- app/linki_blokada.yaml 2>/dev/null && [ -z "$(git ls-files --others --exclude-standard app/linki_blokada.yaml)" ] && { echo "Bez nowych blokad"; exit 0; }
+          git config user.name "ostrzezenie[bot]"
+          git config user.email "ostrzezenie-bot@users.noreply.github.com"
+          git add app/linki_blokada.yaml
+          git commit -qm "[bezpieczenstwo] $(date -u +%Y-%m-%d) blokada domen z VirusTotal"
+          for i in 1 2 3; do git push -q origin HEAD:main && break; GIT_EDITOR=true git pull -q --rebase origin main; done
+
+      - name: Issue przy czymkolwiek poza „czysta”
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          [ -f "$RUNNER_TEMP/wynik.md" ] || exit 0
+          grep -q "^- \*\*" "$RUNNER_TEMP/wynik.md" || { echo "Wszystkie domeny czyste"; exit 0; }
+          gh label create bezpieczenstwo -R "$GITHUB_REPOSITORY" --color B60205 --description "Przegląd bezpieczeństwa" --force
+          gh issue create -R "$GITHUB_REPOSITORY" --title "Linki źródeł w VirusTotal $(date -u +%Y-%m-%d)" --label bezpieczenstwo --body-file "$RUNNER_TEMP/wynik.md"
