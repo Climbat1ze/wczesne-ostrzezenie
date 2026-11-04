@@ -7,7 +7,7 @@ liczenia, **PATCH** = poprawka wzorca, tekstu albo błędu. Wersja żyje w `app/
 
 ## [2.0.0] - 2026-11-04
 
-Zgłoszenia zmian: CR-001 do CR-006.
+Zgłoszenia zmian: CR-001 do CR-008.
 
 ### Dodane
 - **Skan na żądanie** (CR-003): zakładka SKAN na pulpicie. „Szukaj teraz” przeszukuje w przeglądarce nagłówki z 3 dni
@@ -26,6 +26,13 @@ Zgłoszenia zmian: CR-001 do CR-006.
   w odpowiedziach na zgłoszenia i w nagłówku User-Agent.
 - **Historia zmian i Change Requests** (CR-001): ten plik, rejestr `docs/change_requests.md`, formularz issue
   „Zgłoszenie zmiany (Change Request)”.
+- **Analogia 2021/22 sprawdzana sensem** (CR-007): każdy kamień milowy ma kryterium odpowiednika (kto działa, wobec kogo);
+  model sonnet sprawdza każdą parę kamień–wiadomość, liczą się tylko potwierdzone (pewność >= 0,6). Na danych z 4.11:
+  8 z 10 → 2 z 10 (odrzucone m.in. rosyjskie oskarżenia Polski jako „ostrzeżenie wywiadu” i europejskie ćwiczenia w Polsce
+  jako „ćwiczenia Rosji”). Pulpit pokazuje, ile wiadomości model odrzucił i dlaczego przykład pasuje.
+- **Dotłumaczanie zaległych trafień** (CR-008): wpisy zapisane bez tłumaczenia (limit przebiegu) dostają je później
+  i trwale w `wpisy.jsonl`; na pulpicie i w mailach bez cyrylicy (oryginał tylko w podpowiedzi).
+- Rozpoznanie strony działania w nagłówkach po rosyjsku (kanały LSM, ERR, LRT, BBC po rosyjsku).
 - Archiwum wszystkich nagłówków z 7 dni (`dane/naglowki.jsonl` na gałęzi `dane`), także bez trafień wskaźników.
 
 ### Zmienione

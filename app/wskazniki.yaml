@@ -260,17 +260,19 @@ progi:
 
 # Kamienie milowe sprzed inwazji na Ukrainę (X 2021 – II 2022). Aplikacja sprawdza, które z nich mają
 # dziś odpowiednik wobec Polski lub Bałtów: kategoria + co najmniej 2 niezależne grupy źródeł w 30 dniach.
+# odpowiednik: co dziś liczy się jako odpowiednik zdarzenia (kto działa, wobec kogo). Sprawdza to model (app/intencja.py,
+#   weryfikuj_analogie); bez modelu liczą się same kategorie, a pulpit oznacza wynik jako niezweryfikowany.
 analogia_2022:
-  - {kategoria: wojska_granica, kiedy: "XI 2021", co: "Zdjęcia satelitarne i dokument wywiadu USA: ok. 175 tys. żołnierzy przy granicy Ukrainy (Washington Post, 3.12.2021)."}
-  - {kategoria: ostrzezenia_sojusznikow, kiedy: "XI–XII 2021", co: "USA i Wielka Brytania publicznie ostrzegają, że Rosja może zaatakować; odtajniają wywiad."}
-  - {kategoria: retoryka, kiedy: "17.12.2021", co: "Rosja publikuje projekty traktatów z NATO i USA: żądanie gwarancji bezpieczeństwa i wycofania NATO."}
-  - {kategoria: cyber, kiedy: "14.01.2022", co: "Atak na ukraińskie strony rządowe i złośliwe oprogramowanie WhisperGate."}
-  - {kategoria: pretekst, kiedy: "14.01.2022", co: "USA ostrzegają, że Rosja przygotowuje operację pod fałszywą flagą jako pretekst."}
-  - {kategoria: gotowosc, kiedy: "I 2022", co: "Doniesienia o zapasach krwi i szpitalach polowych przy granicy."}
-  - {kategoria: ewakuacja, kiedy: "23.01 i 11.02.2022", co: "USA ewakuują rodziny dyplomatów z Kijowa, potem wzywają obywateli do wyjazdu."}
-  - {kategoria: cwiczenia, kiedy: "10–20.02.2022", co: "Ćwiczenia Union Resolve na Białorusi; wojska rosyjskie nie wracają po ich końcu."}
-  - {kategoria: przestrzen_transport, kiedy: "II 2022", co: "Ubezpieczyciele i linie lotnicze wycofują się z ukraińskiego nieba; 24.02 zamknięcie przestrzeni."}
-  - {kategoria: hybryda, kiedy: "II 2022", co: "Incydenty i ostrzał w Donbasie przedstawiane przez Rosję jako ataki Ukrainy."}
+  - {kategoria: wojska_granica, kiedy: "XI 2021", co: "Zdjęcia satelitarne i dokument wywiadu USA: ok. 175 tys. żołnierzy przy granicy Ukrainy (Washington Post, 3.12.2021).", odpowiednik: "Rosja lub Białoruś gromadzi albo przerzuca własne wojska, sprzęt lub rakiety w pobliże Polski, Bałtów lub krajów nordyckich."}
+  - {kategoria: ostrzezenia_sojusznikow, kiedy: "XI–XII 2021", co: "USA i Wielka Brytania publicznie ostrzegają, że Rosja może zaatakować; odtajniają wywiad.", odpowiednik: "Rząd, wywiad albo dowództwo USA, Wielkiej Brytanii, NATO lub państwa regionu publicznie ostrzega, że Rosja lub Białoruś może zaatakować Polskę, Bałtów lub kraje nordyckie, albo ujawnia wywiad o takich planach. Rosyjskie oskarżenia, że to Polska lub NATO szykuje atak, NIE są odpowiednikiem (to pretekst)."}
+  - {kategoria: retoryka, kiedy: "17.12.2021", co: "Rosja publikuje projekty traktatów z NATO i USA: żądanie gwarancji bezpieczeństwa i wycofania NATO.", odpowiednik: "Rosja stawia NATO, Polsce lub Bałtom formalne żądania albo ultimatum dotyczące bezpieczeństwa (wycofanie wojsk, gwarancje, strefy wpływów)."}
+  - {kategoria: cyber, kiedy: "14.01.2022", co: "Atak na ukraińskie strony rządowe i złośliwe oprogramowanie WhisperGate.", odpowiednik: "Poważny cyberatak na instytucje państwowe lub infrastrukturę Polski, Bałtów albo krajów nordyckich, przypisywany Rosji lub Białorusi."}
+  - {kategoria: pretekst, kiedy: "14.01.2022", co: "USA ostrzegają, że Rosja przygotowuje operację pod fałszywą flagą jako pretekst.", odpowiednik: "Zachodnie służby lub rządy ostrzegają, że Rosja szykuje prowokację pod fałszywą flagą wobec Polski, Bałtów lub krajów nordyckich, albo Rosja oskarża te państwa o przygotowanie ataku i buduje w ten sposób pretekst."}
+  - {kategoria: gotowosc, kiedy: "I 2022", co: "Doniesienia o zapasach krwi i szpitalach polowych przy granicy.", odpowiednik: "Rosja lub Białoruś gromadzi zapasy krwi, rozwija szpitale polowe, mobilizuje rezerwistów albo podnosi gotowość bojową w pobliżu Polski, Bałtów lub krajów nordyckich."}
+  - {kategoria: ewakuacja, kiedy: "23.01 i 11.02.2022", co: "USA ewakuują rodziny dyplomatów z Kijowa, potem wzywają obywateli do wyjazdu.", odpowiednik: "Państwa zachodnie ewakuują dyplomatów lub wzywają obywateli do opuszczenia Polski, Bałtów lub krajów nordyckich."}
+  - {kategoria: cwiczenia, kiedy: "10–20.02.2022", co: "Ćwiczenia Union Resolve na Białorusi; wojska rosyjskie nie wracają po ich końcu.", odpowiednik: "Duże ćwiczenia wojsk Rosji lub Białorusi blisko Polski, Bałtów lub krajów nordyckich, zwłaszcza gdy wojska nie wracają po ich końcu. Ćwiczenia NATO, Polski albo państw europejskich NIE są odpowiednikiem."}
+  - {kategoria: przestrzen_transport, kiedy: "II 2022", co: "Ubezpieczyciele i linie lotnicze wycofują się z ukraińskiego nieba; 24.02 zamknięcie przestrzeni.", odpowiednik: "Ubezpieczyciele lub linie lotnicze wycofują się z lotów nad Polską, Bałtami lub krajami nordyckimi z powodu zagrożenia wojskowego, albo przestrzeń zostaje zamknięta."}
+  - {kategoria: hybryda, kiedy: "II 2022", co: "Incydenty i ostrzał w Donbasie przedstawiane przez Rosję jako ataki Ukrainy.", odpowiednik: "Incydenty, sabotaż, drony lub prowokacje na terytorium Polski, Bałtów lub krajów nordyckich, przypisywane Rosji lub Białorusi albo przedstawiane przez Rosję jako agresja tych państw."}
 
 # Sygnały krytyczne: pojedyncze, bardzo konkretne zdarzenia, które same w sobie są powodem do alarmu.
 # Mail idzie od razu (kontrola co godzinę), gdy sygnał wobec Polski lub Bałtów opiszą co najmniej

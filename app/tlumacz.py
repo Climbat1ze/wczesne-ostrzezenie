@@ -122,3 +122,54 @@ def raport() -> str:
     return (f"Tłumaczenie ({tryb() or 'brak'}): {_stan['przetlumaczono']} nagłówków w {_stan['wywolan']} zapytaniach, "
             f"błędy: {_stan['bledy']}, odłożone na kolejne przebiegi: {_stan['odlozono']}"
             + (", dzienny budżet wyczerpany" if _stan["budzet"] else ""))
+
+
+MAKS_DOTLUMACZ = 4  # zapytań na przebieg dla zaległych trafień (to one trafiają na pulpit i do maili)
+
+
+def dotlumacz_trafienia(plik_wpisy, zrodla_idx: dict, plik_pamieci) -> int:
+    """Wpisy z trafieniem wskaźników zapisane bez tłumaczenia (limit przebiegu, brak budżetu) dostają je później.
+
+    Najpierw z pamięci tłumaczeń, potem nowe zapytania (najwyżej 4 po 40 nagłówków, najnowsze pierwsze). Wynik zapisany
+    w dane/wpisy.jsonl, więc tłumaczenie zostaje na 90 dni, a nie tylko na 14 dni pamięci. Zwraca liczbę uzupełnionych.
+    """
+    from pathlib import Path  # noqa: E402
+    plik_wpisy, plik_pamieci = Path(plik_wpisy), Path(plik_pamieci)
+    if not plik_wpisy.exists():
+        return 0
+    wpisy = [json.loads(l) for l in plik_wpisy.read_text(encoding="utf-8").splitlines() if l.strip()]
+    try:
+        pamiec = json.loads(plik_pamieci.read_text(encoding="utf-8"))
+    except (FileNotFoundError, json.JSONDecodeError):
+        pamiec = {}
+
+    def jezyk(w):
+        return (zrodla_idx.get(w.get("zrodlo")) or {}).get("jezyk", "pl")
+    brak = [w for w in wpisy if not w.get("oryginal") and jezyk(w) not in JEZYKI_BEZ_TLUMACZENIA]
+    if not brak:
+        return 0
+    do_zapytania = sorted((w for w in brak if w["id"] not in pamiec), key=lambda w: w.get("data", ""), reverse=True)
+    if do_zapytania and dostepne():
+        import koszty  # noqa: E402
+        po_jezyku: dict[str, list] = {}
+        for w in do_zapytania:
+            po_jezyku.setdefault(jezyk(w), []).append(w)
+        paczki = [(j, lst[i:i + PACZKA]) for j, lst in po_jezyku.items() for i in range(0, len(lst), PACZKA)][:MAKS_DOTLUMACZ]
+        paczki = paczki[:koszty.przydziel(len(paczki))]
+        for j, czesc in paczki:
+            wynik = _paczka([{"t": w["tytul"], "l": w.get("lead", "")} for w in czesc], j)
+            for k, w in enumerate(czesc):
+                if k in wynik:
+                    pamiec[w["id"]] = {"t": wynik[k]["t"], "l": wynik[k].get("l", ""), "d": dt.date.today().isoformat()}
+        plik_pamieci.write_text(json.dumps(pamiec, ensure_ascii=False), encoding="utf-8")
+    n = 0
+    for w in brak:
+        p = pamiec.get(w["id"])
+        if p:
+            w["oryginal"], w["jezyk"] = w["tytul"], jezyk(w)
+            w["tytul"], w["lead"] = p["t"], p.get("l", "")[:300]
+            n += 1
+    if n:
+        plik_wpisy.write_text("".join(json.dumps(w, ensure_ascii=False) + "\n" for w in wpisy), encoding="utf-8")
+        print(f"Tłumaczenie: uzupełniono {n} zaległych trafień (z {len(brak)} bez tłumaczenia)")
+    return n

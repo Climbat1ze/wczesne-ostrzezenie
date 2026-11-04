@@ -5,3 +5,4 @@ __pycache__/
 app/dane/zgloszenia/
 app/dane/naglowki.jsonl
 app/dane/intencje.json
+app/dane/analogia_weryfikacja.json

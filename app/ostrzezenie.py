@@ -458,18 +458,38 @@ def zbieznosc(wpisy, zrodla_idx, slownik: Slownik, koniec: dt.datetime) -> dict:
     }
 
 
-def analogia(wpisy, zrodla_idx, slownik: Slownik, koniec: dt.datetime) -> list[dict]:
+def analogia(wpisy, zrodla_idx, slownik: Slownik, koniec: dt.datetime, weryfikuj: bool = True) -> list[dict]:
+    """Kamienie milowe sprzed 24.02.2022 i ich dzisiejsze odpowiedniki (min. 2 niezależne redakcje w 30 dniach).
+
+    Od wersji 2.0 każdą parę (kamień, wiadomość) sprawdza model według kryterium `odpowiednik` z wskazniki.yaml
+    (kto działa, wobec kogo). Liczą się tylko pary potwierdzone z pewnością >= 0,6. Bez werdyktu modelu (brak tokenu,
+    budżetu) para liczy się jak dawniej, a kamień ma flagę `niezweryfikowane`.
+    """
+    import intencja  # noqa: E402
     ww = okno(wpisy, koniec, 24 * 30)
+    kand = {}
+    for nr, a in enumerate(slownik.analogia):
+        kand[nr] = [w for w in ww if a["kategoria"] in w["kategorie"] and w["geo"] == "flanka"
+                    and waga_wpisu(w, zrodla_idx.get(w["zrodlo"]), a["kategoria"], slownik) >= 0.5]
+    if weryfikuj:
+        intencja.weryfikuj_analogie([(nr, slownik.analogia[nr], w) for nr, lst in kand.items()
+                                     for w in sorted(lst, key=lambda w: w["data"], reverse=True)], koniec)
     wynik = []
-    for a in slownik.analogia:
-        kat = a["kategoria"]
-        grupy = {}
-        for w in ww:
-            if kat in w["kategorie"] and w["geo"] == "flanka" and waga_wpisu(w, zrodla_idx.get(w["zrodlo"]), kat, slownik) >= 0.5:
-                grupy.setdefault(w["grupa"], w)
+    for nr, a in enumerate(slownik.analogia):
+        grupy, odrzucone, niezweryf = {}, 0, 0
+        for w in kand[nr]:
+            v = intencja.werdykt_analogii(nr, w["id"])
+            if v is None:
+                niezweryf += 1
+            elif not (v["odpowiednik"] and v["pewnosc"] >= intencja.PROG_ANALOGII):
+                odrzucone += 1
+                continue
+            grupy.setdefault(w["grupa"], w)
         przyk = sorted(grupy.values(), key=lambda w: w["data"], reverse=True)[:2]
-        wynik.append({**a, "trafienie": len(grupy) >= 2, "grup": len(grupy),
-                      "przyklady": [{"tytul": p["tytul"], "link": p["link"], "wydawca": p["wydawca"]} for p in przyk]})
+        wynik.append({**a, "trafienie": len(grupy) >= 2, "grup": len(grupy), "odrzucone": odrzucone,
+                      "niezweryfikowane": niezweryf,
+                      "przyklady": [{"tytul": p["tytul"], "link": p["link"], "wydawca": p["wydawca"],
+                                     "powod": (intencja.werdykt_analogii(nr, p["id"]) or {}).get("powod")} for p in przyk]})
     return wynik
 
 
@@ -553,7 +573,7 @@ def czytaj_wpisy_analizy(zrodla, slownik: Slownik) -> list[dict]:
     import intencja  # noqa: E402
     wpisy = []
     for w in czytaj_wpisy():
-        tekst = f"{w['tytul']}. {w.get('lead', '')}"
+        tekst = f"{w['tytul']}. {w.get('lead', '')}" + (f" || {w['oryginal']}" if w.get("oryginal") else "")
         w["kategorie"] = slownik.kategorie(tekst)
         w["krytyczne"] = slownik.krytyczne(tekst)
         w["wlasne"] = slownik.wlasne(tekst)
@@ -578,8 +598,10 @@ def przygotowania_wlasne(wpisy, koniec: dt.datetime, n: int = 8) -> list[dict]:
 
 
 def analizuj(zrodla, slownik: Slownik, rekonstrukcja_dni=14) -> dict:
-    wpisy = czytaj_wpisy_analizy(zrodla, slownik)
     idx = {z["id"]: z for z in zrodla}
+    import tlumacz  # noqa: E402
+    tlumacz.dotlumacz_trafienia(PLIK_WPISY, idx, DANE / "tlumaczenia.json")
+    wpisy = czytaj_wpisy_analizy(zrodla, slownik)
     teraz_ = teraz()
     import intencja  # noqa: E402
     if intencja.weryfikuj(wpisy, idx, slownik.kat, teraz_):

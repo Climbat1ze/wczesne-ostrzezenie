@@ -485,7 +485,15 @@ def zbuduj(w: dict, zrodla: list[dict], slownik) -> None:
     an = []
     for a in w["analogia"]:
         przyk = "; ".join(f'<a href="{e(p["link"])}" target="_blank" rel="noopener">{e(p["tytul"][:90])}</a> ({e(p["wydawca"])})' for p in a["przyklady"])
-        dzis = (f'DZIŚ: {a["grup"]} {"redakcje" if a["grup"] < 5 else "redakcji"} w 30 dniach. {przyk}' if a["grup"] else "DZIŚ: brak odpowiednika wobec Polski i Bałtów.")
+        dzis = (f'DZIŚ: {a["grup"]} {"redakcje" if a["grup"] < 5 else "redakcji"} w 30 dniach. {przyk}' if a["grup"] else "DZIŚ: brak odpowiednika wobec Polski, Bałtów i krajów nordyckich.")
+        if a.get("odrzucone"):
+            dzis += (' Model odrzucił 1 wiadomość, która pasowała słowami, ale nie sensem.' if a["odrzucone"] == 1 else
+                     f' Model odrzucił {a["odrzucone"]} wiadomości, które pasowały słowami, ale nie sensem.')
+        if a.get("niezweryfikowane"):
+            dzis += f' {a["niezweryfikowane"]} bez sprawdzenia modelem.'
+        pow_ = "; ".join(p["powod"] for p in a["przyklady"] if p.get("powod"))
+        if pow_:
+            dzis += f' Dlaczego pasuje: {e(pow_)}'
         an.append(f'<li class="{"tak" if a["trafienie"] else "nie"}"><span class="znak" aria-label="{"jest odpowiednik" if a["trafienie"] else "brak"}">{"!" if a["trafienie"] else "·"}</span>'
                   f'<span class="kiedy">{e(a["kiedy"])}</span><div class="tresc"><div>{e(a["co"])}</div><div class="dim" style="font-size:.82rem">{dzis}</div></div></li>')
 
@@ -572,7 +580,7 @@ def zbuduj(w: dict, zrodla: list[dict], slownik) -> None:
 
 <section id="analogia" class="panel">
   <div class="tytul"><h3>Analogia do zimy 2021/22</h3><span class="etykieta">{traf} z {len(w["analogia"])} świeci</span></div>
-  <p class="dim" style="font-size:.82rem">Zdarzenia, które poprzedziły atak na Ukrainę 24.02.2022. Znak „!”: w 30 dniach min. 2 niezależne redakcje opisały podobny sygnał wobec Polski lub Bałtów. Jeden znak nic nie znaczy; liczy się kilka naraz.</p>
+  <p class="dim" style="font-size:.82rem">Zdarzenia, które poprzedziły atak na Ukrainę 24.02.2022. Znak „!”: w 30 dniach min. 2 niezależne redakcje opisały odpowiednik wobec Polski, Bałtów lub krajów nordyckich, a model sprawdził, czy zgadza się strona (kto działa, wobec kogo), nie tylko słowa. Jeden znak nic nie znaczy; liczy się kilka naraz.</p>
   <ul class="lista analog">{"".join(an)}</ul>
 </section>
 
