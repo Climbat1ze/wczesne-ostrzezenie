@@ -522,7 +522,7 @@ def zbuduj(w: dict, zrodla: list[dict], slownik) -> None:
         f'<span class="w">{ {"alarm": "WŁĄCZONY", "norma": "NORMA", "zbieram": "KALIBRACJA"}.get(ta.get("stan"), "–") }</span>'
         f'<span class="dim" style="font-size:.78rem">{e(ta.get("opis", ""))}</span></div>'
         f'<div class="kafel{" on" if traf >= 5 else ""}"><span class="etykieta">Analogia 2021/22</span>'
-        f'<span class="w num">{traf} / {len(w["analogia"])}</span><span class="dim" style="font-size:.78rem">kamieni milowych ma odpowiednik</span></div>'
+        f'<span class="w num">{traf} / {len(w["analogia"])}</span><span class="dim" style="font-size:.78rem">zdarzeń sprzed 24.02.2022 ma dziś odpowiednik u nas</span></div>'
         + trend_kafel("Wobec wczoraj", w["indeks"], t["wczoraj"])
         + trend_kafel("Wobec 7 dni", w["indeks"], t["sr_7"])
         + trend_kafel("Wobec 30 dni", w["indeks"], t["sr_30"]))
