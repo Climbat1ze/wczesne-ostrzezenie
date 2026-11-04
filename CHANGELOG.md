@@ -5,6 +5,16 @@ Zasada numeracji w tej aplikacji: **MAJOR** = nowy moduł albo zmiana sposobu li
 liczenia, **PATCH** = poprawka wzorca, tekstu albo błędu. Wersja żyje w `app/WERSJA`; test `tests/test_wersja.py` pilnuje,
 żeby pierwsza pozycja tego pliku była równa wersji. Zgłoszenia zmian (CR): `docs/change_requests.md`.
 
+## [2.0.1] - 2026-11-04
+
+### Poprawione
+- `zgloszenia.yml` nie uruchamiał się: dwukropek w tekście polecenia psuł YAML (GitHub oznaczał plik jako błędny).
+  Sprawdzenie `actionlint` dla wszystkich workflow w testach.
+
+### Zmienione
+- Zakładka SKAN nazywa się ZLEĆ SKAN, nagłówek „Zleć skan: ty wskazujesz, aplikacja sprawdza” (prośba właściciela:
+  ma być jasne, że inicjatywa jest po stronie zgłaszającego).
+
 ## [2.0.0] - 2026-11-04
 
 Zgłoszenia zmian: CR-001 do CR-008.

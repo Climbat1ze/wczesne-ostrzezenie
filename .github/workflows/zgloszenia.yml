@@ -55,7 +55,7 @@ jobs:
       - run: pip install -r app/requirements.txt
 
       - name: Claude Code CLI
-        run: npm install -g @anthropic-ai/claude-code@2.1.316 >/dev/null 2>&1 && claude --version || echo "CLI niedostępne: raport bez oceny modelu"
+        run: npm install -g @anthropic-ai/claude-code@2.1.316 >/dev/null 2>&1 && claude --version || echo "CLI niedostępne, raport bez oceny modelu"
 
       - name: Dane (tylko odczyt) i historia zgłoszeń
         run: |

@@ -20,6 +20,8 @@ jobs:
           cache-dependency-path: app/requirements-dev.txt
       - run: pip install -r app/requirements-dev.txt
       - run: python -m pytest -q
+      - name: Składnia workflow (actionlint)
+        run: pip install actionlint-py==1.7.8.24 && actionlint -shellcheck= .github/workflows/*.yml
 
   straznik:
     if: github.event_name == 'pull_request'
