@@ -33,6 +33,7 @@ Zgłoszenia zmian: CR-001 do CR-006.
   gotowości bojowej i dużych ćwiczeń przeciwnika (na danych z 4.11: 5 z 457 wpisów, m.in. „Poland mobilizes police
   and army at the border with Kaliningrad”). Wagi i progi bez zmian.
 - Autoulepszanie czyta też lekcje z analizy wstecznej i werdykty modelu intencji.
+- Skrót dnia: zdanie o analogii 2021/22 bez słowa „flanka” (mówi wprost: Polska, Bałtowie, kraje nordyckie, próg 2 redakcji w 30 dniach).
 - Metodyka: nowe sekcje 8–10 (skan, intencja, kontrola jakości), źródła Heuer (1999) i Brier (1950).
 
 ## [1.5.1] - 2026-11-03

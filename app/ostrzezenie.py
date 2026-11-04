@@ -670,7 +670,8 @@ def skrot(w: dict, slownik: Slownik) -> list[str]:
     if dees >= 0.25:
         zd.append(f"Sygnały deeskalacji obecne ({dees*100:.0f}% skali), obniżają indeks.")
     tr = sum(a["trafienie"] for a in w["analogia"])
-    zd.append(f"Analogia do okresu przed 24.02.2022: {tr} z {len(w['analogia'])} kamieni milowych ma dziś odpowiednik wobec flanki.")
+    zd.append(f"Analogia do zimy 2021/22: {tr} z {len(w['analogia'])} zdarzeń, które poprzedziły atak Rosji na Ukrainę 24.02.2022, "
+              f"ma dziś odpowiednik w wiadomościach o Polsce, Bałtach i krajach nordyckich (każde opisały co najmniej 2 niezależne redakcje w 30 dniach).")
     ta = w.get("trend_alarm") or {}
     if ta.get("stan") == "alarm":
         zd.append(f"Trend wzrostowy: {ta['opis']}")
