@@ -59,6 +59,7 @@ Ręczne uruchomienie: Actions → wczesne-ostrzezenie → Run workflow (opcja �
 | `ZGLOSZENIA_DZIENNIE` | zmienna, opcjonalna | najwyżej tyle skanów na żądanie na dobę razem (domyślnie `10`) |
 | `ZGLOSZENIA_NA_OSOBE` | zmienna, opcjonalna | na autora na dobę (domyślnie `3`; właściciel i współpracownicy bez limitu na osobę) |
 | `KONTO_MIN_DNI` | zmienna, opcjonalna | minimalny wiek konta GitHub zgłaszającego (domyślnie `30`) |
+| `ZGLOSZENIA_ZAUFANI` | zmienna, opcjonalna | loginy GitHub po przecinku zwolnione z warunku wieku konta (limit na osobę obowiązuje) |
 | `ZGLOSZENIA_WYLACZ` | zmienna, opcjonalna | `1` = skany na żądanie wyłączone (odpowiedź „chwilowo wyłączone”) |
 | `ALARMY_DZIENNIE` | zmienna, opcjonalna | najwyżej tyle alarmów mailem na dobę (domyślnie `3`); kolejne czekają w kolejce i idą zbiorczo o godzinie raportu albo z następnym alarmem |
 
