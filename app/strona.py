@@ -410,7 +410,7 @@ def naglowek(aktywna: str, wygenerowano: str) -> str:
     baza = "" if aktywna == "pulpit" else "./"  # na pulpicie kotwice, z metodyki powrót do strony głównej (działa też w Artifact)
     zakl = [("pulpit", f"{baza}#stan", "STAN"), ("pulpit-syg", f"{baza}#sygnaly", "SYGNAŁY"),
             ("pulpit-wiad", f"{baza}#wiadomosci", "WIADOMOŚCI"), ("pulpit-an", f"{baza}#analogia", "ANALOGIA 2022"),
-            ("pulpit-zr", f"{baza}#zrodla", "ŹRÓDŁA"), ("pulpit-skan", f"{baza}#skan", "SKAN"),
+            ("pulpit-zr", f"{baza}#zrodla", "ŹRÓDŁA"), ("pulpit-skan", f"{baza}#skan", "ZLEĆ SKAN"),
             ("pulpit-zg", f"{baza}#zgloszenia", "ZGŁOSZENIA"), ("pulpit-jak", f"{baza}#jakosc", "JAKOŚĆ"),
             ("metodyka", "metodyka.html", "METODYKA")]
     linki = "".join(f'<a href="{h}" class="{"aktywna" if k == aktywna else ""}">{t}</a>' for k, h, t in zakl)
@@ -718,8 +718,8 @@ def zbuduj_metodyke(w: dict, zrodla: list[dict], slownik) -> None:
 </div></section>
 
 <section class="panel" id="skan"><div class="proza">
-  <h3>8. Skan na żądanie i weryfikacja linku</h3>
-  <p>Usłyszałeś od kolegi, że „coś się dzieje na granicy”, albo przeczytałeś artykuł i chcesz wiedzieć, czy to prawda. Zakładka <a href="./#skan">SKAN</a> daje dwie drogi.</p>
+  <h3>8. Zleć skan: sprawdzanie na Twoje polecenie</h3>
+  <p>Usłyszałeś od kolegi, że „coś się dzieje na granicy”, albo przeczytałeś artykuł i chcesz wiedzieć, czy to prawda. W zakładce <a href="./#skan">ZLEĆ SKAN</a> to Ty wskazujesz, co sprawdzić, a aplikacja przeszukuje źródła na Twoje polecenie. Są dwie drogi.</p>
   <ol>
     <li><b>Szukaj teraz.</b> Bez konta i od razu: przeszukuje nagłówki z 3 dni ze wszystkich źródeł, także przetłumaczone z bałtyckich i nordyckich. Dopasowanie od początku słowa, więc „granica” znajdzie „granicy”, ale nie „nagranie”.</li>
     <li><b>Pełny skan albo weryfikacja linku.</b> Otwiera gotowe zgłoszenie na GitHubie (darmowe konto). W ok. 5 minut aplikacja (model Claude Sonnet): układa tezę i zapytania w 8 językach regionu, pobiera wszystkie kanały teraz, szuka w archiwum i w Google News z 30 dni, ocenia każde źródło (A–F albo „spoza rejestru”), ustala, kto działa i po co, rozważa co najmniej 3 wyjaśnienia i odpisuje werdyktem: potwierdzone, częściowo, niepotwierdzone, fałszywe albo za mało danych, z pewnością w procentach. Przy linku sprawdza też adres (jak w punkcie 7) i to, czy redakcja jest w rejestrze.</li>
@@ -907,7 +907,7 @@ def sekcje_v2(w: dict, repo: str) -> str:
                        f'<td>{"LINK " if r.get("tryb") == "link" else ""}{e(co)}<div class="notatka">{e(a.get("teza", "")[:160])}</div></td>'
                        f'<td>{_werdykt_html(a.get("werdykt"))}</td><td class="num">{"–" if a.get("pewnosc") is None else f"{a["pewnosc"] * 100:.0f}%"}</td>'
                        f'<td>{e("; ".join(ret) or "czeka")}</td></tr>')
-    tabela_zg = ("".join(wiersze) or '<tr><td colspan="6" class="dim">Brak zgłoszeń. Pierwsze zgłoszenie zleć w zakładce SKAN.</td></tr>')
+    tabela_zg = ("".join(wiersze) or '<tr><td colspan="6" class="dim">Brak zgłoszeń. Pierwsze zgłoszenie zleć w zakładce ZLEĆ SKAN.</td></tr>')
     p = zg.podsumowanie()
     ocena = None
     try:
@@ -938,7 +938,8 @@ def sekcje_v2(w: dict, repo: str) -> str:
         f'{(it.get("po_stronie") or {}).get("wlasna", 0) + (it.get("po_stronie") or {}).get("sojusznicza", 0)}</span></div>')
     return f"""
 <section id="skan" class="panel">
-  <div class="tytul"><h3>Skan na żądanie</h3><span class="etykieta">usłyszałeś coś? sprawdź</span></div>
+  <div class="tytul"><h3>Zleć skan</h3><span class="etykieta">ty wskazujesz, aplikacja sprawdza</span></div>
+  <p style="margin-top:0">Usłyszałeś coś albo przeczytałeś? Wpisz słowa lub wklej link, a aplikacja przeszuka swoje źródła na Twoje zlecenie.</p>
   <div class="dwie">
     <div class="skan-form">
       <label class="etykieta" for="s-slowa">Słowa kluczowe</label>
