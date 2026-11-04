@@ -1,0 +1,114 @@
+# Zgłoszenia: skan źródeł na żądanie (issue z etykietą „skan”, formularz .github/ISSUE_TEMPLATE/skan.yml)
+# i analiza wsteczna zgłoszeń sprzed 7 i 30 dni (poniedziałek). Kod: app/zgloszenia.py.
+# Historia zgłoszeń żyje na gałęzi `zgloszenia` (zwykłe commity = ślad audytowy), osobno od gałęzi `dane`,
+# bo ten workflow ma własną grupę concurrency i nie może nadpisywać danych przebiegu co godzinę.
+# Bezpieczeństwo: treść issue NIGDY nie trafia do poleceń powłoki (tylko numer issue); Python czyta ją przez API,
+# model dostaje ją przez stdin i działa bez narzędzi. Limity: ZGLOSZENIA_DZIENNIE (10), ZGLOSZENIA_NA_OSOBE (3), konto min. KONTO_MIN_DNI (30) dni,
+# wyłącznik ZGLOSZENIA_WYLACZ=1. Model: 2 wywołania na zgłoszenie, bez narzędzi (wstrzyknięcie nie zwiększy zużycia).
+name: zgloszenia
+
+on:
+  issues:
+    types: [opened, labeled]
+  schedule:
+    - cron: '17 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      slowa:
+        description: 'Słowa kluczowe (ręczny skan bez issue)'
+        required: false
+      link:
+        description: 'Link do sprawdzenia'
+        required: false
+      retro:
+        description: 'Analiza wsteczna teraz'
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: zgloszenia-${{ github.event.issue.number || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  skan:
+    if: >-
+      github.event_name != 'issues' ||
+      (contains(github.event.issue.labels.*.name, 'skan') && !contains(github.event.issue.labels.*.name, 'skan-gotowe') &&
+       (github.event.action == 'opened' || github.event.label.name == 'skan'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      issues: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: app/requirements.txt
+
+      - run: pip install -r app/requirements.txt
+
+      - name: Claude Code CLI
+        run: npm install -g @anthropic-ai/claude-code@2.1.316 >/dev/null 2>&1 && claude --version || echo "CLI niedostępne: raport bez oceny modelu"
+
+      - name: Dane (tylko odczyt) i historia zgłoszeń
+        run: |
+          if git ls-remote --exit-code --heads origin dane >/dev/null; then
+            git fetch -q --depth=1 origin dane && git checkout FETCH_HEAD -- app/dane && git reset -q
+          fi
+          rm -rf app/dane/zgloszenia
+          if git ls-remote --exit-code --heads origin zgloszenia >/dev/null; then
+            git fetch -q --depth=1 origin zgloszenia && git checkout FETCH_HEAD -- app/dane/zgloszenia && git reset -q
+          fi
+          mkdir -p app/dane/zgloszenia
+
+      - name: Skan albo analiza wsteczna
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          CLAUDE_BUDZET_DZIENNY: ${{ vars.CLAUDE_BUDZET_DZIENNY }}
+          CLAUDE_WYLACZ: ${{ vars.CLAUDE_WYLACZ }}
+          ZGLOSZENIA_DZIENNIE: ${{ vars.ZGLOSZENIA_DZIENNIE }}
+          ZGLOSZENIA_NA_OSOBE: ${{ vars.ZGLOSZENIA_NA_OSOBE }}
+          ZGLOSZENIA_WYLACZ: ${{ vars.ZGLOSZENIA_WYLACZ }}
+          KONTO_MIN_DNI: ${{ vars.KONTO_MIN_DNI }}
+          ISSUE_NR: ${{ github.event.issue.number }}
+          WE_SLOWA: ${{ inputs.slowa }}
+          WE_LINK: ${{ inputs.link }}
+          WE_RETRO: ${{ inputs.retro }}
+        run: |
+          if [ "${{ github.event_name }}" = "issues" ]; then
+            python app/zgloszenia.py --issue "$ISSUE_NR"
+          elif [ "${{ github.event_name }}" = "schedule" ] || [ "$WE_RETRO" = "true" ]; then
+            python app/zgloszenia.py --retro
+          else
+            python app/zgloszenia.py --slowa "$WE_SLOWA" --link "$WE_LINK"
+          fi
+
+      - name: Historia zgłoszeń na gałąź zgloszenia
+        run: |
+          TMP=$(mktemp -d) && cp -r app/dane/zgloszenia "$TMP/zg" && cp app/zgloszenia.py "$TMP/"
+          git config user.name "ostrzezenie[bot]"
+          git config user.email "ostrzezenie-bot@users.noreply.github.com"
+          for i in 1 2 3; do
+            if git ls-remote --exit-code --heads origin zgloszenia >/dev/null; then
+              git fetch -q --depth=1 origin zgloszenia && git checkout -q -f -B zgloszenia FETCH_HEAD
+            else
+              git checkout -q -f --orphan zgloszenia && git rm -rqf . >/dev/null 2>&1 || true
+            fi
+            git clean -fdq
+            mkdir -p app/dane/zgloszenia
+            python "$TMP/zgloszenia.py" --scal "$TMP/zg" app/dane/zgloszenia
+            git add -A app/dane/zgloszenia
+            git diff --staged --quiet && exit 0
+            git commit -qm "[zgloszenia] $(date -u +%Y-%m-%dT%H:%M) ${{ github.event_name }}"
+            git push -q origin HEAD:zgloszenia && exit 0
+            sleep 5
+          done
+          echo "Nie udało się zapisać historii zgłoszeń"; exit 1

@@ -83,6 +83,11 @@ jobs:
           else
             echo "Pierwsze uruchomienie: dane startowe z main"
           fi
+          # historia zgłoszeń (tylko odczyt: zakładki ZGŁOSZENIA i JAKOŚĆ, raport administracyjny); zapisuje ją zgloszenia.yml
+          rm -rf app/dane/zgloszenia
+          if git ls-remote --exit-code --heads origin zgloszenia >/dev/null; then
+            git fetch -q --depth=1 origin zgloszenia && git checkout FETCH_HEAD -- app/dane/zgloszenia && git reset -q
+          fi
 
       - name: Pobierz, przetłumacz, analizuj, powiadom
         env:
@@ -120,7 +125,7 @@ jobs:
       - name: Zapisz dane na gałąź dane (jeden commit, bez narastającej historii)
         run: |
           TMP=$(mktemp -d)
-          cp -r app/dane "$TMP/dane"
+          cp -r app/dane "$TMP/dane" && rm -rf "$TMP/dane/zgloszenia"
           git config user.name "ostrzezenie[bot]"
           git config user.email "ostrzezenie-bot@users.noreply.github.com"
           git branch -D dane-tmp >/dev/null 2>&1 || true

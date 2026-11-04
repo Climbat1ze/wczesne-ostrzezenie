@@ -1,6 +1,8 @@
 # Słownik wskaźników (metoda Indications & Warnings: lista zdarzeń, które poprzedzają atak).
 # Wzorce to wyrażenia regularne, sprawdzane na małych literach tytułu i leadu (PL, EN, RU).
 # waga: ile kategoria znaczy w indeksie. wysoka: liczy się do alarmu zbieżności.
+# tylko_przeciwnik: wpis, w którym działa strona własna lub sojusznicza (Polska wysyła wojsko, urzędnicy się szkolą),
+#   nie liczy się w tej kategorii; trafia do „przygotowań własnych” na pulpicie (app/intencja.py).
 # propaganda_jako_sygnal: źródła w statusie „monitoring” (Kreml, MSZ Rosji, TASS) liczą się tu z pełną wagą,
 #   bo w tej kategorii sygnałem jest samo to, co mówi Kreml.
 
@@ -9,6 +11,7 @@ kategorie:
     nazwa: "Koncentracja wojsk przy granicy"
     waga: 3
     wysoka: true
+    tylko_przeciwnik: true   # działania strony własnej nie liczą się (app/intencja.py, wersja 2.0)
     wzorce:
       - '\btroops?\b.{0,30}\b(build-?up|concentrat\w*|massing|amass\w*|moving|deploy\w*)'
       - '\b(massing|amassing|concentrat\w*) (of )?(troops|forces)'
@@ -38,6 +41,7 @@ kategorie:
     nazwa: "Gotowość bojowa i mobilizacja"
     waga: 3
     wysoka: true
+    tylko_przeciwnik: true   # działania strony własnej nie liczą się (app/intencja.py, wersja 2.0)
     wzorce:
       - '\bmobili[sz]\w*'
       - '\breservists?\b'
@@ -199,6 +203,7 @@ kategorie:
     nazwa: "Duże ćwiczenia Rosji i Białorusi"
     waga: 2
     wysoka: false
+    tylko_przeciwnik: true   # działania strony własnej nie liczą się (app/intencja.py, wersja 2.0)
     wzorce:
       - '\bzapad\b'
       - '\bunion resolve'

@@ -42,8 +42,11 @@ PLIK_WPISY = DANE / "wpisy.jsonl"
 PLIK_HISTORIA = DANE / "historia.json"
 PLIK_STAT = DANE / "statystyki_zrodel.json"
 PLIK_ALARM = DANE / "stan_alarmu.json"
+PLIK_NAGLOWKI = DANE / "naglowki.jsonl"   # wszystkie nagłówki z 7 dni (także bez trafień): wyszukiwanie i skany na zgłoszenie
+NAGLOWKI_DNI = 7
 WAW = ZoneInfo("Europe/Warsaw")
-UA = "Mozilla/5.0 (compatible; WczesneOstrzezenie/1.0; +https://github.com/)"
+from wersja import WERSJA  # noqa: E402
+UA = f"Mozilla/5.0 (compatible; WczesneOstrzezenie/{WERSJA}; +https://github.com/Climbat1ze/wczesne-ostrzezenie)"
 RETENCJA_DNI = 90
 
 OCENA_MNOZNIK = {"A": 1.0, "B": 0.85, "C": 0.6, "D": 0.3, "E": 0.15, "F": 0.4}
@@ -152,9 +155,26 @@ class Slownik:
     def krytyczne(self, tekst: str) -> list[str]:
         return [n for n, wz in self.krytyczne_wz if any(w.search(tekst) for w in wz)]
 
-    def kategorie(self, tekst: str) -> list[str]:
+    def _surowe(self, tekst: str) -> list[str]:
         return [k for k, wz in self.wz.items()
                 if any(w.search(tekst) for w in wz) and not any(x.search(tekst) for x in self.wyk[k])]
+
+    def kategorie(self, tekst: str) -> list[str]:
+        """Kategorie z reguł. Kategorie z flagą `tylko_przeciwnik` nie liczą działań strony własnej (app/intencja.py)."""
+        kat = self._surowe(tekst)
+        if any(self.kat[k].get("tylko_przeciwnik") for k in kat):
+            import intencja  # noqa: E402
+            if intencja.strona(tekst) == "wlasna":
+                kat = [k for k in kat if not self.kat[k].get("tylko_przeciwnik")]
+        return kat
+
+    def wlasne(self, tekst: str) -> list[str]:
+        """Kategorie zdjęte, bo działa strona własna (przygotowania własne: widoczne, nie podnoszą WW)."""
+        kat = self._surowe(tekst)
+        if not any(self.kat[k].get("tylko_przeciwnik") for k in kat):
+            return []
+        import intencja  # noqa: E402
+        return [k for k in kat if self.kat[k].get("tylko_przeciwnik")] if intencja.strona(tekst) == "wlasna" else []
 
     def geografia(self, tekst: str) -> str:
         for k in ("flanka", "nato"):
@@ -253,6 +273,7 @@ def pobierz(zrodla: list[dict], slownik: Slownik) -> dict:
     nowe = 0
     import tlumacz  # noqa: E402
     pamiec_tl = wczytaj_json(DANE / "tlumaczenia.json", {})
+    archiwum = {w["id"]: w for w in czytaj_naglowki()}
     for z, dane, blad in wyniki:
         s = stat.setdefault(z["id"], {"dni": {}, "ostatni_blad": None, "ostatnio_ok": None})
         if dane is None:
@@ -269,6 +290,9 @@ def pobierz(zrodla: list[dict], slownik: Slownik) -> dict:
         s["blad_od"] = None
         s["najnowszy"] = max(w["data"] for w in wpisy)[:10]
         tlumacz.przetlumacz(wpisy, z.get("jezyk", "pl"), pamiec_tl)
+        for w in wpisy:
+            archiwum[w["id"]] = {k: w[k] for k in ("id", "zrodlo", "grupa", "wydawca", "tytul", "link", "data") if k in w} | {
+                "lead": (w.get("lead") or "")[:200], **({"oryginal": w["oryginal"], "jezyk": w["jezyk"]} if w.get("oryginal") else {})}
         # statystyka krzykliwości liczona na wszystkich tytułach, nie tylko trafieniach
         dz = s["dni"].setdefault(dzien, {"tytuly": [], "krzyk": 0})
         znane = set(dz["tytuly"])
@@ -295,6 +319,7 @@ def pobierz(zrodla: list[dict], slownik: Slownik) -> dict:
     with open(PLIK_WPISY, "w", encoding="utf-8") as f:
         for w in wpisy:
             f.write(json.dumps(w, ensure_ascii=False) + "\n")
+    zapisz_naglowki(archiwum.values(), pobrano)
     for s in stat.values():
         for d in sorted(s["dni"])[:-RETENCJA_DNI]:
             del s["dni"][d]
@@ -311,6 +336,20 @@ def pobierz(zrodla: list[dict], slownik: Slownik) -> dict:
 
 
 LINKI_ODRZUCONE: list[dict] = []  # odrzucone linki z bieżącego przebiegu (zapis do dane/linki_odrzucone.jsonl)
+
+
+def czytaj_naglowki() -> list[dict]:
+    if not PLIK_NAGLOWKI.exists():
+        return []
+    with open(PLIK_NAGLOWKI, encoding="utf-8") as f:
+        return [json.loads(l) for l in f if l.strip()]
+
+
+def zapisz_naglowki(wpisy, koniec: dt.datetime):
+    granica = (koniec - dt.timedelta(days=NAGLOWKI_DNI)).isoformat()
+    with open(PLIK_NAGLOWKI, "w", encoding="utf-8") as f:
+        for w in sorted((w for w in wpisy if w.get("data", "") >= granica), key=lambda w: w["data"]):
+            f.write(json.dumps(w, ensure_ascii=False) + "\n")
 
 
 def czytaj_wpisy() -> list[dict]:
@@ -510,21 +549,41 @@ def jakosc_zrodel(wpisy, zrodla, slownik: Slownik) -> dict:
 
 def czytaj_wpisy_analizy(zrodla, slownik: Slownik) -> list[dict]:
     # Klasyfikacja od nowa przy każdym przebiegu: poprawki słownika działają wstecz na całe 90 dni.
+    # Potem warstwa intencji: zapisany werdykt modelu może zdjąć kategorię (app/intencja.py), reguły strony działają zawsze.
+    import intencja  # noqa: E402
     wpisy = []
     for w in czytaj_wpisy():
         tekst = f"{w['tytul']}. {w.get('lead', '')}"
         w["kategorie"] = slownik.kategorie(tekst)
         w["krytyczne"] = slownik.krytyczne(tekst)
+        w["wlasne"] = slownik.wlasne(tekst)
         w["geo"] = slownik.geografia(tekst)
-        if w["kategorie"] or w["krytyczne"]:
+        intencja.zastosuj(w, slownik.kat)
+        if w["kategorie"] or w["krytyczne"] or w["wlasne"] or (w.get("intencja") or {}).get("zdjete"):
             wpisy.append(w)
     return wpisy
+
+
+def przygotowania_wlasne(wpisy, koniec: dt.datetime, n: int = 8) -> list[dict]:
+    """Wpisy, w których działa strona własna lub sojusznicza (reguły albo model). Widoczne, nie podnoszą WW."""
+    wynik = []
+    nazwy = {k: v["nazwa"].lower() for k, v in Slownik().kat.items()}
+    for kl in klastry([w for w in okno(wpisy, koniec, 72) if w.get("wlasne") or (w.get("intencja") or {}).get("zdjete")]):
+        g = kl[0]
+        zdjete = sorted({k for w in kl for k in (w.get("wlasne") or []) + ((w.get("intencja") or {}).get("zdjete") or [])})
+        wynik.append({"tytul": g["tytul"], "link": g["link"], "wydawca": g["wydawca"], "data": g["data"], "zdjete": zdjete, "zdjete_nazwy": [nazwy.get(k, k) for k in zdjete],
+                      "powod": ((g.get("intencja") or {}).get("powod") or "reguła: działa strona własna lub sojusznicza"),
+                      "grup": len({w["grupa"] for w in kl})})
+    return sorted(wynik, key=lambda x: x["data"], reverse=True)[:n]
 
 
 def analizuj(zrodla, slownik: Slownik, rekonstrukcja_dni=14) -> dict:
     wpisy = czytaj_wpisy_analizy(zrodla, slownik)
     idx = {z["id"]: z for z in zrodla}
     teraz_ = teraz()
+    import intencja  # noqa: E402
+    if intencja.weryfikuj(wpisy, idx, slownik.kat, teraz_):
+        wpisy = czytaj_wpisy_analizy(zrodla, slownik)  # werdykty modelu nałożone na wpisy
     historia = wczytaj_json(PLIK_HISTORIA, {"dni": {}})
     # rekonstrukcja dni, których nie ma w historii (z archiwum kanałów RSS, niepełna)
     for i in range(rekonstrukcja_dni, 0, -1):
@@ -572,6 +631,7 @@ def analizuj(zrodla, slownik: Slownik, rekonstrukcja_dni=14) -> dict:
         "zbieznosc": z, "analogia": an, "skoki": skoki, "trend_alarm": trend_alarm(dni),
         "najwazniejsze": najwazniejsze(wpisy, idx, slownik, teraz_),
         "jakosc": jakosc_zrodel(wpisy, zrodla, slownik),
+        "wlasne": przygotowania_wlasne(wpisy, teraz_), "intencja": intencja.statystyki(),
         "historia": [{"dzien": d, "indeks": v["indeks"], "alarm": v["alarm"], "rek": v.get("rekonstrukcja", False)} for d, v in dni],
     }
     wynik["skrot"] = skrot(wynik, slownik)
@@ -937,8 +997,16 @@ def sekcje_admin(w: dict) -> list[tuple[str, list[str]]]:
     """Dodatkowe sekcje raportu administracyjnego."""
     import jakosc  # noqa: E402
     import samouczenie  # noqa: E402
+    import zgloszenia  # noqa: E402
     oc = w.get("oceny") or {}
-    return [("ZDROWIE PRZEBIEGÓW", jakosc.linie_zdrowia()),
+    it = w.get("intencja") or {}
+    linie_int = [f"Model ocenił w 7 dniach {it.get('ocenione', 0)} wpisów: " + (", ".join(f"{k} {v}" for k, v in (it.get("po_stronie") or {}).items()) or "brak") + "."]
+    linie_int += [f"Strona własna lub sojusznicza: „{t}”" for t in it.get("przyklady_wlasne", [])[:3]]
+    from wersja import WERSJA  # noqa: E402
+    return [("WERSJA", [f"Aplikacja w wersji {WERSJA}. Historia zmian: CHANGELOG.md, zgłoszenia zmian: docs/change_requests.md."]),
+            ("ZGŁOSZENIA I ANALIZA WSTECZNA", zgloszenia.linie_podsumowania()),
+            ("KONTROLA INTENCJI", linie_int),
+            ("ZDROWIE PRZEBIEGÓW", jakosc.linie_zdrowia()),
             ("JAKOŚĆ KLASYFIKACJI", jakosc.linie_jakosci(w.get("ocena"))),
             ("WIARYGODNOŚĆ ŹRÓDEŁ Z DANYCH", (w.get("zmiany_wiarygodnosci") or ["Bez zmian mnożników (0,6–1,2 do oceny A–F)."])
              + [f"Mnożnik liczy się od {samouczenie.MIN_TRAFIEN} alarmowych trafień źródła w 30 dniach."]),
