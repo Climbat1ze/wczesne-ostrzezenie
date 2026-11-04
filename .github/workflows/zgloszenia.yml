@@ -78,6 +78,7 @@ jobs:
           ZGLOSZENIA_NA_OSOBE: ${{ vars.ZGLOSZENIA_NA_OSOBE }}
           ZGLOSZENIA_WYLACZ: ${{ vars.ZGLOSZENIA_WYLACZ }}
           KONTO_MIN_DNI: ${{ vars.KONTO_MIN_DNI }}
+          ZGLOSZENIA_ZAUFANI: ${{ vars.ZGLOSZENIA_ZAUFANI }}
           ISSUE_NR: ${{ github.event.issue.number }}
           WE_SLOWA: ${{ inputs.slowa }}
           WE_LINK: ${{ inputs.link }}

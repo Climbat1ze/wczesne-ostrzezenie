@@ -5,6 +5,12 @@ Zasada numeracji w tej aplikacji: **MAJOR** = nowy moduł albo zmiana sposobu li
 liczenia, **PATCH** = poprawka wzorca, tekstu albo błędu. Wersja żyje w `app/WERSJA`; test `tests/test_wersja.py` pilnuje,
 żeby pierwsza pozycja tego pliku była równa wersji. Zgłoszenia zmian (CR): `docs/change_requests.md`.
 
+## [2.0.2] - 2026-11-04
+
+### Dodane
+- Zmienna repo `ZGLOSZENIA_ZAUFANI`: loginy GitHub zwolnione z warunku wieku konta 30 dni (CR-010). Limit 3 zgłoszeń na osobę
+  na dobę nadal obowiązuje. Lista tylko w ustawieniach repo, nie w kodzie ani w logach.
+
 ## [2.0.1] - 2026-11-04
 
 ### Poprawione

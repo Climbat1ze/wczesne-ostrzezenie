@@ -5,7 +5,8 @@ Ochrona przed nadużyciem (ktoś zgłasza masowo albo wstrzykuje polecenia, żeb
 - liczba wywołań modelu jest stała i ustalona w kodzie: 2 na zgłoszenie (plan, analiza), model nie ma narzędzi,
   więc żadna treść nie może go skłonić do kolejnych wywołań, pobrań ani zapisu;
 - limity: ZGLOSZENIA_DZIENNIE (domyślnie 10 na dobę razem) i ZGLOSZENIA_NA_OSOBE (domyślnie 3 na dobę na autora;
-  właściciel i współpracownicy bez limitu na osobę); konta GitHub młodsze niż KONTO_MIN_DNI (30) odrzucane;
+  właściciel i współpracownicy bez limitu na osobę); konta GitHub młodsze niż KONTO_MIN_DNI (30) odrzucane, z wyjątkiem
+  loginów ze zmiennej repo ZGLOSZENIA_ZAUFANI (decyzja właściciela; limit na osobę ich obowiązuje);
 - wyłącznik ZGLOSZENIA_WYLACZ=1 (same zgłoszenia) i CLAUDE_WYLACZ=1 (cały model);
 - przycięte wejście: słowa 200 znaków, kontekst 1500, strona 4000, najwyżej 40 trafień i 6 zapytań do Google News;
 - treść zgłoszenia, strony i nagłówków idzie do modelu przez stdin jako dane; odpowiedź jest sprawdzana jako JSON
@@ -145,6 +146,13 @@ def _int_env(n: str, d: int) -> int:
 
 
 KONTO_MIN_DNI = 30
+
+
+def zaufany(login: str) -> bool:
+    """Login ze zmiennej ZGLOSZENIA_ZAUFANI (po przecinku, bez @): zwolniony z warunku wieku konta, nie z limitów.
+    Lista żyje w ustawieniach repo, nie w publicznym kodzie, i nie jest wypisywana w logach."""
+    lista = {x.strip().lstrip("@").lower() for x in os.environ.get("ZGLOSZENIA_ZAUFANI", "").split(",") if x.strip()}
+    return login.lower() in lista
 
 
 def wiek_konta(login: str) -> int | None:
@@ -863,7 +871,7 @@ def main(argv=None) -> int:
         uprzyw = iss.get("author_association") in ("OWNER", "MEMBER", "COLLABORATOR")
         if os.environ.get("ZGLOSZENIA_WYLACZ") == "1":
             wolno, powod = False, "zgłoszenia są chwilowo wyłączone przez właściciela"
-        elif not uprzyw and (wiek_konta(autor) or 0) < _int_env("KONTO_MIN_DNI", KONTO_MIN_DNI):
+        elif not uprzyw and not zaufany(autor) and (wiek_konta(autor) or 0) < _int_env("KONTO_MIN_DNI", KONTO_MIN_DNI):
             wolno, powod = False, f"konto GitHub musi mieć co najmniej {_int_env('KONTO_MIN_DNI', KONTO_MIN_DNI)} dni (ochrona przed masowymi zgłoszeniami)"
         else:
             wolno, powod = sprawdz_limit(autor, uprzyw)

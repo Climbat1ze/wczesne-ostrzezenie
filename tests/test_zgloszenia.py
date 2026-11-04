@@ -113,3 +113,11 @@ def test_scal_nie_gubi_rownoleglych(tmp_path):
 
 def test_id_z_numerem_issue():
     assert zg.nowe_id("2026-11-04", 12) == "ZG-20261104-12"
+
+
+def test_zaufany(monkeypatch):
+    monkeypatch.setenv("ZGLOSZENIA_ZAUFANI", "Patryk-X, @inny")
+    assert zg.zaufany("patryk-x") and zg.zaufany("INNY")
+    assert not zg.zaufany("obcy")
+    monkeypatch.delenv("ZGLOSZENIA_ZAUFANI")
+    assert not zg.zaufany("patryk-x")
