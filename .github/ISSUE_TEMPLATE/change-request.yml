@@ -1,0 +1,27 @@
+name: Zgłoszenie zmiany (Change Request)
+description: Propozycja zmiany aplikacji. Właściciel nadaje numer CR, decyduje i wpisuje do docs/change_requests.md.
+title: "[CR] "
+labels: ["change-request"]
+body:
+  - type: textarea
+    id: co
+    attributes:
+      label: Co zmienić
+      placeholder: "np. ręczny skan źródeł po słowach kluczowych"
+    validations:
+      required: true
+  - type: textarea
+    id: dlaczego
+    attributes:
+      label: Dlaczego (sytuacja, przykład)
+      placeholder: "np. kolega mówi o ruchach wojsk przy granicy, chcę to sprawdzić od razu"
+  - type: dropdown
+    id: rodzaj
+    attributes:
+      label: Rodzaj zmiany
+      options:
+        - nowa funkcja
+        - poprawka błędu
+        - zmiana sposobu liczenia (progi, wagi, kategorie)
+        - źródła
+        - wygląd lub tekst

@@ -1,2 +1,8 @@
 __pycache__/
 *.tmp
+
+# dane działania żyją na gałęziach dane i zgloszenia, nie w main
+app/dane/zgloszenia/
+app/dane/naglowki.jsonl
+app/dane/intencje.json
+app/dane/analogia_weryfikacja.json

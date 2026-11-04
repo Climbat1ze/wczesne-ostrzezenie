@@ -13,6 +13,8 @@ from html import escape as e
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from wersja import WERSJA  # noqa: E402
+
 WAW = ZoneInfo("Europe/Warsaw")
 STRONA = Path(__file__).resolve().parent.parent / "strona"
 MIESIACE = ["stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca", "lipca", "sierpnia",
@@ -408,7 +410,9 @@ def naglowek(aktywna: str, wygenerowano: str) -> str:
     baza = "" if aktywna == "pulpit" else "./"  # na pulpicie kotwice, z metodyki powrót do strony głównej (działa też w Artifact)
     zakl = [("pulpit", f"{baza}#stan", "STAN"), ("pulpit-syg", f"{baza}#sygnaly", "SYGNAŁY"),
             ("pulpit-wiad", f"{baza}#wiadomosci", "WIADOMOŚCI"), ("pulpit-an", f"{baza}#analogia", "ANALOGIA 2022"),
-            ("pulpit-zr", f"{baza}#zrodla", "ŹRÓDŁA"), ("metodyka", "metodyka.html", "METODYKA")]
+            ("pulpit-zr", f"{baza}#zrodla", "ŹRÓDŁA"), ("pulpit-skan", f"{baza}#skan", "SKAN"),
+            ("pulpit-zg", f"{baza}#zgloszenia", "ZGŁOSZENIA"), ("pulpit-jak", f"{baza}#jakosc", "JAKOŚĆ"),
+            ("metodyka", "metodyka.html", "METODYKA")]
     linki = "".join(f'<a href="{h}" class="{"aktywna" if k == aktywna else ""}">{t}</a>' for k, h, t in zakl)
     return (f'<div class="belka"><div class="marka">{ikona_radiacja("ikona flicker")}'
             f'<div><h1>WCZESNE OSTRZEŻENIE</h1><div class="sub">TERMINAL OBRONY CYWILNEJ · WARSZAWA · MODEL WW-3000</div></div></div>'
@@ -420,13 +424,14 @@ def stopka(n_zrodel: int) -> str:
     return (f'<footer><span>{ikona_schron()} Prywatne narzędzie znajomych, nie komunikat władz. Oficjalne alerty: '
             f'<a href="https://www.gov.pl/web/rcb" target="_blank" rel="noopener">Rządowe Centrum Bezpieczeństwa</a>.</span>'
             f'<span>{n_zrodel} źródeł · odczyt co godzinę · <a href="metodyka.html#telefon">ikona na telefon i maile</a> · '
-            f'<a href="metodyka.html">jak to działa i jak zgłosić błąd</a></span></footer>')
+            f'<a href="metodyka.html">jak to działa i jak zgłosić błąd</a> · '
+            f'<a href="https://github.com/Climbat1ze/wczesne-ostrzezenie/blob/main/CHANGELOG.md" target="_blank" rel="noopener">wersja {e(WERSJA)}</a></span></footer>')
 
 
 def dokument(tytul: str, tresc: str, skrypt: str = "") -> str:
     import ikony  # noqa: E402
     glowa = (f'<title>{e(tytul)}</title>\n<meta name="claude:viewport-fit-sides" content="cover">\n'
-             f'{ikony.GLOWA}{FONTY}<style>{CSS}</style>\n')
+             f'{ikony.GLOWA}{FONTY}<style>{CSS}{CSS_V2}</style>\n')
     return glowa, tresc + (f"<script>{skrypt}</script>" if skrypt else "")
 
 
@@ -442,6 +447,10 @@ def zapisz_pelny(nazwa: str, glowa: str, cialo: str):
 
 def zbuduj(w: dict, zrodla: list[dict], slownik) -> None:
     STRONA.mkdir(exist_ok=True)
+    import samouczenie  # noqa: E402
+    repo = samouczenie.repo()
+    n_szukaj = zapisz_szukaj(zrodla)
+    print(f"Strona: szukaj.json, {n_szukaj} nagłówków z 3 dni")
     import ikony  # noqa: E402
     ikony.zapisz(STRONA)  # ikona na pulpit telefonu i manifest (deterministyczne, ok. 0,2 s)
     prog, kat, zb, t = w["prog"], slownik.kat, w["zbieznosc"], w["trend"]
@@ -476,7 +485,15 @@ def zbuduj(w: dict, zrodla: list[dict], slownik) -> None:
     an = []
     for a in w["analogia"]:
         przyk = "; ".join(f'<a href="{e(p["link"])}" target="_blank" rel="noopener">{e(p["tytul"][:90])}</a> ({e(p["wydawca"])})' for p in a["przyklady"])
-        dzis = (f'DZIŚ: {a["grup"]} {"redakcje" if a["grup"] < 5 else "redakcji"} w 30 dniach. {przyk}' if a["grup"] else "DZIŚ: brak odpowiednika wobec Polski i Bałtów.")
+        dzis = (f'DZIŚ: {a["grup"]} {"redakcje" if a["grup"] < 5 else "redakcji"} w 30 dniach. {przyk}' if a["grup"] else "DZIŚ: brak odpowiednika wobec Polski, Bałtów i krajów nordyckich.")
+        if a.get("odrzucone"):
+            dzis += (' Model odrzucił 1 wiadomość, która pasowała słowami, ale nie sensem.' if a["odrzucone"] == 1 else
+                     f' Model odrzucił {a["odrzucone"]} wiadomości, które pasowały słowami, ale nie sensem.')
+        if a.get("niezweryfikowane"):
+            dzis += f' {a["niezweryfikowane"]} bez sprawdzenia modelem.'
+        pow_ = "; ".join(p["powod"] for p in a["przyklady"] if p.get("powod"))
+        if pow_:
+            dzis += f' Dlaczego pasuje: {e(pow_)}'
         an.append(f'<li class="{"tak" if a["trafienie"] else "nie"}"><span class="znak" aria-label="{"jest odpowiednik" if a["trafienie"] else "brak"}">{"!" if a["trafienie"] else "·"}</span>'
                   f'<span class="kiedy">{e(a["kiedy"])}</span><div class="tresc"><div>{e(a["co"])}</div><div class="dim" style="font-size:.82rem">{dzis}</div></div></li>')
 
@@ -513,13 +530,13 @@ def zbuduj(w: dict, zrodla: list[dict], slownik) -> None:
         f'<span class="w">{ {"alarm": "WŁĄCZONY", "norma": "NORMA", "zbieram": "KALIBRACJA"}.get(ta.get("stan"), "–") }</span>'
         f'<span class="dim" style="font-size:.78rem">{e(ta.get("opis", ""))}</span></div>'
         f'<div class="kafel{" on" if traf >= 5 else ""}"><span class="etykieta">Analogia 2021/22</span>'
-        f'<span class="w num">{traf} / {len(w["analogia"])}</span><span class="dim" style="font-size:.78rem">kamieni milowych ma odpowiednik</span></div>'
+        f'<span class="w num">{traf} / {len(w["analogia"])}</span><span class="dim" style="font-size:.78rem">zdarzeń sprzed 24.02.2022 ma dziś odpowiednik u nas</span></div>'
         + trend_kafel("Wobec wczoraj", w["indeks"], t["wczoraj"])
         + trend_kafel("Wobec 7 dni", w["indeks"], t["sr_7"])
         + trend_kafel("Wobec 30 dni", w["indeks"], t["sr_30"]))
 
     tresc = f"""
-<div class="wrap"><div class="obudowa"><div class="ekran">
+<div class="wrap" id="pulpit" data-repo="{e(repo)}"><div class="obudowa"><div class="ekran">
 {naglowek("pulpit", w["wygenerowano"])}
 
 <section id="stan" class="siatka {poz}">
@@ -563,7 +580,7 @@ def zbuduj(w: dict, zrodla: list[dict], slownik) -> None:
 
 <section id="analogia" class="panel">
   <div class="tytul"><h3>Analogia do zimy 2021/22</h3><span class="etykieta">{traf} z {len(w["analogia"])} świeci</span></div>
-  <p class="dim" style="font-size:.82rem">Zdarzenia, które poprzedziły atak na Ukrainę 24.02.2022. Znak „!”: w 30 dniach min. 2 niezależne redakcje opisały podobny sygnał wobec Polski lub Bałtów. Jeden znak nic nie znaczy; liczy się kilka naraz.</p>
+  <p class="dim" style="font-size:.82rem">Zdarzenia, które poprzedziły atak na Ukrainę 24.02.2022. Znak „!”: w 30 dniach min. 2 niezależne redakcje opisały odpowiednik wobec Polski, Bałtów lub krajów nordyckich, a model sprawdził, czy zgadza się strona (kto działa, wobec kogo), nie tylko słowa. Jeden znak nic nie znaczy; liczy się kilka naraz.</p>
   <ul class="lista analog">{"".join(an)}</ul>
 </section>
 
@@ -582,14 +599,17 @@ def zbuduj(w: dict, zrodla: list[dict], slownik) -> None:
   <tbody>{"".join(wiersze_zr)}</tbody></table></div>
 </section>
 
+{sekcje_v2(w, repo)}
+
 {stopka(len(zrodla))}
 </div></div></div>
 """
-    glowa, cialo = dokument("Wczesne Ostrzeżenie Warszawa", tresc, JS)
+    glowa, cialo = dokument("Wczesne Ostrzeżenie Warszawa", tresc, JS + JS_V2)
     (STRONA / "artefakt.html").write_text(glowa + cialo, encoding="utf-8")
     zapisz_pelny("index.html", glowa, cialo)
     zbuduj_metodyke(w, zrodla, slownik)
     dane = {k: w[k] for k in ("wygenerowano", "indeks", "prog", "trend", "natezenie", "skrot", "historia")}
+    dane["wersja"] = WERSJA
     dane["zbieznosc"] = {"poziom": zb["poziom"], "nazwa": zb["nazwa"], "zbiezne": zb["zbiezne"]}
     dane["sekundy_do_polnocy"] = sekundy_do_polnocy(w["indeks"])
     (STRONA / "dane.json").write_text(json.dumps(dane, ensure_ascii=False, indent=1), encoding="utf-8")
@@ -697,8 +717,38 @@ def zbuduj_metodyke(w: dict, zrodla: list[dict], slownik) -> None:
   <p class="dim">Pierwsze sprawdzenie 3 listopada 2026: 52 domeny, żadna groźna. Kontrola zmniejsza ryzyko, ale go nie usuwa: strona prawdziwej redakcji też może zostać zhakowana. Nie podawaj haseł na stronach, do których prowadzą linki.</p>
 </div></section>
 
+<section class="panel" id="skan"><div class="proza">
+  <h3>8. Skan na żądanie i weryfikacja linku</h3>
+  <p>Usłyszałeś od kolegi, że „coś się dzieje na granicy”, albo przeczytałeś artykuł i chcesz wiedzieć, czy to prawda. Zakładka <a href="./#skan">SKAN</a> daje dwie drogi.</p>
+  <ol>
+    <li><b>Szukaj teraz.</b> Bez konta i od razu: przeszukuje nagłówki z 3 dni ze wszystkich źródeł, także przetłumaczone z bałtyckich i nordyckich. Dopasowanie od początku słowa, więc „granica” znajdzie „granicy”, ale nie „nagranie”.</li>
+    <li><b>Pełny skan albo weryfikacja linku.</b> Otwiera gotowe zgłoszenie na GitHubie (darmowe konto). W ok. 5 minut aplikacja (model Claude Sonnet): układa tezę i zapytania w 8 językach regionu, pobiera wszystkie kanały teraz, szuka w archiwum i w Google News z 30 dni, ocenia każde źródło (A–F albo „spoza rejestru”), ustala, kto działa i po co, rozważa co najmniej 3 wyjaśnienia i odpisuje werdyktem: potwierdzone, częściowo, niepotwierdzone, fałszywe albo za mało danych, z pewnością w procentach. Przy linku sprawdza też adres (jak w punkcie 7) i to, czy redakcja jest w rejestrze.</li>
+  </ol>
+  <p>Limity: 3 zgłoszenia na osobę i 10 razem na dobę, konto GitHub starsze niż 30 dni. Każde zgłoszenie to dokładnie 2 zapytania do modelu, który nie ma żadnych narzędzi, więc tekst podrzucony w zgłoszeniu albo na stronie z linku nie zmusi go do dodatkowej pracy. Zgłoszenie i odpowiedź są publiczne. Bez modelu językowego (awaria, budżet) odpowiedź zawiera tylko listę znalezionych wiadomości i liczbę niezależnych redakcji, bez werdyktu.</p>
+</div></section>
+
+<section class="panel" id="intencja"><div class="proza">
+  <h3>9. Kto działa i po co: kontrola intencji</h3>
+  <p>Słowa „wojsko przy granicy” nie mówią, czyje to wojsko. 3 listopada 2026 aplikacja policzyła „Polska wysyła wojsko na granicę z Rosją” jak koncentrację wojsk przeciwnika. Od wersji 2.0 działają dwie warstwy kontroli:</p>
+  <ol>
+    <li><b>Reguły, przy każdym przebiegu.</b> Pierwszy aktor w zdaniu i czasownik po nim. „Polska, urzędnicy, NATO + wysyła, szkoli, ćwiczy, buduje” to strona własna. Taki wpis nie liczy się do koncentracji wojsk, mobilizacji ani ćwiczeń przeciwnika; widać go w zakładce <a href="./#jakosc">JAKOŚĆ</a>.</li>
+    <li><b>Model językowy, raz na godzinę.</b> Sprawdza tylko wiadomości, które mogą podnieść spiętrzenie sygnałów (72 h, Polska i sąsiedzi, źródło A–C). Przy pewności co najmniej 70% może zdjąć kategorię, ale nigdy jej nie dodaje i nie wycisza sygnałów krytycznych, bo jego pomyłka nie może uciszyć prawdziwego alarmu. Każdy wpis jest oceniany raz, wynik z powodem jest zapisany.</li>
+  </ol>
+</div></section>
+
+<section class="panel" id="jakosc"><div class="proza">
+  <h3>10. Kontrola jakości: sprawdzanie wstecz</h3>
+  <p>Każde zgłoszenie trafia do historii z werdyktem, pewnością i prognozą: co powinno się pojawić w źródłach, jeśli teza jest prawdziwa. Po 7 i po 30 dniach aplikacja szuka jeszcze raz, tylko w wiadomościach opublikowanych po zgłoszeniu, i ocenia: teza okazała się prawdą, fałszem albo nadal nie wiadomo. Wynik dopisuje w wątku zgłoszenia.</p>
+  <ul>
+    <li><b>Trafność werdyktów:</b> odsetek rozstrzygniętych zgłoszeń, przy których werdykt wskazał dobry kierunek.</li>
+    <li><b>Wynik Briera</b> (Brier 1950): kara za źle ustawioną pewność. 0 to ideał, 0,25 to poziom rzutu monetą. Pewność 90% przy tezie, która okazała się fałszem, kosztuje 0,81.</li>
+    <li><b>Lekcje:</b> każda chybiona ocena daje jedno zdanie wniosku (np. „pomylona strona działania”). Lekcje czyta cotygodniowe autoulepszanie, które proponuje poprawki reguł do przeglądu przez właściciela.</li>
+  </ul>
+  <p class="dim">Historia zmian aplikacji i rejestr zgłoszeń zmian (Change Requests): <a href="https://github.com/Climbat1ze/wczesne-ostrzezenie/blob/main/CHANGELOG.md" target="_blank" rel="noopener">CHANGELOG.md</a> i <a href="https://github.com/Climbat1ze/wczesne-ostrzezenie/blob/main/docs/change_requests.md" target="_blank" rel="noopener">docs/change_requests.md</a>. Obecna wersja: {e(WERSJA)}.</p>
+</div></section>
+
 <section class="panel" id="ograniczenia"><div class="proza">
-  <h3>8. Czego aplikacja nie umie</h3>
+  <h3>11. Czego aplikacja nie umie</h3>
   <ul>
     <li>Myli się w obie strony, bo czyta słowa, nie sens. „Ulica Wojska Polskiego” to nie wojsko, a ironia to nie groźba.</li>
     <li>Nie zobaczy zagrożenia, którego nikt jeszcze nie opisał, ani nowego rodzaju zdarzeń spoza słownika.</li>
@@ -708,11 +758,12 @@ def zbuduj_metodyke(w: dict, zrodla: list[dict], slownik) -> None:
 </div></section>
 
 <section class="panel" id="bledy"><div class="proza">
-  <h3>9. Jak zgłosić błąd</h3>
+  <h3>12. Jak zgłosić błąd</h3>
   <ol>
     <li><b>Odpowiedz na dowolny mail z aplikacji.</b> Odpowiedź trafia do autora.</li>
     <li>Napisz jedno zdanie: która wiadomość albo który alarm, co jest źle i dlaczego. Przykład: „Ostrzeżenie z 2.11 fałszywe: »prowokacja« dotyczyła sporu o Trybunał, nie Rosji”.</li>
     <li>Chcesz dodać albo zakwestionować źródło: podaj nazwę, adres strony i powód.</li>
+    <li>Masz pomysł na zmianę: otwórz <a href="https://github.com/Climbat1ze/wczesne-ostrzezenie/issues/new?template=change-request.yml" target="_blank" rel="noopener">zgłoszenie zmiany (Change Request)</a>.</li>
   </ol>
   <p>Zgłoszenia zbieramy do kalibracji słownika i progów. Pierwsza kalibracja: 2 grudnia 2026. Każda poprawka słownika działa wstecz na 90 dni zapisanych wiadomości.</p>
 </div></section>
@@ -723,6 +774,8 @@ def zbuduj_metodyke(w: dict, zrodla: list[dict], slownik) -> None:
     <li>Cynthia M. Grabo, <i>Anticipating Surprise: Analysis for Strategic Warning</i> (2002): listy wskaźników ostrzegawczych.</li>
     <li>NATO, skala oceny źródeł i informacji A–F, 1–6 (doktryna wywiadu sojuszu).</li>
     <li>E. S. Page, „Continuous Inspection Schemes”, <i>Biometrika</i> (1954): metoda CUSUM do wykrywania powolnych zmian.</li>
+    <li>Richards J. Heuer Jr., <i>Psychology of Intelligence Analysis</i> (1999): analiza hipotez konkurencyjnych (ACH).</li>
+    <li>Glenn W. Brier, „Verification of Forecasts Expressed in Terms of Probability”, <i>Monthly Weather Review</i> (1950): wynik Briera.</li>
   </ul>
 </div></section>
 
@@ -731,3 +784,194 @@ def zbuduj_metodyke(w: dict, zrodla: list[dict], slownik) -> None:
 """
     glowa, cialo = dokument("Wczesne Ostrzeżenie: Metodyka", tresc)
     zapisz_pelny("metodyka.html", glowa, cialo)
+
+
+# ---------------------------------------------------------------- wersja 2.0: skan, zgłoszenia, jakość
+
+CSS_V2 = """
+/* skan na żądanie, zgłoszenia, jakość (wersja 2.0) */
+.skan-form { display: grid; gap: 8px; }
+.skan-form input, .skan-form textarea { font: inherit; font-size: .95rem; padding: 6px 8px; border: 1px solid var(--ph-dim); border-radius: 0;
+  background: var(--screen); color: var(--ph); width: 100%; min-width: 0; }
+.skan-form textarea { min-height: 3.2em; resize: vertical; }
+.przyciski { display: flex; flex-wrap: wrap; gap: 8px; }
+.przycisk { font: inherit; font-size: .85rem; letter-spacing: .08em; text-transform: uppercase; padding: 6px 12px; cursor: pointer;
+  border: 1px solid var(--ph); background: transparent; color: var(--ph); text-decoration: none; display: inline-block; }
+.przycisk.pelny { background: var(--ph); color: var(--ink-inv); text-shadow: none; }
+.przycisk:focus-visible, .skan-form input:focus-visible, .skan-form textarea:focus-visible { outline: 2px solid var(--ph); outline-offset: 2px; }
+.dwie { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.wynik-szukaj { font-size: .84rem; }
+.wynik-szukaj li { padding: 6px 0; border-bottom: 1px dashed var(--ph-faint); list-style: none; }
+.wynik-szukaj ul { padding: 0; margin: 0; }
+.werdykt { display: inline-block; border: 1px solid var(--ph-dim); padding: 0 6px; font-size: .75rem; white-space: nowrap; }
+.werdykt.w-potwierdzone, .werdykt.w-czesciowo { background: var(--ph); color: var(--ink-inv); text-shadow: none; }
+.werdykt.w-falszywe { text-decoration: line-through; }
+"""
+
+JS_V2 = r"""
+(function () {
+  var P = document.getElementById('pulpit'); var REPO = (P && P.dataset.repo) || 'Climbat1ze/wczesne-ostrzezenie';
+  function issue(pola) {
+    var q = Object.keys(pola).filter(function (k) { return pola[k]; })
+      .map(function (k) { return encodeURIComponent(k) + '=' + encodeURIComponent(pola[k]); }).join('&');
+    return 'https://github.com/' + REPO + '/issues/new?template=skan.yml&' + q;
+  }
+  var qs = document.getElementById('s-slowa'), qk = document.getElementById('s-kontekst'), qw = document.getElementById('s-wynik');
+  var ql = document.getElementById('l-link'), qlk = document.getElementById('l-kontekst');
+  if (!qs) return;
+  function rdzen(s) { return s.length <= 5 ? s : s.slice(0, Math.max(5, s.length - 2)); }
+  var dane = null;
+  function zaladuj(cb) {
+    if (dane) return cb(dane);
+    var u = /github\.io$/.test(location.hostname) || location.protocol === 'file:' || location.hostname === 'localhost' ? 'szukaj.json'
+      : 'https://climbat1ze.github.io/wczesne-ostrzezenie/szukaj.json';
+    qw.textContent = 'Wczytuję nagłówki z 3 dni...';
+    fetch(u).then(function (r) { return r.json(); }).then(function (d) { dane = d; cb(d); })
+      .catch(function () { qw.textContent = 'Nie udało się wczytać nagłówków. Użyj pełnego skanu przez GitHub.'; });
+  }
+  function el(tag, txt, attrs) { var x = document.createElement(tag); if (txt) x.textContent = txt; for (var a in (attrs || {})) x.setAttribute(a, attrs[a]); return x; }
+  function szukaj() {
+    var slowa = (qs.value || '').toLowerCase().match(/[\p{L}\p{N}]{3,}/gu) || [];
+    if (!slowa.length) { qw.textContent = 'Wpisz co najmniej jedno słowo (3 litery i więcej).'; return; }
+    var r = slowa.map(rdzen);
+    zaladuj(function (d) {
+      var re = r.map(function (k) { return new RegExp('(^|[^\\p{L}\\p{N}])' + k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'u'); });
+      var traf = d.n.filter(function (x) { var t = (x.t + ' ' + (x.o || '')).toLowerCase(); return re.every(function (k) { return k.test(t); }); });
+      qw.innerHTML = '';
+      var naglowek = el('p', traf.length + ' wiadomości z 3 dni zawiera wszystkie słowa (' + d.n.length + ' sprawdzonych, ' + d.zrodel + ' źródeł). '
+        + (traf.length ? 'Pokazuję do 30 najnowszych.' : 'Spróbuj innych słów albo zleć pełny skan: obejmie też Google News i 30 dni.'));
+      naglowek.className = 'dim'; qw.appendChild(naglowek);
+      var ul = el('ul');
+      traf.slice(0, 30).forEach(function (x) {
+        var li = el('li'), a = el('a', x.t, { href: x.l, target: '_blank', rel: 'noopener' });
+        li.appendChild(a);
+        li.appendChild(el('div', x.z + ' · ocena ' + x.c + ' · ' + x.d.replace('T', ' '), { 'class': 'dim' }));
+        ul.appendChild(li);
+      });
+      qw.appendChild(ul);
+    });
+  }
+  document.getElementById('s-szukaj').addEventListener('click', szukaj);
+  qs.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); szukaj(); } });
+  document.getElementById('s-zlec').addEventListener('click', function () {
+    if (!qs.value.trim()) { qw.textContent = 'Wpisz słowa kluczowe.'; return; }
+    window.open(issue({ title: '[skan] ' + qs.value.trim().slice(0, 80), slowa: qs.value.trim(), kontekst: qk.value.trim() }), '_blank', 'noopener');
+  });
+  document.getElementById('l-zlec').addEventListener('click', function () {
+    var v = (ql.value || '').trim();
+    if (!/^https?:\/\//i.test(v)) { document.getElementById('l-info').textContent = 'Wklej pełny link zaczynający się od https://'; return; }
+    window.open(issue({ title: '[link] ' + v.replace(/^https?:\/\//, '').slice(0, 80), link: v, kontekst: qlk.value.trim() }), '_blank', 'noopener');
+  });
+})();
+"""
+
+
+def zapisz_szukaj(zrodla: list[dict], dni: int = 3) -> int:
+    """strona/szukaj.json: nagłówki z 3 dni do szybkiego szukania w przeglądarce (bez konta, bez modelu)."""
+    import ostrzezenie as o  # noqa: E402
+    ocena = {z["id"]: z["wiarygodnosc"] if z.get("grupa") != "@wydawca" else "?" for z in zrodla}
+    granica = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=dni)).isoformat()
+    lista = sorted((w for w in o.czytaj_naglowki() if w.get("data", "") >= granica), key=lambda w: w["data"], reverse=True)
+    n = [{"t": w["tytul"][:200], **({"o": w["oryginal"][:200]} if w.get("oryginal") else {}), "z": w.get("wydawca", "")[:50],
+          "c": ocena.get(w.get("zrodlo"), "?"), "d": w["data"][:16], "l": w.get("link", "")} for w in lista]
+    (STRONA / "szukaj.json").write_text(json.dumps({"wygenerowano": dt.datetime.now(dt.timezone.utc).isoformat(timespec="minutes"),
+                                                   "zrodel": len({w.get("zrodlo") for w in lista}), "n": n},
+                                                  ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    return len(n)
+
+
+def _werdykt_html(kod: str | None) -> str:
+    import zgloszenia as zg  # noqa: E402
+    if not kod:
+        return '<span class="dim">–</span>'
+    return f'<span class="werdykt w-{e(kod)}">{e(zg.WERDYKTY.get(kod, kod))}</span>'
+
+
+def sekcje_v2(w: dict, repo: str) -> str:
+    import zgloszenia as zg  # noqa: E402
+    import jakosc as jk  # noqa: E402
+    hist = list(reversed(zg.historia()))[:20]
+    wiersze = []
+    for r in hist:
+        a = r.get("analiza", {})
+        co = r.get("slowa") or r.get("domena") or r.get("link", "")[:60]
+        ident = (f'<a href="https://github.com/{e(repo)}/issues/{int(r["issue"])}" target="_blank" rel="noopener">{e(r["id"])}</a>'
+                 if r.get("issue") else e(r["id"]))
+        ret = []
+        for etap in ("7d", "30d"):
+            x = (r.get("retro") or {}).get(etap)
+            if x:
+                znak = {True: "trafny", False: "chybiony"}.get(x.get("werdykt_trafny"), zg.WYNIK_RETRO.get(x.get("wynik"), "?"))
+                ret.append(f"{etap.replace('d', ' dni')}: {znak}")
+        wiersze.append(f'<tr><td class="num">{ident}</td><td class="num">{e(data_pl(r["ts"]))}</td>'
+                       f'<td>{"LINK " if r.get("tryb") == "link" else ""}{e(co)}<div class="notatka">{e(a.get("teza", "")[:160])}</div></td>'
+                       f'<td>{_werdykt_html(a.get("werdykt"))}</td><td class="num">{"–" if a.get("pewnosc") is None else f"{a["pewnosc"] * 100:.0f}%"}</td>'
+                       f'<td>{e("; ".join(ret) or "czeka")}</td></tr>')
+    tabela_zg = ("".join(wiersze) or '<tr><td colspan="6" class="dim">Brak zgłoszeń. Pierwsze zgłoszenie zleć w zakładce SKAN.</td></tr>')
+    p = zg.podsumowanie()
+    ocena = None
+    try:
+        lj = [json.loads(l) for l in (jk.DANE / "jakosc.jsonl").read_text(encoding="utf-8").splitlines() if l.strip()]
+        ocena = lj[-1] if lj else None
+    except FileNotFoundError:
+        pass
+    it = w.get("intencja") or {}
+    wl = w.get("wlasne") or []
+    lista_wl = "".join(
+        f'<li><div><a href="{e(x["link"])}" target="_blank" rel="noopener">{e(x["tytul"])}</a></div>'
+        f'<div class="meta"><span>{e(x["wydawca"])}</span><span class="num">{data_pl(x["data"])}</span>'
+        f'<span>nie liczy się do: {e(", ".join(x.get("zdjete_nazwy") or x["zdjete"]))}</span></div><div class="dim" style="font-size:.78rem">{e(x["powod"])}</div></li>'
+        for x in wl) or '<li class="dim">Brak w 72 h.</li>'
+    kafle = (
+        f'<div class="kafel"><span class="etykieta">Trafność werdyktów (wstecz)</span>'
+        f'<span class="w num">{"–" if p["trafnosc"] is None else f"{p["trafnosc"] * 100:.0f}%"}</span>'
+        f'<span class="dim" style="font-size:.78rem">{p["trafne"]} z {p["rozstrzygniete"]} rozstrzygniętych; czeka {p["czeka_na_retro"]}</span></div>'
+        f'<div class="kafel"><span class="etykieta">Kalibracja pewności (Brier)</span>'
+        f'<span class="w num">{"–" if p["brier"] is None else f"{p["brier"]:.2f}"}</span>'
+        f'<span class="dim" style="font-size:.78rem">0 = idealnie, 0,25 = rzut monetą</span></div>'
+        f'<div class="kafel"><span class="etykieta">Klasyfikacja nagłówków</span>'
+        f'<span class="w num">{"–" if not ocena else f"{ocena["odsetek"] * 100:.0f}%"}</span>'
+        f'<span class="dim" style="font-size:.78rem">{"brak oceny" if not ocena else f"trafnych w losowej próbce {ocena["ocenione"]}, {ocena["ts"][:10]}"}</span></div>'
+        f'<div class="kafel"><span class="etykieta">Kontrola intencji (7 dni)</span>'
+        f'<span class="w num">{it.get("ocenione", 0)}</span>'
+        f'<span class="dim" style="font-size:.78rem">wpisów sprawdził model; strona własna lub sojusznicza: '
+        f'{(it.get("po_stronie") or {}).get("wlasna", 0) + (it.get("po_stronie") or {}).get("sojusznicza", 0)}</span></div>')
+    return f"""
+<section id="skan" class="panel">
+  <div class="tytul"><h3>Skan na żądanie</h3><span class="etykieta">usłyszałeś coś? sprawdź</span></div>
+  <div class="dwie">
+    <div class="skan-form">
+      <label class="etykieta" for="s-slowa">Słowa kluczowe</label>
+      <input id="s-slowa" type="search" placeholder="np. wojsko granica Białoruś" autocomplete="off">
+      <label class="etykieta" for="s-kontekst">Co usłyszałeś (opcjonalnie, do pełnego skanu)</label>
+      <textarea id="s-kontekst" placeholder="np. kolega mówi, że urzędnicy szkolą się z broni palnej"></textarea>
+      <div class="przyciski"><button class="przycisk pelny" id="s-szukaj" type="button">Szukaj teraz (3 dni)</button>
+        <button class="przycisk" id="s-zlec" type="button">Zleć pełny skan z oceną</button></div>
+    </div>
+    <div class="skan-form">
+      <label class="etykieta" for="l-link">Link do sprawdzenia</label>
+      <input id="l-link" type="url" placeholder="https://..." autocomplete="off">
+      <label class="etykieta" for="l-kontekst">Co chcesz wiedzieć (opcjonalnie)</label>
+      <textarea id="l-kontekst" placeholder="np. czy to prawda i czy piszą o tym inni"></textarea>
+      <div class="przyciski"><button class="przycisk" id="l-zlec" type="button">Zleć weryfikację linku</button></div>
+      <p class="dim" id="l-info" style="font-size:.8rem"></p>
+    </div>
+  </div>
+  <p class="dim" style="font-size:.8rem">„Szukaj teraz” działa od razu i bez konta: przeszukuje nagłówki z 3 dni ze wszystkich źródeł. Pełny skan i weryfikacja linku otwierają gotowe zgłoszenie na GitHubie (potrzebne darmowe konto): aplikacja pobiera wszystkie kanały, szuka w Google News z 30 dni, ocenia źródła, sprawdza kto działa i z jaką intencją, i w ok. 5 minut odpisuje w zgłoszeniu werdyktem z pewnością. Limit: 3 zgłoszenia na osobę na dobę, konto GitHub starsze niż 30 dni. Szczegóły w <a href="metodyka.html#skan">metodyce</a>.</p>
+  <div class="wynik-szukaj" id="s-wynik" aria-live="polite"></div>
+</section>
+
+<section id="zgloszenia" class="panel">
+  <div class="tytul"><h3>Historia zgłoszeń</h3><span class="etykieta">{p["zgloszen"]} w 90 dniach · sprawdzane wstecz po 7 i 30 dniach</span></div>
+  <div class="tabela"><table><thead><tr><th>Nr</th><th>Kiedy</th><th>Co sprawdzano</th><th>Werdykt</th><th>Pewność</th><th>Wstecz</th></tr></thead>
+  <tbody>{tabela_zg}</tbody></table></div>
+</section>
+
+<section id="jakosc" class="panel">
+  <div class="tytul"><h3>Kontrola jakości</h3><span class="etykieta">czy aplikacja się myli i jak bardzo</span></div>
+  <div class="kafle">{kafle}</div>
+  <div><div class="etykieta" style="margin:10px 0 6px">Zdjęte przez kontrolę strony i intencji, 72 h (nie podnoszą WW)</div>
+  <p class="dim" style="font-size:.8rem">Głównie wiadomości, w których działa Polska, Bałtowie, kraje nordyckie albo NATO: wysyłają wojsko, ćwiczą, szkolą się. To reakcja obronna, nie wskaźnik ataku przeciwnika. Tu trafiają też wpisy, które model uznał za niezwiązane z zagrożeniem (z pewnością co najmniej 70%). Pod każdym powód.</p>
+  <ul class="lista">{lista_wl}</ul></div>
+</section>
+"""

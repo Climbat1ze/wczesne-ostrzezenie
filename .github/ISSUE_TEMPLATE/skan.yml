@@ -1,0 +1,27 @@
+name: Skan na żądanie
+description: Sprawdź plotkę, słowa kluczowe albo link w źródłach aplikacji. Odpowiedź z werdyktem w ok. 5 minut.
+title: "[skan] "
+labels: ["skan"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Wpisz słowa kluczowe ALBO wklej link. Aplikacja pobierze wszystkie kanały, poszuka w Google News z 30 dni, oceni źródła, sprawdzi, kto działa i z jaką intencją, i odpisze tutaj werdyktem z pewnością.
+        Limit: 3 zgłoszenia na osobę na dobę, konto GitHub co najmniej 30 dni. Zgłoszenie i odpowiedź są publiczne: nie wpisuj danych osobowych.
+        To prywatne narzędzie, nie komunikat władz. Oficjalne alerty: Rządowe Centrum Bezpieczeństwa (gov.pl/web/rcb).
+  - type: input
+    id: slowa
+    attributes:
+      label: Słowa kluczowe
+      placeholder: "np. urzędnicy szkolenie broń palna"
+  - type: input
+    id: link
+    attributes:
+      label: Link
+      placeholder: "https://..."
+  - type: textarea
+    id: kontekst
+    attributes:
+      label: Co usłyszałeś lub przeczytałeś
+      description: Jednym, dwoma zdaniami. Pomaga ustalić, co dokładnie sprawdzić.
+      placeholder: "np. kolega mówi, że na granicy z Białorusią coś się dzieje"

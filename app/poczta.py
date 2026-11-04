@@ -278,7 +278,7 @@ def zbuduj_tydzien(w: dict, slownik) -> tuple[str, str, str]:
              f"Ostatnie {len(wart)} dni: średnio {sum(wart) / len(wart):.0f}, najniżej {min(wart):.0f}, najwyżej {max(wart):.0f}; wobec 30 dni: {_zmiana(w['indeks'], t['sr_30'])}.",
              f"Dni z ostrzeżeniem lub alarmem spiętrzenia: {dni_alarm}. Dziś: {zb['nazwa'].lower()}.",
              f"Alarm trendu: {(w.get('trend_alarm') or {}).get('opis', '–')}",
-             f"Analogia 2021/22: {sum(a['trafienie'] for a in w['analogia'])} z {len(w['analogia'])} kamieni milowych ma odpowiednik."]
+             f"Analogia 2021/22: {sum(a['trafienie'] for a in w['analogia'])} z {len(w['analogia'])} zdarzeń sprzed ataku na Ukrainę ma dziś odpowiednik wobec Polski, Bałtów i krajów nordyckich."]
     tekst = "\n".join([temat, "", *[f"- {x}" for x in linie], "",
                        "Ten mail przychodzi raz w tygodniu, żebyś wiedział, że system działa. Alarmy przychodzą osobno, od razu.",
                        *([f"Pulpit (aktualizowany co godzinę): {url}", f"Metodyka: {url.rstrip('/')}/metodyka.html"] if url else []),

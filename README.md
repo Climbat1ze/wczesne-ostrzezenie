@@ -13,6 +13,13 @@ To prywatne narzędzie, nie komunikat władz. Oficjalne alerty: Rządowe Centrum
 - **Alarm trendu:** rusza po zebraniu 21 dni historii.
 - **Analogia 2021/22:** 10 zdarzeń sprzed ataku na Ukrainę i czy mają dziś odpowiednik wobec flanki.
 
+## Skan na żądanie, weryfikacja linku, kontrola jakości (wersja 2.0)
+- **Szukaj teraz** (zakładka SKAN, bez konta): przeglądarka przeszukuje `strona/szukaj.json`, nagłówki z 3 dni ze wszystkich źródeł.
+- **Pełny skan albo link** (każdy z kontem GitHub starszym niż 30 dni): formularz issue `skan` → workflow `zgloszenia.yml` → `app/zgloszenia.py`. Plan i analiza na Claude sonnet (2 wywołania na zgłoszenie, bez narzędzi), szukanie w archiwum 7 dni, w kanałach teraz i w Google News z 30 dni, werdykt z pewnością i 3+ hipotezami konkurencyjnymi w komentarzu issue.
+- **Historia i analiza wsteczna**: gałąź `zgloszenia`; w poniedziałek ponowne sprawdzenie zgłoszeń sprzed 7 i 30 dni (trafność, wynik Briera, lekcje dla autoulepszania). Zakładki ZGŁOSZENIA i JAKOŚĆ.
+- **Kontrola intencji** (`app/intencja.py`): działania strony własnej i sojuszniczej nie liczą się w kategoriach z flagą `tylko_przeciwnik`; model sonnet raz na godzinę może zdjąć kategorię z wpisów, które podnoszą spiętrzenie.
+- **Wersje i zmiany**: `app/WERSJA`, `CHANGELOG.md`, rejestr Change Requests `docs/change_requests.md`, formularz issue „Zgłoszenie zmiany”.
+
 ## Maile
 Mailem przychodzą tylko alarmy (spiętrzenie sygnałów, sygnał krytyczny, alarm trendu) i raport tygodniowy w poniedziałek rano. Odbiorcy są w kopii ukrytej i nie widzą swoich adresów nawzajem. Żeby dopisać lub usunąć odbiorcę, nadpisz sekret pełną listą adresów po przecinku:
 
@@ -49,6 +56,10 @@ Ręczne uruchomienie: Actions → wczesne-ostrzezenie → Run workflow (opcja �
 | `STATUS_FORMA` | zmienna, opcjonalna | `tydzien` (raport tygodniowy, domyślnie) albo `dzien` (pełny skrót) |
 | `CLAUDE_BUDZET_DZIENNY` | zmienna, opcjonalna | dzienny limit zapytań do Claude (domyślnie `150`); po wyczerpaniu nagłówki zostają w oryginale, jeden mail do administratora na dobę |
 | `CLAUDE_WYLACZ` | zmienna, opcjonalna | `1` = żadnych wywołań Claude (tłumaczenie, oceny, przeglądy) |
+| `ZGLOSZENIA_DZIENNIE` | zmienna, opcjonalna | najwyżej tyle skanów na żądanie na dobę razem (domyślnie `10`) |
+| `ZGLOSZENIA_NA_OSOBE` | zmienna, opcjonalna | na autora na dobę (domyślnie `3`; właściciel i współpracownicy bez limitu na osobę) |
+| `KONTO_MIN_DNI` | zmienna, opcjonalna | minimalny wiek konta GitHub zgłaszającego (domyślnie `30`) |
+| `ZGLOSZENIA_WYLACZ` | zmienna, opcjonalna | `1` = skany na żądanie wyłączone (odpowiedź „chwilowo wyłączone”) |
 | `ALARMY_DZIENNIE` | zmienna, opcjonalna | najwyżej tyle alarmów mailem na dobę (domyślnie `3`); kolejne czekają w kolejce i idą zbiorczo o godzinie raportu albo z następnym alarmem |
 
 ## Jakość i bezpieczeństwo

@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Oficjalne alerty (Rządowe Centrum Bezpieczeństwa)
+    url: https://www.gov.pl/web/rcb
+    about: Komunikaty władz. Ta aplikacja nie jest komunikatem władz.

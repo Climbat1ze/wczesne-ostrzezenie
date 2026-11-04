@@ -1,7 +1,7 @@
 """Strażnik zakresu zmian: progi alarmów i wagi kategorii zmienia tylko właściciel.
 
 Porównuje chronione pola `app/wskazniki.yaml` z wersją bazową (gałąź docelowa PR) i kończy się błędem, jeśli się różnią.
-Chronione: waga i flaga „wysoka” każdej kategorii, lista kategorii, progi poziomów, mnożniki geografii,
+Chronione: waga, flaga „wysoka” i flaga „tylko_przeciwnik” każdej kategorii, lista kategorii, progi poziomów, mnożniki geografii,
 nazwy sygnałów krytycznych. Wolno zmieniać: wzorce, wykluczenia, opisy, analogię, źródła.
 
 Użycie: python app/straznik.py --baza origin/main
@@ -24,6 +24,7 @@ def chronione(d: dict) -> dict:
         "wagi": {k: v.get("waga") for k, v in d["kategorie"].items()},
         "wysokie": {k: bool(v.get("wysoka")) for k, v in d["kategorie"].items()},
         "propaganda": {k: bool(v.get("propaganda_jako_sygnal")) for k, v in d["kategorie"].items()},
+        "tylko_przeciwnik": {k: bool(v.get("tylko_przeciwnik")) for k, v in d["kategorie"].items()},
         "progi": [{"od": p["od"], "kolor": p["kolor"]} for p in d.get("progi", [])],
         "geografia": {k: v.get("mnoznik") for k, v in d.get("geografia", {}).items()},
         "krytyczne": [k["nazwa"] for k in d.get("sygnaly_krytyczne", [])],
@@ -33,6 +34,9 @@ def chronione(d: dict) -> dict:
 
 def roznice(baza: dict, teraz: dict) -> list[str]:
     a, b = chronione(baza), chronione(teraz)
+    # pole chronione od wersji 2.0: porównujemy, gdy wersja bazowa już je zna (pierwsze wprowadzenie zatwierdził właściciel)
+    if not any(a["tylko_przeciwnik"].values()):
+        a.pop("tylko_przeciwnik")
     return [f"{k}: {a[k]!r} → {b[k]!r}" for k in a if a[k] != b[k]]
 
 
