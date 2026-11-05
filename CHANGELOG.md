@@ -5,6 +5,16 @@ Zasada numeracji w tej aplikacji: **MAJOR** = nowy moduł albo zmiana sposobu li
 liczenia, **PATCH** = poprawka wzorca, tekstu albo błędu. Wersja żyje w `app/WERSJA`; test `tests/test_wersja.py` pilnuje,
 żeby pierwsza pozycja tego pliku była równa wersji. Zgłoszenia zmian (CR): `docs/change_requests.md`.
 
+## [2.0.4] - 2026-11-05
+
+### Poprawione
+- Skan na zlecenie (issue #19) dostał odpowiedź bez oceny modelu: dzienny budżet 150 zapytań wyczerpał się o 20:23,
+  bo od 2.0.3 przebiegi idą naprawdę co godzinę, a tłumaczenie bierze do 20 zapytań na przebieg (CR-012).
+  Budżet ma teraz pule: tłumaczenie kończy się na limicie minus rezerwa `CLAUDE_REZERWA` (domyślnie 50), więc ocena
+  intencji i analogii przy każdym przebiegu godzinowym ma zawsze zapas; skany na zlecenie i analiza wsteczna są poza
+  budżetem dziennym (ogranicza je limit 10 zgłoszeń na dobę po 2 zapytania i wyłącznik `CLAUDE_WYLACZ=1`).
+  Mail o wyczerpanym budżecie tylko wtedy, gdy zabraknie zapytań dla intencji i analogii.
+
 ## [2.0.3] - 2026-11-05
 
 ### Poprawione

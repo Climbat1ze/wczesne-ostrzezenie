@@ -54,7 +54,8 @@ Ręczne uruchomienie: Actions → wczesne-ostrzezenie → Run workflow (opcja �
 | `STATUS_GODZINY` | zmienna, opcjonalna | godzina raportu, czas Warszawy (domyślnie `7`) |
 | `STATUS_DNI` | zmienna, opcjonalna | dni raportu, 1 = poniedziałek (domyślnie `1`) |
 | `STATUS_FORMA` | zmienna, opcjonalna | `tydzien` (raport tygodniowy, domyślnie) albo `dzien` (pełny skrót) |
-| `CLAUDE_BUDZET_DZIENNY` | zmienna, opcjonalna | dzienny limit zapytań do Claude (domyślnie `150`); po wyczerpaniu nagłówki zostają w oryginale, jeden mail do administratora na dobę |
+| `CLAUDE_BUDZET_DZIENNY` | zmienna, opcjonalna | dzienny limit zapytań do Claude (domyślnie `150`); po wyczerpaniu nagłówki zostają w oryginale, jeden mail do administratora na dobę. Skany na zlecenie są poza tym limitem |
+| `CLAUDE_REZERWA` | zmienna, opcjonalna | ile zapytań z limitu dziennego tłumaczenie zostawia dla oceny intencji i analogii (domyślnie `50`) |
 | `CLAUDE_WYLACZ` | zmienna, opcjonalna | `1` = żadnych wywołań Claude (tłumaczenie, oceny, przeglądy) |
 | `ZGLOSZENIA_DZIENNIE` | zmienna, opcjonalna | najwyżej tyle skanów na żądanie na dobę razem (domyślnie `10`) |
 | `ZGLOSZENIA_NA_OSOBE` | zmienna, opcjonalna | na autora na dobę (domyślnie `3`; właściciel i współpracownicy bez limitu na osobę) |

@@ -311,7 +311,7 @@ def plan(zg: dict, strona: dict | None) -> dict:
     import koszty  # noqa: E402
     baza = zg["slowa"] or (strona or {}).get("tytul") or ""
     awaryjny = {"teza": zg["kontekst"][:300] or baza, "zapytania": {"pl": [baza] if baza else []}, "model": False}
-    if not claude_cli.dostepny() or koszty.przydziel(1) < 1:
+    if not claude_cli.dostepny() or koszty.przydziel(1, "zgloszenia") < 1:
         return awaryjny
     wejscie = json.dumps({"slowa": zg["slowa"], "kontekst": zg["kontekst"],
                           "artykul": {k: (strona or {}).get(k, "") for k in ("tytul", "opis", "tekst")} if strona else None},
@@ -487,7 +487,7 @@ def analizuj(zg: dict, pl: dict, zebrane: dict, strona: dict | None) -> dict:
                          f"w tym od {zebrane['niezalezne_abc']} niezależnych redakcji z oceną A–C."),
         "strona": _strona_wiekszosci(traf), "hipotezy": [],
     }
-    if not claude_cli.dostepny() or koszty.przydziel(1) < 1:
+    if not claude_cli.dostepny() or koszty.przydziel(1, "zgloszenia") < 1:
         return regulowa
     wejscie = json.dumps({
         "zgloszenie": {k: zg[k] for k in ("tryb", "slowa", "link", "kontekst")}, "teza_robocza": pl["teza"],
@@ -726,7 +726,7 @@ def wykonaj_retro(maks: int = 5, zrodla: list[dict] | None = None) -> list[dict]
     hist = historia()
     wyniki = []
     for r, etap in kolejka:
-        if koszty.przydziel(1) < 1:
+        if koszty.przydziel(1, "zgloszenia") < 1:
             print("Analiza wsteczna: budżet wyczerpany")
             break
         zeb = zbierz(r["zapytania"], zrodla, od=r["ts"][:10], swieze=False)
