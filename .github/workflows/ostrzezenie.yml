@@ -7,9 +7,11 @@
 # Settings → Pages → Source: GitHub Actions.
 name: wczesne-ostrzezenie
 
-# Harmonogram z zapasem: GitHub gubi część uruchomień z crona (w nocy 2–3.11 przeszło 1 z ok. 9).
-# Dwa wpisy co 30 minut; job „sprawdz” pomija przebieg, jeśli dane zapisano mniej niż 40 minut temu.
-# Efekt: zwykle jeden przebieg na godzinę, a zgubiony wpis nadrabia drugi. Czuwanie: workflow czuwanie.yml.
+# Sztafeta (od 2.0.3): każdy przebieg na końcu czeka ok. godziny i sam zleca następny (workflow_dispatch),
+# bo GitHub gubi większość uruchomień z crona (4–5.11: 3 z ok. 45). Czeka tylko jeden job sztafety naraz
+# (nowszy anuluje starszy), więc łańcuchy się nie mnożą. Wyłącznik: zmienna repo SZTAFETA_WYLACZ=1.
+# Cron zostaje jako zapas: dwa wpisy co 30 minut; job „sprawdz” pomija przebieg z crona przy danych młodszych niż 40 minut.
+# Czuwanie (czuwanie.yml) ratuje, gdy przerwie się i sztafeta, i cron.
 on:
   schedule:
     - cron: '13,43 * * * *'
@@ -31,10 +33,7 @@ permissions:
   id-token: write
   issues: read      # oceny właściciela (etykiety ocena-trafny, ocena-pomylka)
 
-concurrency:
-  group: wczesne-ostrzezenie
-  cancel-in-progress: false
-
+# Kolejka na poziomie joba „run” (nie całego workflow), żeby czekająca sztafeta nie blokowała przebiegów.
 jobs:
   sprawdz:
     runs-on: ubuntu-latest
@@ -58,6 +57,9 @@ jobs:
     if: needs.sprawdz.outputs.uruchom == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    concurrency:
+      group: wczesne-ostrzezenie
+      cancel-in-progress: false
     environment:
       name: github-pages
       url: ${{ steps.deploy.outputs.page_url }}
@@ -149,3 +151,43 @@ jobs:
           git diff --staged --quiet && exit 0
           git commit -qm "[dane] $(date -u +%Y-%m-%d) rejestr zrodel i oceny wlasciciela"
           for i in 1 2 3; do git push -q origin main && break; GIT_EDITOR=true git pull -q --rebase origin main; done
+
+  # Sztafeta: zleca następny przebieg, gdy minie 45 min od startu tego joba i 58 min od ostatniego zapisu danych.
+  # Przebieg nieudany też przekazuje pałeczkę (ponowna próba za godzinę). Repo publiczne: minuty runnera bez opłat.
+  sztafeta:
+    needs: [sprawdz, run]
+    if: ${{ !cancelled() && vars.SZTAFETA_WYLACZ != '1' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      actions: write
+      contents: read
+    concurrency:
+      group: sztafeta
+      cancel-in-progress: true
+    env:
+      GH_TOKEN: ${{ github.token }}
+      R: ${{ github.repository }}
+      TEN_PRZEBIEG: ${{ github.run_id }}
+    steps:
+      - name: Czekaj i zleć następny przebieg
+        run: |
+          START=$(date -u +%s)
+          while true; do
+            OST=$(gh api "repos/$R/commits/dane" --jq '.commit.committer.date' 2>/dev/null || echo "")
+            TERAZ=$(date -u +%s)
+            CEL=$(( START + 45*60 ))
+            if [ -n "$OST" ]; then
+              ZAPIS=$(date -u -d "$OST" +%s)
+              [ $(( ZAPIS + 58*60 )) -gt "$CEL" ] && CEL=$(( ZAPIS + 58*60 ))
+            fi
+            [ "$TERAZ" -ge "$CEL" ] && break
+            CZEKAJ=$(( CEL - TERAZ )); [ "$CZEKAJ" -gt 300 ] && CZEKAJ=300
+            echo "Ostatni zapis danych: ${OST:-brak}; następny przebieg za $(( (CEL - TERAZ) / 60 )) min"
+            sleep "$CZEKAJ"
+          done
+          INNE=$(gh run list -R "$R" --workflow ostrzezenie.yml --json databaseId,status \
+                 --jq "[.[] | select(.status != \"completed\" and .databaseId != $TEN_PRZEBIEG)] | length")
+          if [ "$INNE" != "0" ]; then echo "Inny przebieg już trwa lub czeka ($INNE): on przejmie sztafetę"; exit 0; fi
+          gh workflow run ostrzezenie.yml -R "$R" -f tryb=harmonogram
+          echo "Zlecono następny przebieg"

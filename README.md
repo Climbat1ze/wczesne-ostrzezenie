@@ -65,6 +65,8 @@ Ręczne uruchomienie: Actions → wczesne-ostrzezenie → Run workflow (opcja �
 
 ## Jakość i bezpieczeństwo
 
+Sztafeta (od 2.0.3): każdy przebieg po ok. godzinie sam zleca następny, bo GitHub gubi większość uruchomień z crona; wyłącznik `SZTAFETA_WYLACZ=1`.
+
 Czuwanie (`.github/workflows/czuwanie.yml`, co godzinę): gdy dane na gałęzi `dane` mają ponad 90 minut, uruchamia główny workflow ręcznie; po 3 godzinach zakłada issue z etykietą `przerwa` (powiadomienie mailem od GitHuba) i zamyka je samo po powrocie danych.
 
 Linki z kanałów, dwie warstwy (`app/linki.py`):
