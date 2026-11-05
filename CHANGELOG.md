@@ -5,6 +5,15 @@ Zasada numeracji w tej aplikacji: **MAJOR** = nowy moduł albo zmiana sposobu li
 liczenia, **PATCH** = poprawka wzorca, tekstu albo błędu. Wersja żyje w `app/WERSJA`; test `tests/test_wersja.py` pilnuje,
 żeby pierwsza pozycja tego pliku była równa wersji. Zgłoszenia zmian (CR): `docs/change_requests.md`.
 
+## [2.0.3] - 2026-11-05
+
+### Poprawione
+- Przebiegi godzinowe nie ruszały: od 4.11 11:30 do 5.11 09:49 UTC GitHub uruchomił z crona 3 z ok. 45 przebiegów,
+  a czuwanie (też na cronie) 4 z ok. 22. Nowy job `sztafeta` w `ostrzezenie.yml`: po każdym przebiegu czeka, aż minie
+  45 min od startu i 58 min od ostatniego zapisu danych, po czym sam zleca następny przebieg. Czeka jedna sztafeta naraz
+  (nowsza anuluje starszą), wyłącznik w zmiennej repo `SZTAFETA_WYLACZ=1`. Kolejka przebiegów przeniesiona z całego
+  workflow na job `run`. Cron i czuwanie zostają jako zapas.
+
 ## [2.0.2] - 2026-11-04
 
 ### Dodane
