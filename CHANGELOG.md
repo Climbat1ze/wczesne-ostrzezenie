@@ -5,6 +5,13 @@ Zasada numeracji w tej aplikacji: **MAJOR** = nowy moduł albo zmiana sposobu li
 liczenia, **PATCH** = poprawka wzorca, tekstu albo błędu. Wersja żyje w `app/WERSJA`; test `tests/test_wersja.py` pilnuje,
 żeby pierwsza pozycja tego pliku była równa wersji. Zgłoszenia zmian (CR): `docs/change_requests.md`.
 
+## [2.1.0] - 2026-11-05
+
+### Dodane
+- Formularz issue „Nowe źródło” (`.github/ISSUE_TEMPLATE/nowe-zrodlo.yml`, etykieta `nowe-zrodlo`): nazwa, strona, kanał RSS,
+  rodzaj, kraj i język, powód, wydawca (CR-012). Bez automatu: źródło dodaje właściciel komendą `zrodla dodaj`, z 30 dniami
+  próby. Link do formularza w metodyce, punkt 12 „Jak zgłosić błąd”.
+
 ## [2.0.3] - 2026-11-05
 
 ### Poprawione

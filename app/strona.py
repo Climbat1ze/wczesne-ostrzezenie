@@ -762,7 +762,7 @@ def zbuduj_metodyke(w: dict, zrodla: list[dict], slownik) -> None:
   <ol>
     <li><b>Odpowiedz na dowolny mail z aplikacji.</b> Odpowiedź trafia do autora.</li>
     <li>Napisz jedno zdanie: która wiadomość albo który alarm, co jest źle i dlaczego. Przykład: „Ostrzeżenie z 2.11 fałszywe: »prowokacja« dotyczyła sporu o Trybunał, nie Rosji”.</li>
-    <li>Chcesz dodać albo zakwestionować źródło: podaj nazwę, adres strony i powód.</li>
+    <li>Chcesz dodać źródło: otwórz formularz <a href="https://github.com/Climbat1ze/wczesne-ostrzezenie/issues/new?template=nowe-zrodlo.yml" target="_blank" rel="noopener">nowe źródło</a> (konto GitHub). Bez konta albo żeby zakwestionować źródło: odpowiedz na mail, podaj nazwę, adres strony i powód.</li>
     <li>Masz pomysł na zmianę: otwórz <a href="https://github.com/Climbat1ze/wczesne-ostrzezenie/issues/new?template=change-request.yml" target="_blank" rel="noopener">zgłoszenie zmiany (Change Request)</a>.</li>
   </ol>
   <p>Zgłoszenia zbieramy do kalibracji słownika i progów. Pierwsza kalibracja: 2 grudnia 2026. Każda poprawka słownika działa wstecz na 90 dni zapisanych wiadomości.</p>

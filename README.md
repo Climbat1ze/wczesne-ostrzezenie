@@ -18,7 +18,7 @@ To prywatne narzędzie, nie komunikat władz. Oficjalne alerty: Rządowe Centrum
 - **Pełny skan albo link** (każdy z kontem GitHub starszym niż 30 dni): formularz issue `skan` → workflow `zgloszenia.yml` → `app/zgloszenia.py`. Plan i analiza na Claude sonnet (2 wywołania na zgłoszenie, bez narzędzi), szukanie w archiwum 7 dni, w kanałach teraz i w Google News z 30 dni, werdykt z pewnością i 3+ hipotezami konkurencyjnymi w komentarzu issue.
 - **Historia i analiza wsteczna**: gałąź `zgloszenia`; w poniedziałek ponowne sprawdzenie zgłoszeń sprzed 7 i 30 dni (trafność, wynik Briera, lekcje dla autoulepszania). Zakładki ZGŁOSZENIA i JAKOŚĆ.
 - **Kontrola intencji** (`app/intencja.py`): działania strony własnej i sojuszniczej nie liczą się w kategoriach z flagą `tylko_przeciwnik`; model sonnet raz na godzinę może zdjąć kategorię z wpisów, które podnoszą spiętrzenie.
-- **Wersje i zmiany**: `app/WERSJA`, `CHANGELOG.md`, rejestr Change Requests `docs/change_requests.md`, formularz issue „Zgłoszenie zmiany”.
+- **Wersje i zmiany**: `app/WERSJA`, `CHANGELOG.md`, rejestr Change Requests `docs/change_requests.md`, formularze issue „Zgłoszenie zmiany” i „Nowe źródło”.
 
 ## Maile
 Mailem przychodzą tylko alarmy (spiętrzenie sygnałów, sygnał krytyczny, alarm trendu) i raport tygodniowy w poniedziałek rano. Odbiorcy są w kopii ukrytej i nie widzą swoich adresów nawzajem. Żeby dopisać lub usunąć odbiorcę, nadpisz sekret pełną listą adresów po przecinku:

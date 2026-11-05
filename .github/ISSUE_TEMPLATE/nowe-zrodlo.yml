@@ -1,0 +1,66 @@
+name: Nowe źródło
+description: Zaproponuj redakcję, instytucję albo kanał RSS do rejestru źródeł. Decyzję podejmuje właściciel.
+title: "[źródło] "
+labels: ["nowe-zrodlo"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Podaj źródło, które aplikacja powinna czytać. Właściciel sprawdzi kanał, nada ocenę A–F i odpisze tutaj.
+        Nowe źródło przechodzi 30 dni próby: jest czytane i widoczne, ale nie liczy się do WW. Po próbie automat awansuje je albo blokuje według krzykliwości i potwierdzalności (metodyka, punkt „Źródła”).
+        Zgłoszenie jest publiczne: nie wpisuj danych osobowych.
+  - type: input
+    id: nazwa
+    attributes:
+      label: Nazwa źródła
+      placeholder: "np. LRT English"
+    validations:
+      required: true
+  - type: input
+    id: strona
+    attributes:
+      label: Adres strony
+      placeholder: "https://..."
+    validations:
+      required: true
+  - type: input
+    id: rss
+    attributes:
+      label: Kanał RSS (jeśli znasz)
+      description: Bez kanału RSS aplikacja nie przeczyta źródła. Nie wiesz, zostaw puste, sprawdzimy.
+      placeholder: "https://.../rss.xml"
+  - type: dropdown
+    id: rodzaj
+    attributes:
+      label: Rodzaj
+      options:
+        - instytucja państwowa lub wojskowa
+        - agencja prasowa
+        - media publiczne
+        - media komercyjne
+        - portal branżowy (obronność, cyber)
+        - think tank, ośrodek analityczny
+        - inne
+    validations:
+      required: true
+  - type: input
+    id: kraj
+    attributes:
+      label: Kraj i język
+      placeholder: "np. Litwa, angielski"
+    validations:
+      required: true
+  - type: textarea
+    id: dlaczego
+    attributes:
+      label: Dlaczego warto (co pokazuje, czego brakuje)
+      description: Jednym, dwoma zdaniami. Przykład wiadomości, którą źródło miało wcześniej niż inne, bardzo pomaga.
+      placeholder: "np. pisze o ćwiczeniach przy granicy z obwodem królewieckim dzień przed agencjami"
+    validations:
+      required: true
+  - type: input
+    id: wlasciciel
+    attributes:
+      label: Kto je wydaje (jeśli wiesz)
+      description: Dwa źródła tego samego wydawcy liczą się do alarmu jako jedno.
+      placeholder: "np. nadawca publiczny, grupa medialna X"
