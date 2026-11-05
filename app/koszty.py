@@ -2,6 +2,9 @@
 
 - Dzienny budżet zapytań do Claude (`CLAUDE_BUDZET_DZIENNY`, domyślnie 150). Po wyczerpaniu: nagłówki zostają
   w oryginale, jeden mail do MAIL_ADMIN na dobę.
+- Pule budżetu (2.0.4): tłumaczenie nie rusza rezerwy `CLAUDE_REZERWA` (domyślnie 50 zapytań), więc ocena intencji
+  i analogii przy każdym przebiegu godzinowym ma zawsze zapas. Skany na zlecenie (pula `zgloszenia`) są poza budżetem
+  dziennym: ogranicza je limit zgłoszeń (10 na dobę, 2 zapytania każde) i wyłącznik `CLAUDE_WYLACZ=1`.
 - Wyłącznik awaryjny `CLAUDE_WYLACZ=1`: żadnych wywołań Claude (tłumaczenie, oceny, przeglądy).
 - Limit alarmów mailem do MAIL_DO (`ALARMY_DZIENNIE`, domyślnie 3 na dobę). Kolejne trafiają do kolejki i są
   doklejane do następnego wysłanego alarmu albo wysyłane zbiorczo o godzinie raportu (`STATUS_GODZINY`).
@@ -20,6 +23,8 @@ from zoneinfo import ZoneInfo
 WAW = ZoneInfo("Europe/Warsaw")
 DANE = Path(__file__).resolve().parent / "dane"
 BUDZET_DOMYSLNY = 150
+REZERWA_DOMYSLNA = 50   # zapytania zostawione na intencję i analogię (2 na przebieg x 24 przebiegi + zapas)
+PULE = ("ogolna", "tlumaczenie", "zgloszenia")
 ALARMY_DOMYSLNIE = 3
 
 
@@ -95,15 +100,30 @@ def _stan_budzetu() -> dict:
     return s
 
 
-def przydziel(ile: int) -> int:
-    """Rezerwuje do `ile` wywołań Claude z dziennego budżetu. Zwraca liczbę przyznanych (0 przy wyłączniku)."""
+def rezerwa() -> int:
+    return min(_int_env("CLAUDE_REZERWA", REZERWA_DOMYSLNA), limit_dzienny())
+
+
+def przydziel(ile: int, pula: str = "ogolna") -> int:
+    """Rezerwuje do `ile` wywołań Claude. Zwraca liczbę przyznanych (0 przy wyłączniku).
+
+    Pule: `ogolna` (intencja, analogia, ocena trafności) do pełnego limitu dziennego; `tlumaczenie` tylko do limitu
+    minus rezerwa; `zgloszenia` poza limitem dziennym (liczone osobno, bo ogranicza je limit zgłoszeń).
+    """
+    if pula not in PULE:
+        raise ValueError(f"nieznana pula budżetu: {pula}")
     if ile <= 0 or wylaczone():
         return 0
     s = _stan_budzetu()
-    wolne = max(0, limit_dzienny() - s["wywolania"])
+    if pula == "zgloszenia":
+        s["zgloszenia"] = s.get("zgloszenia", 0) + ile
+        _zapisz("budzet.json", s)
+        return ile
+    sufit = limit_dzienny() - (rezerwa() if pula == "tlumaczenie" else 0)
+    wolne = max(0, sufit - s["wywolania"])
     przyznane = min(ile, wolne)
     s["wywolania"] += przyznane
-    if przyznane < ile and not s.get("mail_wyczerpany"):
+    if przyznane < ile and pula == "ogolna" and not s.get("mail_wyczerpany"):
         s["mail_wyczerpany"] = True
         _zapisz("budzet.json", s)
         _mail_budzet_wyczerpany(s["wywolania"])

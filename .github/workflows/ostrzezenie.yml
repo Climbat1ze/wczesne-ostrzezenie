@@ -3,7 +3,7 @@
 # Raport tygodniowy mailem w poniedziałek o godzinie ze zmiennej STATUS_GODZINY (Warszawa, domyślnie 7).
 # Sekrety: SMTP_USER, SMTP_PASS (hasło aplikacji Gmail), MAIL_DO (odbiorcy po przecinku), CLAUDE_CODE_OAUTH_TOKEN.
 # Opcjonalnie: sekret MAIL_ADMIN; zmienne STATUS_GODZINY, STATUS_DNI, STATUS_FORMA, SITE_URL,
-# CLAUDE_BUDZET_DZIENNY (domyślnie 150), CLAUDE_WYLACZ (1 = bez Claude), ALARMY_DZIENNIE (domyślnie 3).
+# CLAUDE_BUDZET_DZIENNY (domyślnie 150), CLAUDE_REZERWA (domyślnie 50), CLAUDE_WYLACZ (1 = bez Claude), ALARMY_DZIENNIE (domyślnie 3).
 # Settings → Pages → Source: GitHub Actions.
 name: wczesne-ostrzezenie
 
@@ -103,6 +103,7 @@ jobs:
           STATUS_FORMA: ${{ vars.STATUS_FORMA || 'tydzien' }}
           SITE_URL: ${{ vars.SITE_URL }}
           CLAUDE_BUDZET_DZIENNY: ${{ vars.CLAUDE_BUDZET_DZIENNY }}
+          CLAUDE_REZERWA: ${{ vars.CLAUDE_REZERWA }}
           CLAUDE_WYLACZ: ${{ vars.CLAUDE_WYLACZ }}
           ALARMY_DZIENNIE: ${{ vars.ALARMY_DZIENNIE }}
           GITHUB_TOKEN: ${{ github.token }}

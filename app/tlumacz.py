@@ -87,7 +87,7 @@ def przetlumacz(wpisy: list[dict], jezyk: str, pamiec: dict) -> None:
         wolne = max(0, MAKS_ZAPYTAN - _stan["wywolan"])
         paczki = [brak[i:i + PACZKA] for i in range(0, len(brak), PACZKA)][:wolne]
         import koszty  # noqa: E402
-        przyznane = koszty.przydziel(len(paczki))  # dzienny budżet zapytań (CLAUDE_BUDZET_DZIENNY)
+        przyznane = koszty.przydziel(len(paczki), "tlumaczenie")  # dzienny budżet zapytań (CLAUDE_BUDZET_DZIENNY)
         if przyznane < len(paczki):
             _stan["budzet"] = True
         paczki = paczki[:przyznane]
@@ -155,7 +155,7 @@ def dotlumacz_trafienia(plik_wpisy, zrodla_idx: dict, plik_pamieci) -> int:
         for w in do_zapytania:
             po_jezyku.setdefault(jezyk(w), []).append(w)
         paczki = [(j, lst[i:i + PACZKA]) for j, lst in po_jezyku.items() for i in range(0, len(lst), PACZKA)][:MAKS_DOTLUMACZ]
-        paczki = paczki[:koszty.przydziel(len(paczki))]
+        paczki = paczki[:koszty.przydziel(len(paczki), "tlumaczenie")]
         for j, czesc in paczki:
             wynik = _paczka([{"t": w["tytul"], "l": w.get("lead", "")} for w in czesc], j)
             for k, w in enumerate(czesc):

@@ -19,6 +19,6 @@ def dane_tmp(tmp_path, monkeypatch):
         return True
 
     monkeypatch.setattr(poczta, "wyslij", falszywa_wysylka)
-    for zmienna in ("CLAUDE_WYLACZ", "CLAUDE_BUDZET_DZIENNY", "ALARMY_DZIENNIE"):
+    for zmienna in ("CLAUDE_WYLACZ", "CLAUDE_BUDZET_DZIENNY", "CLAUDE_REZERWA", "ALARMY_DZIENNIE"):
         monkeypatch.delenv(zmienna, raising=False)
     return wyslane

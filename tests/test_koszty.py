@@ -48,3 +48,29 @@ def test_raport_7dni(dane_tmp):
     koszty.zapisz_przebieg(120.0, 60, 63)
     r = koszty.raport_7dni()
     assert r["claude_7d"] == 2 and r["maile_7d"] == 1 and r["przebiegi_7d"] == 1 and r["czas_max_s"] == 120.0
+
+
+def test_tlumaczenie_nie_rusza_rezerwy(dane_tmp, monkeypatch):
+    monkeypatch.setenv("CLAUDE_BUDZET_DZIENNY", "20")
+    monkeypatch.setenv("CLAUDE_REZERWA", "5")
+    assert koszty.przydziel(100, "tlumaczenie") == 15     # do limitu minus rezerwa
+    assert koszty.przydziel(1, "tlumaczenie") == 0
+    assert koszty.przydziel(3) == 3                       # intencja i analogia mają zapas
+    assert koszty.przydziel(5) == 2
+    assert len([m for m in dane_tmp if "Budżet" in m["temat"]]) == 1   # mail dopiero przy wyczerpaniu puli ogólnej
+
+
+def test_zgloszenia_poza_budzetem_dziennym(dane_tmp, monkeypatch):
+    monkeypatch.setenv("CLAUDE_BUDZET_DZIENNY", "3")
+    assert koszty.przydziel(3) == 3
+    assert koszty.przydziel(1) == 0
+    assert koszty.przydziel(1, "zgloszenia") == 1         # skan na zlecenie działa mimo wyczerpanego budżetu
+    assert koszty.zuzycie_dzis() == 3
+    monkeypatch.setenv("CLAUDE_WYLACZ", "1")
+    assert koszty.przydziel(1, "zgloszenia") == 0         # wyłącznik obowiązuje zawsze
+
+
+def test_nieznana_pula(dane_tmp):
+    import pytest
+    with pytest.raises(ValueError):
+        koszty.przydziel(1, "inna")
