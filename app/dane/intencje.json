@@ -1,0 +1,1130 @@
+{
+"9f6e9aa32d7c5692": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "neutralna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.95,
+"powod": "Decyzja biznesowa Orlenu w sprawie rafinerii; brak związku z zagrożeniem wojskowym. 'Retoryka' to fałszywe dopasowanie.",
+"tytul": "Orlen weighs scrapping Mažeikiai refinery upgrade, raising prospect of closure"
+},
+"3ad2621f0c8592d9": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Polska zapobiegła możliwej prowokacji, Litwa i Niemcy obserwują. Działania obronne, a to Polska ostrzega przed pretekstem; nie ma tu budowania pretekstu przez Rosję. Sama prowokacja jest niepotwierdzo",
+"tytul": "Po komunikacie Polski o możliwej prowokacji niemiecka brygada na Litwie rozpoczęła obserwację"
+},
+"774eb8e1ed9c21a2": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Polskie wzmocnienie granicy po ostrzeżeniu o sabotażu; to reakcja obronna. Samo ostrzeżenie jest wskaźnikiem pośrednim, ale sam nagłówek nie opisuje incydentu.",
+"tytul": "Poland Floods Kaliningrad Border With Police and Commandos After Sabotage Warning"
+},
+"13319ac5939e0ddb": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Polska operacja bezpieczeństwa przy granicy; działanie własne, obronne.",
+"tytul": "Poland Launches Major Security Operation Along Border with Kaliningrad Amid Sabotage Fears"
+},
+"b9e0f956aa4c59dc": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Wzmocnienie granicy przez Polskę z powodu zagrożenia sabotażem; działanie obronne.",
+"tytul": "Poland reinforces Russian border amid sabotage threat, PM says"
+},
+"ae56d5ed34ee2b59": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "przeciwnik",
+"intencja": "ofensywna",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.7,
+"powod": "Podpalenie stacji Starlink zlecone przez zatrzymanego obywatela Turcji; rosyjskie zaangażowanie jest tylko podejrzewane, ale wzorzec sabotażu zlecanego pasuje do hybrydy.",
+"tytul": "Podpalenie stacji Starlink w Polsce. Zatrzymano domniemanego zleceniodawcę"
+},
+"765da4d9e11a3b9b": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "przeciwnik",
+"intencja": "ofensywna",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.8,
+"powod": "Sabotaż stacji Starlink w Polsce, według polskich władz za nim stoją rosyjskie służby; zatrzymanie to reakcja własna.",
+"tytul": "Miał wysłać dwóch sabotażystów do Polski, którzy podpalili stację Starlink. Mężczyzna trafił do aresztu"
+},
+"46d8ab766ff23806": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Polska wzmacnia granicę po ostrzeżeniach; działanie obronne. Samo ostrzeżenie jest sygnałem pośrednim, a nie zdarzeniem.",
+"tytul": "Poland reinforces Russian border after warnings of sabotage and armed incursions"
+},
+"0c46b60040eec8b2": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "przeciwnik",
+"intencja": "ofensywna",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.65,
+"powod": "Zlecone podpalenie stacji Starlink w Polsce; sabotaż, ale atrybucja Rosji w nagłówku nie jest podana.",
+"tytul": "Zlecił podpalenie stacji Starlink w Polsce. Zatrzymanie w Niemczech"
+},
+"9568b25cd3fed568": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "przeciwnik",
+"intencja": "ofensywna",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.55,
+"powod": "Tusk ostrzega, że rosyjski sabotaż może się zmaterializować w tym miesiącu; to ostrzeżenie o zagrożeniu, nie zdarzenie.",
+"tytul": "The threat of Russian sabotage on the border with Poland may materialize this month, — Donald Tusk - Судово-юридична газета"
+},
+"182e823f66cc5a17": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "przeciwnik",
+"intencja": "ofensywna",
+"kategorie_ok": [],
+"pewnosc": 0.9,
+"powod": "Rosyjskie uderzenie lotnicze w punkt pomocy w Komyszuasze na Ukrainie, nie na terytorium NATO. Łotwa tylko zwołuje RB ONZ. Kategoria krytyczna nie pasuje.",
+"tytul": "Latvia convenes emergency UN Security Council meeting over Russian attack on Komyshuvakha"
+},
+"0ddce263374ab7d7": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Polska udaremniła podejrzaną prowokację; to działanie własne. Nie ma dowodu na budowanie pretekstu przez Rosję.",
+"tytul": "Poland Foils Suspected Provocation Along Russia Border"
+},
+"222b35c338eee120": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.65,
+"powod": "Polska prowadzi operację graniczną z obawy przed prowokacją; działanie obronne. Aktywność w Rosji jest niesprecyzowana.",
+"tytul": "Poland launches major border operation as activity in Russia fuels concern over possible \"serious provocation\""
+},
+"3c78f35e9111b432": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "sojusznicza",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Rutynowa misja rozpoznawcza samolotu NATO wokół Królewca; działanie sojusznicze, nie zagrożenie.",
+"tytul": "Samolot NATO nad Polską. W tle misja wokół Królewca"
+},
+"b7ca0f8d047591e5": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "przeciwnik",
+"intencja": "nieznana",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.7,
+"powod": "Prawdopodobnie rosyjski dron naruszył łotewską przestrzeń powietrzną; drugi obiekt był ukraiński. Intencja niejasna, możliwy błąd lub zakłócenie.",
+"tytul": "Łotwa: dwa drony, które wleciały w przestrzeń powietrzną kraju, najprawdopodobniej były rosyjski i ukraiński"
+},
+"d654b8c2cc33961a": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "przeciwnik",
+"intencja": "nieznana",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.5,
+"powod": "Nieoficjalne doniesienia o grupie 'Czarne Rusy' w obwodzie królewieckim w kontekście ryzyka dywersji; słabo potwierdzone. Polskie wzmocnienie jest reakcją własną.",
+"tytul": "Polska wzmacnia granice. Grupa „Czarne Rusy” w obwodzie królewieckim"
+},
+"ecf1f8b1d67f86df": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "neutralna",
+"intencja": "nieznana",
+"kategorie_ok": [],
+"pewnosc": 0.6,
+"powod": "Fałszywe alarmy bombowe na lotach w Europie; sprawca nieznany. To nie zamknięcie przestrzeni powietrznej. Atrybucja państwowa jest tylko spekulacją.",
+"tytul": "Groźby bombowe wstrzymują kilka lotów: „Może to być obce państwo”"
+},
+"4118294d2ab075eb": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "przeciwnik",
+"intencja": "nieznana",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.7,
+"powod": "Prawdopodobnie rosyjski dron przeleciał przez przestrzeń Łotwy, następnie ukraiński spadł; naruszenie przestrzeni, intencja niejasna.",
+"tytul": "NVS: w niedzielę do Łotwy prawdopodobnie wleciał rosyjski dron, w poniedziałek ukraiński"
+},
+"3b33488d23f66da2": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.6,
+"powod": "Tusk wskazuje na możliwe prowokacje; to ostrzeżenie strony własnej. Nagłówek mówi o oskarżeniu Rosji przez Polskę, a nie o budowaniu pretekstu przez Rosję.",
+"tytul": "Poland Accuses Russia of ‘Flashlight’ Provocation Along Kaliningrad Border"
+},
+"855feb97d75d07a1": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "neutralna",
+"intencja": "nieznana",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.55,
+"powod": "Dodatkowe szczegóły dwóch incydentów z dronami na Łotwie; jeden rosyjski, drugi prawdopodobnie ukraiński, nadal niejasne.",
+"tytul": "More details released about recent drone incidents in Latvia"
+},
+"3da38f0534737f3f": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "przeciwnik",
+"intencja": "nieznana",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.7,
+"powod": "Prawdopodobnie rosyjski Geran w łotewskiej przestrzeni; drugi obiekt podobny do ukraińskiego. Naruszenie przestrzeni, bez jasnej intencji.",
+"tytul": "NBS: w niedzielę prawdopodobnie na Łotwę wleciał rosyjski dron, w nocy na wtorek – statek powietrzny podobny do ukraińskiego drona"
+},
+"8766472d8ac90b91": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Rozmieszczenie polskiej policji antyterrorystycznej; działanie obronne.",
+"tytul": "Polish counter-terrorism police deployed near Russian border amid sabotage warnings"
+},
+"bf98cd6cd169abfc": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Polska mobilizuje policję i wojsko przy granicy jako reakcję na ostrzeżenia; działanie własne.",
+"tytul": "Poland mobilizes police and army at the border with Kaliningrad, following warnings about possible acts of sabotage"
+},
+"3c49645cda9ada09": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.65,
+"powod": "Tusk oświadcza, że udaremniono możliwą prowokację; działanie własne. Brak dowodu na pretekst budowany przez Rosję.",
+"tytul": "Tusk: na granicy Polski z Rosją zapobieżono możliwej prowokacji"
+},
+"ef746fcd0c3056b7": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.65,
+"powod": "Polska udaremniła możliwą prowokację; działanie własne, ten sam przekaz co poprzednio.",
+"tytul": "Tusk: na granicy Polski z Rosją udaremniono możliwą prowokację"
+},
+"bce5c5471cc296c1": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "przeciwnik",
+"intencja": "nieznana",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.5,
+"powod": "Straż Graniczna zauważyła ludzi z latarkami przy granicy z Rosją; podejrzana aktywność, sprawcy i cel niepotwierdzone.",
+"tytul": "Poland reports suspicious activity by \"people with torches\" on border with Russia"
+},
+"85502b356140fe37": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Polska rozmieszcza siły specjalne po raportach wywiadów o planowanym sabotażu; działanie obronne.",
+"tytul": "Poland deploys special forces to Russian border — PM"
+},
+"9e51c89f2b564e20": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "przeciwnik",
+"intencja": "retoryczna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Rosyjski ekspert w TASS zaprzecza zagrożeniu; narracja propagandowa, nie sygnał operacyjny.",
+"tytul": "Poland needs to focus on domestic policy, not imaginary threats from Russia — expert"
+},
+"7b23c9b12399d671": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Polska rozmieszcza jednostki antyterrorystyczne; działanie obronne, ostrzeżenie o sabotażu to sygnał pośredni.",
+"tytul": "‘Possible sabotage in the coming days’ as Poland deploys counterterrorism units on Russia’s doorstep"
+},
+"20c72e5bd390a97c": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "przeciwnik",
+"intencja": "retoryczna",
+"kategorie_ok": [
+"retoryka"
+],
+"pewnosc": 0.5,
+"powod": "Łukaszenka ostrzega UE przed polityką siły; retoryka, ale bez ultimatum i konkretnej groźby.",
+"tytul": "Lukashenko warns EU against approaching everything from position of strength"
+},
+"81d5e8438a51025b": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Polska rozmieszcza jednostki antyterrorystyczne w reakcji na zagrożenie sabotażem; działanie własne.",
+"tytul": "Amid rising sabotage threats, Poland deploys counter-terrorism units near Russian border"
+},
+"4a4aec6d8e44a099": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "neutralna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.97,
+"powod": "Decyzja handlowa linii airBaltic o likwidacji trasy; brak związku z bezpieczeństwem.",
+"tytul": "Latvian airline airBaltic to scrap Vilnius-Düsseldorf route"
+},
+"d9fa2e75675da1fe": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "przeciwnik",
+"intencja": "retoryczna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Analiza kremlowskiej propagandy twierdzącej, że Polska szykuje atak; to dezinformacja, nie ostrzeżenie wywiadu ani sojuszników. Może wspierać narrację pretekstu, ale kategoria pretekst nie jest przypi",
+"tytul": "Polska szykuje atak na Rosję? Tak Kreml manipuluje faktami o operacji służb"
+},
+"52594ad75143e99a": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "sojusznicza",
+"intencja": "retoryczna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Nausėda krytykuje termin 'zagrożenia hybrydowe' i mówi o kinetycznych atakach; wypowiedź komentująca, bez konkretnego ataku zbrojnego na terytorium NATO.",
+"tytul": "Lithuanian president criticises ‘hybrid threat’ term, says some Russian attacks ‘kinetic’"
+},
+"cfa2eff6a41ae754": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.6,
+"powod": "Brak raportu MON o dronie, który mógł wlecieć z Litwy; sprawa administracyjna, wlot niepotwierdzony.",
+"tytul": "Po dwóch tygodniach nadal nie wiemy, czy dron wleciał nad Polskę. Raport powstaje"
+},
+"cc8b7542ce8232d9": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Polska zwiększa ochronę granicy po ostrzeżeniach o sabotażu; działanie obronne.",
+"tytul": "Poland Raises Border Security After Sabotage Warnings"
+},
+"ab827ea8d262f337": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Polska rozpoczyna operację antysabotażową przy granicy; działanie własne.",
+"tytul": "Poland launches anti-sabotage operation on border with Kaliningrad region"
+},
+"995c12f1964ba7ce": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Dodatkowa policja, w tym antyterrorystyczna, w regionach przygranicznych; działanie obronne.",
+"tytul": "Poland Deploys Counterterrorism Police Near Russia Border"
+},
+"2597ecfe751c0228": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Polska rozpoczyna specjalną operację po ostrzeżeniach służb; działanie własne, obronne.",
+"tytul": "Z powodu zagrożenia dywersją Polska rozpoczyna specjalną operację przy granicy z obwodem kaliningradzkim"
+},
+"bd802d727291c26f": {
+"ts": "2026-11-04T10:06+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Polska wzmacnia środki bezpieczeństwa przy granicy z Królewcem; działanie własne.",
+"tytul": "Ze względu na ryzyko sabotażu Polska rozpoczyna operację specjalną przy granicy z obwodem kaliningradzkim"
+},
+"b52e87c4c4869c39": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Polska wzmacnia ochronę granicy po ostrzeżeniach wywiadu; to reakcja obronna, nie działanie przeciwnika. Zagrożenie dywersji jest tylko potencjalne.",
+"tytul": "Poland Launches Special Operation on Kaliningrad Border Amid Sabotage Threat"
+},
+"0993c9a01d4bd3af": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Polskie służby zaostrzają środki bezpieczeństwa; reguły błędnie przypisały stronę przeciwnika. Brak potwierdzonego aktu dywersji.",
+"tytul": "Polska rozpoczęła specoperację przy granicy z Rosją z powodu ryzyka dywersji"
+},
+"33fac94a1ac4a66e": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Rozmieszczenie polskiej policji antyterrorystycznej to działanie obronne strony własnej, wynik ostrzeżeń wywiadu.",
+"tytul": "Przy obwodzie kaliningradzkim Polska rozmieściła antyterrorystyczne jednostki policji"
+},
+"787cb25cdb975d9d": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Polska operacja ochrony granicy z obawy przed dywersją; środek prewencyjny.",
+"tytul": "Poland Launches Border Security Operation Over Sabotage Fears"
+},
+"8e32a248bcb82edb": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Polska policja prowadzi operację prewencyjną; to nie jest działanie przeciwnika.",
+"tytul": "Polska rozpoczęła specjalną operację przy granicy z Rosją z powodu ryzyka dywersji"
+},
+"0c886ae81b9119c8": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "neutralna",
+"intencja": "nieznana",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.5,
+"powod": "Niezidentyfikowany dron wleciał na Łotwę i rozbił się przy granicy z Rosją; to naruszenie przestrzeni, pochodzenie nieznane (inne źródło wskazuje na dron ukraiński). Reakcja łotewska jest obronna.",
+"tytul": "Drone crashes in Latvia: NATO aircraft and interceptor drones deployed"
+},
+"720b674d339eceb5": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Skierowanie GROM-u i wzmocnienie ochrony granicy to reakcja strony własnej na ostrzeżenia; samo zagrożenie dywersją jest hipotetyczne.",
+"tytul": "GROM na granicy z Rosją. Wywiad ostrzegł przed możliwymi działaniami dywersantów"
+},
+"23d7dddca9f20e01": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Polska rozmieszcza policję antyterrorystyczną po ostrzeżeniach wywiadu własnego i sojuszniczego; działanie obronne.",
+"tytul": "Poland deploys counterterrorism police near Russian border amid sabotage warnings"
+},
+"74f5612fcfcbe8ef": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Rozmieszczenie polskiej policji przy granicy po ostrzeżeniach; środek prewencyjny strony własnej.",
+"tytul": "Poland deploys counterterrorism police near Russian border amid sabotage warnings"
+},
+"931de49190982ccb": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Polska operacja graniczna w odpowiedzi na ryzyko dywersji; działanie obronne, nie incydent.",
+"tytul": "Poland has launched a special operation at the border with Russia due to the threat of sabotage and the infiltration of armed groups"
+},
+"8074eff89cfbf77e": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Duplikat poprzedniego: operacja prewencyjna strony własnej.",
+"tytul": "Poland has launched a special operation at the border with Russia due to the threat of sabotage and the infiltration of armed groups"
+},
+"2301231c9b720ef8": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "neutralna",
+"intencja": "nieznana",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.45,
+"powod": "Dron spadł na Łotwie przy granicy z Rosją; pochodzenie niejasne (późniejsze doniesienia wskazują na dron ukraiński), brak dowodu intencji przeciwnika.",
+"tytul": "Kolejny kraj ma problem z zamrażarkami. Na Łotwę spadł dron"
+},
+"006e18482ee9e3e5": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Polska wzmacnia siły policji przy granicy na wypadek incydentów; środek prewencyjny.",
+"tytul": "Poland deploys additional police forces to border with Russia"
+},
+"0df32380d24a6d91": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Polskie służby wzmacniają środki prewencyjne po ostrzeżeniach wywiadu; zagrożenie tylko potencjalne.",
+"tytul": "Polish security forces prepare for possible sabotage on border with Russia's Kaliningrad Oblast"
+},
+"230ac053c6c70a84": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Duplikat: przygotowania polskich służb do możliwej dywersji.",
+"tytul": "Polish security forces prepare for possible sabotage on border with Russia's Kaliningrad Oblast"
+},
+"e6f126a7cbee3279": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Rozmieszczenie polskiej policji antyterrorystycznej; działanie obronne strony własnej.",
+"tytul": "Poland deploys counterterrorism police near Russian border over sabotage threats"
+},
+"79b2dfb0e1c7e474": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Polska operacja bezpieczeństwa granicy po ostrzeżeniach; reakcja obronna.",
+"tytul": "Poland Launches Border Security Operation Amid Sabotage Warnings Near Russia’s Kaliningrad"
+},
+"534aea48d4668ae6": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Mobilizacja polskiej policji to przygotowanie strony własnej, nie gotowość bojowa przeciwnika. Oczekiwana prowokacja jest przewidywaniem, nie faktem.",
+"tytul": "Specjalna operacja policji przy granicy z Królewcem. Policja spodziewa się prowokacji"
+},
+"f0d627c7b2174401": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "neutralna",
+"intencja": "retoryczna",
+"kategorie_ok": [],
+"pewnosc": 0.95,
+"powod": "Komentarz o krajowym sporze politycznym wokół TK; brak związku z zagrożeniem ze strony Rosji czy Białorusi. Fałszywe dopasowanie 'pretekst'.",
+"tytul": "Prof. Antoni Dudek ostrzega ws. awantury o TK. Padły słowa o szturmie na KPRM"
+},
+"f678a38e402c5838": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Polska operacja bezpieczeństwa przy granicy po ostrzeżeniach; działanie obronne.",
+"tytul": "Poland launches security operation near Russian border over warnings of possible sabotage"
+},
+"34467e09142ec853": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Polska operacja antyterrorystyczna jako reakcja na zagrożenie; strona własna.",
+"tytul": "Poland launches counter-terror op over Kaliningrad 'sabotage' threats"
+},
+"9078b589a3e09b0b": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Polska operacja bezpieczeństwa wzdłuż granicy; reguły błędnie wskazały przeciwnika.",
+"tytul": "Poland conducts special security operation along Russian border amid sabotage warnings"
+},
+"f8186ad8e8ac6660": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Polska operacja prewencyjna przy granicy z Kaliningradem.",
+"tytul": "Poland launches special operation on Kaliningrad border amid sabotage threats - RBC-Ukraine"
+},
+"f10b77615807512c": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Polska operacja prewencyjna; tytuł mówi o rosyjskim zagrożeniu sabotażem, ale jest ono tylko potencjalne, bez potwierdzonego incydentu.",
+"tytul": "Poland Launches Special Operation on Kaliningrad Border Over Russian Sabotage Threat"
+},
+"a321d994eb36f89e": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Polska wysłała dodatkowe siły policji w reakcji na raporty o planowanym sabotażu; działanie obronne.",
+"tytul": "Poland launches operation along Russian border in response to reports of planned sabotage"
+},
+"cb568c76497ccc46": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Operacja strony własnej; kategoria 'retoryka' nie ma podstaw, brak wypowiedzi Kremla.",
+"tytul": "Poland launches operation along Russian border in response to reports of planned sabotage"
+},
+"9e88b0a95fe1ef55": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Polska wzmacnia ochronę granicy z powodu ryzyka sabotażu; środek prewencyjny.",
+"tytul": "Poland strengthens security on border with Russia over risk of sabotage — RMF24"
+},
+"38595d17a78d6ae2": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "przeciwnik",
+"intencja": "ofensywna",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.55,
+"powod": "Powiązane podpalenia bramek Starlink na Litwie z zarzutami terroryzmu to realny sabotaż; sprawcy nie podano w nagłówku, ale wzorzec pasuje do działań hybrydowych.",
+"tytul": "Three Arson Attacks on Starlink Gateways Linked as One Network: Lithuania Files Terrorism Charges"
+},
+"28c99a996893437e": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "neutralna",
+"intencja": "nieznana",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.4,
+"powod": "Krótkotrwałe naruszenie przestrzeni powietrznej Łotwy; sprawca i intencja nieznane.",
+"tytul": "Łotwa poinformowała o krótkotrwałym naruszeniu przestrzeni powietrznej"
+},
+"c68ab8caa367b48b": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "neutralna",
+"intencja": "nieznana",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Dron, który spadł na Łotwie, okazał się ukraiński; to nie jest działanie przeciwnika, raczej zbłąkany dron.",
+"tytul": "Drone that crashed in Latvia confirmed as Ukrainian / Article"
+},
+"bbd9b2f652ea2c07": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.45,
+"powod": "Łotwa uruchomiła alarm i dron przechwytujący po naruszeniu przestrzeni przez niezidentyfikowany dron; reakcja obronna, sprawca nieznany (późniejsze ustalenia: dron ukraiński).",
+"tytul": "Latvian military deploys interceptor drone after unidentified drone violates its airspace"
+},
+"e6328236f7b16b7a": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "neutralna",
+"intencja": "nieznana",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.4,
+"powod": "Niezidentyfikowany obiekt naruszył przestrzeń Łotwy; działa obrona strony własnej, sprawca niepotwierdzony.",
+"tytul": "Alarm na granicy NATO. Niezidentyfikowany obiekt nad Łotwą"
+},
+"fd6da1d8e4fb2542": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "neutralna",
+"intencja": "nieznana",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.4,
+"powod": "Naruszenie przestrzeni powietrznej przez niezidentyfikowany obiekt; Łotwa wystrzeliła dron przechwytujący. Pochodzenie nieznane.",
+"tytul": "Niezidentyfikowany obiekt naruszył przestrzeń powietrzną Łotwy. Reakcja armii"
+},
+"36125d9cd7f90f3f": {
+"ts": "2026-11-04T10:43+00:00",
+"strona": "neutralna",
+"intencja": "nieznana",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.35,
+"powod": "Niezidentyfikowany obiekt wleciał i wyleciał z przestrzeni Łotwy; brak informacji o sprawcy, incydent o niskiej wadze.",
+"tytul": "Do przestrzeni powietrznej Łotwy wleciał i wyleciał nieidentyfikowany obiekt latający"
+},
+"c1772bae625424a9": {
+"ts": "2026-11-04T18:07+00:00",
+"strona": "neutralna",
+"intencja": "ofensywna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Krajowy przypadek planowanego ataku terrorystycznego nastolatka w Norwegii; brak powiązania z Rosją/Białorusią i brak sygnału zagrożenia militarnego ze strony przeciwnika. Kategoria ostrzeżeń wywiadu ",
+"tytul": "16-latek planował transmitować na żywo atak terrorystyczny na przedszkola"
+},
+"f9fe84852ac5ebe8": {
+"ts": "2026-11-04T18:07+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Szwedzkie przygotowania do rozmieszczenia w Polsce i podniesienie gotowości przez polskie władze to działania obronne strony własnej i sojuszników. Lead wspomina o zaostrzeniu sytuacji wobec rosyjskic",
+"tytul": "Zaostrzona sytuacja bezpieczeństwa przed szwedzkim wkładem w Polsce"
+},
+"3be710de3c084a43": {
+"ts": "2026-11-04T18:07+00:00",
+"strona": "sojusznicza",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Misja NATO Baltic Sentry to działanie odstraszające sojuszników. Nagłówek opisuje wypowiedź o ochronie infrastruktury, nie konkretny akt sabotażu Rosji, więc nie jest to sygnał zagrożenia ze strony pr",
+"tytul": "Baltic Sentry makes sabotage too costly for Russia, NATO man tells lawmakers"
+},
+"bd6a211869747de7": {
+"ts": "2026-11-04T23:45+00:00",
+"strona": "przeciwnik",
+"intencja": "retoryczna",
+"kategorie_ok": [
+"retoryka"
+],
+"pewnosc": 0.85,
+"powod": "Rosyjscy przedstawiciele politycznie i dyplomatycznie ostrzegają, że obronią Kaliningrad „wszelkimi dostępnymi środkami”. To typowa retoryka odstraszania i grożenia NATO. Nie widać oznak przygotowań d",
+"tytul": "Moscow Expresses Warnings on Kaliningrad Defense Against NATO"
+},
+"6463b87b72527be6": {
+"ts": "2026-11-04T23:45+00:00",
+"strona": "neutralna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.9,
+"powod": "Spór gospodarczy Orlenu z Litwą o rafinerię w Możejkach i podatek od nadzwyczajnych zysków. Nie ma tu retoryki Kremla ani żadnego sygnału zagrożenia wojskowego ze strony przeciwnika.",
+"tytul": "Orlen wysyła mocny sygnał do Wilna. Przyszłość rafinerii w Możejkach wisi na włosku"
+},
+"f5b17024ee3ac310": {
+"ts": "2026-11-04T23:45+00:00",
+"strona": "przeciwnik",
+"intencja": "ofensywna",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.85,
+"powod": "Rosyjski wywiad zlecał estońskim nastolatkom podpalenia i dewastacje, żeby wywołać zamęt w Estonii. To klasyczny sabotaż hybrydowy rękami zwerbowanych przez internet wykonawców.",
+"tytul": "„Pealtnägija”: estońscy nastolatkowie oferowali usługi podpaleń i dewastacji"
+},
+"7414596c2b30bfce": {
+"ts": "2026-11-04T23:45+00:00",
+"strona": "wlasna",
+"intencja": "szkoleniowa",
+"kategorie_ok": [],
+"pewnosc": 0.75,
+"powod": "Wielkie ćwiczenia wojskowe organizuje Polska, więc nie pasuje kategoria „cwiczenia” (ćwiczenia Rosji i Białorusi). Tusk ostrzega przed rosyjskimi prowokacjami, ale to ostrzeżenie strony własnej, nie d",
+"tytul": "Tusk warns of Russian provocations as Poland prepares for large-scale military exercises"
+},
+"ef84161bc8848d13": {
+"ts": "2026-11-05T08:27+00:00",
+"strona": "przeciwnik",
+"intencja": "ofensywna",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.8,
+"powod": "Lead opisuje rosyjską kampanię podpaleń i sabotażu w Europie z werbunkiem płatnych wykonawców przez media społecznościowe, w tym w Estonii. To działanie ofensywne przeciwnika w kategorii hybrydowej. S",
+"tytul": "Estonian youths offer arson and property damage services online"
+},
+"12caa8e32205f263": {
+"ts": "2026-11-05T08:27+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [],
+"pewnosc": 0.85,
+"powod": "Przegląd prasy opisuje przygotowania Polski na dywersję, czyli działania obronne strony własnej. To nie jest sygnał ataku przeciwnika. Kategoria hybryda dotyczy tu tematu, ale sam nagłówek nie opisuje",
+"tytul": "Czwartkowy przegląd prasy: Polska szykuje się na dywersję przy granicy z Rosją"
+},
+"115b78185fb717a4": {
+"ts": "2026-11-05T09:54+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Fiński sąd skazał rosyjskiego kapitana za sabotaż kabla na Bałtyku – to działanie wymiaru sprawiedliwości strony własnej (reakcja po fakcie), a nie nowy sygnał zagrożenia. Sama kategoria 'hybryda' opi",
+"tytul": "Finnish court jails Russian captain over Baltic cable sabotage -..."
+},
+"94ed6bfc126943da": {
+"ts": "2026-11-05T10:18+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Wyrok fińskiego sądu to działanie wymiaru sprawiedliwości strony własnej, reakcja na wcześniejszy sabotaż. Nie jest to nowy sygnał zagrożenia, choć sprawa dotyczy wcześniejszej hybrydowej aktywności p",
+"tytul": "Finnish court jails Russian captain over Baltic Sea cable sabotage"
+},
+"394fefd861bb637a": {
+"ts": "2026-11-05T10:18+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Duplikat pozycji 0 z innego źródła: wyrok fińskiego sądu, czyli działanie strony własnej wobec zakończonej sprawy sabotażu kabli, a nie nowy incydent.",
+"tytul": "Finnish court jails Russian captain over Baltic Sea cable sabotage"
+},
+"f8f20ab733d3d6c4": {
+"ts": "2026-11-05T10:18+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Ta sama wiadomość w wersji litewskiej: fiński sąd skazał kapitana i członka załogi za sabotaż kabli Finlandia–Estonia. To rozstrzygnięcie sądowe, nie nowy sygnał ataku. Hybryda dotyczy wcześniejszego ",
+"tytul": "Sąd w Finlandii osadził za kratkami rosyjskiego kapitana w sprawie sabotażu kabli na Bałtyku"
+},
+"74feea9a6bb57465": {
+"ts": "2026-11-05T11:21+00:00",
+"strona": "sojusznicza",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Wyrok fińskiego sądu to działanie wymiaru sprawiedliwości państwa nordyckiego, a nie nowy incydent. Dotyczy wcześniejszego uszkodzenia kabla (sabotaż hybrydowy), ale sam nagłówek nie jest świeżym sygn",
+"tytul": "Fiński sąd skazał na więzienie kapitana i bosmana statku, który uszkodził kable łączności"
+},
+"0540c16414ca192f": {
+"ts": "2026-11-05T11:21+00:00",
+"strona": "sojusznicza",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Skazanie kapitana przez fiński sąd to reakcja prawna strony własnej na wcześniejszy incydent. Nie ma nowego działania przeciwnika.",
+"tytul": "Finland Jails Russian Captain Over Baltic Sea Cable Sabotage as Court Establishes Criminal Responsibility"
+},
+"9de7c12b4a3ffea9": {
+"ts": "2026-11-05T11:21+00:00",
+"strona": "neutralna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.97,
+"powod": "Artykuł kulturalny o repertuarze teatrów na Łotwie. Dopasowanie do kategorii pretekst jest fałszywe, prawdopodobnie przez słowo 'wagi moralności'.",
+"tytul": "Na wadze moralności. Co nowego w repertuarze łotewskich teatrów?"
+},
+"b2ff2a7e4876068c": {
+"ts": "2026-11-05T11:21+00:00",
+"strona": "sojusznicza",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Powtórzenie informacji o wyroku fińskiego sądu. To działanie wymiaru sprawiedliwości, nie nowy sygnał zagrożenia.",
+"tytul": "Finnish court jails Russian captain over Baltic Sea cable sabotage"
+},
+"7b54ab5098d27e5e": {
+"ts": "2026-11-05T11:21+00:00",
+"strona": "sojusznicza",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Kolejna publikacja o wyroku fińskiego sądu. Dotyczy rozliczenia wcześniejszego sabotażu, a nie nowego działania przeciwnika.",
+"tytul": "Finnish court jails Russian captain over Baltic Sea cable sabotage"
+},
+"543bec1eb58dc68e": {
+"ts": "2026-11-05T12:24+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Fiński sąd skazuje rosyjskiego kapitana za sabotaż kabla – to działanie wymiaru sprawiedliwości strony własnej, reakcja na wcześniejszy incydent, a nie nowy sygnał zagrożenia. Kategoria 'hybryda' doty",
+"tytul": "Finnish court jails Russian captain over Baltic cable sabotage"
+},
+"ea1a72d719b8d3c0": {
+"ts": "2026-11-05T13:29+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Fiński sąd skazał załogę statku za uszkodzenie kabla – to działanie wymiaru sprawiedliwości strony własnej. Wyrok dotyczy wcześniejszego incydentu; sąd uznał działanie za umyślne, ale nie jest to nowy",
+"tytul": "Finland Jails Russian Captain and Azerbaijani Crew Member Over Baltic Sea Cable Damage"
+},
+"b86b960ee479dca0": {
+"ts": "2026-11-05T13:29+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Doniesienie o wyroku fińskiego sądu (kara więzienia i odszkodowanie) za uszkodzenie kabla pod koniec 2025 r. To działanie wymiaru sprawiedliwości, nie nowy atak przeciwnika.",
+"tytul": "Finland Jails 2 Sailors Over Cable Damage"
+},
+"91ffa3e4ee6a3f82": {
+"ts": "2026-11-05T13:29+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Wyrok fińskiego sądu wobec kapitana rosyjskiego statku. Nagłówek używa słowa 'sabotaż', ale to opis rozstrzygnięcia sądowego dotyczącego dawnego zdarzenia, a nie świeży sygnał ataku. Brak dowodu powią",
+"tytul": "Finland jails Russian cargo ship captain over Baltic Sea cable sabotage"
+},
+"683c9de148df18c5": {
+"ts": "2026-11-05T13:29+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [
+"pretekst"
+],
+"pewnosc": 0.5,
+"powod": "Premier Tusk mówi o udaremnieniu 'prowokacji' na granicy z Rosją. Działanie obronne strony własnej, ale sugeruje próbę stworzenia incydentu po stronie rosyjskiej, co może wpisywać się w budowanie pret",
+"tytul": "Poland foils attempted 'provocation' on Russian border, PM Tusk says"
+},
+"2252dbc2bbbc6c53": {
+"ts": "2026-11-06T00:13+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Wyrok fińskiego sądu to działanie wymiaru sprawiedliwości strony własnej po wcześniejszym incydencie. Nie jest to nowy sygnał zagrożenia, a rosyjskie obywatelstwo kapitana nie oznacza, że działał na z",
+"tytul": "Finnish court jails Russian captain over Baltic cable sabotage"
+},
+"cd04215b5f250369": {
+"ts": "2026-11-06T00:13+00:00",
+"strona": "wlasna",
+"intencja": "szkoleniowa",
+"kategorie_ok": [],
+"pewnosc": 0.9,
+"powod": "Norwescy żołnierze trenują użycie dronów w warunkach arktycznych. To szkolenie strony własnej, a nie ostrzeżenie wywiadu ani działanie przeciwnika.",
+"tytul": "Tak przygotowują się do wojny przyszłości – 20 mil od Rosji"
+},
+"1f4bc01dbff82fd0": {
+"ts": "2026-11-06T00:13+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Duplikat pozycji 0: wyrok fińskiego sądu to działanie wymiaru sprawiedliwości, a nie nowy sygnał przeciwnika.",
+"tytul": "Finnish court jails Russian captain over Baltic cable sabotage"
+},
+"4e89f9fc2b8f5e0c": {
+"ts": "2026-11-06T00:13+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.75,
+"powod": "Skazanie członka załogi przez sąd to działanie wymiaru sprawiedliwości strony własnej. Nagłówek dotyczy zakończonej sprawy sprzed wyroku, a nie nowego sabotażu.",
+"tytul": "Azerbaijani crew member sentenced to 2 years and 10 months in prison over Baltic Sea cable sabotage"
+},
+"380c9b2cc385ac2f": {
+"ts": "2026-11-06T00:13+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.75,
+"powod": "Wyrok fińskiego sądu wobec kapitana i członka załogi to rozstrzygnięcie sądowe. Dotyczy wcześniejszego zdarzenia, a nie świeżego działania przeciwnika.",
+"tytul": "Finnish court jails captain and crew member for 'aggravated criminal damage' over Baltic cable sabotage"
+},
+"a5e19dd6527a0c90": {
+"ts": "2026-11-06T00:13+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.6,
+"powod": "Poszerzenie operacji granicznej przez Polskę to działanie obronne strony własnej. Kategoria hybryda ma tu jednak sens, bo przyczyną są incydent w Kaliningradzie i ostrzeżenia przed sabotażem, czyli oc",
+"tytul": "Poland border operation expands after Kaliningrad incident and sabotage warnings"
+},
+"a8f5b724456f0dc2": {
+"ts": "2026-11-06T00:13+00:00",
+"strona": "wlasna",
+"intencja": "obronna",
+"kategorie_ok": [
+"hybryda"
+],
+"pewnosc": 0.55,
+"powod": "Polska rozmieszcza policję antyterrorystyczną przy granicy z Rosją, co jest działaniem obronnym. Obawy przed sabotażem wskazują na postrzegane zagrożenie hybrydowe, ale to reakcja strony własnej, a ni",
+"tytul": "NATO member Poland deploys counterterrorism police near Russian border amid sabotage fears"
+},
+"ce79975dd1777f98": {
+"ts": "2026-11-06T01:14+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Fińskie działania sądowe: wyrok więzienia dla dwóch mężczyzn za uszkodzenie kabla podmorskiego. To reakcja strony własnej (wymiar sprawiedliwości), a nie nowy akt przeciwnika. Nagłówek nie wskazuje na",
+"tytul": "Finland Sends 2 Men to Prison for Damaging Undersea Cable in Baltic Sea"
+},
+"0e2df2196da9191e": {
+"ts": "2026-11-06T02:14+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Fiński sąd skazuje kapitana za sabotaż kabli na Bałtyku – to działanie wymiaru sprawiedliwości strony własnej (reakcja prawna), a nie nowy sygnał zagrożenia. Sam akt sabotażu należy do przeszłości, wi",
+"tytul": "Finnish court jails Russian captain over Baltic cable sabotage"
+},
+"d1ccefa07c905946": {
+"ts": "2026-11-06T02:14+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Wyrok fińskiego sądu wobec kapitana i członka załogi statku towarowego za uszkodzenie kabli – działanie sądownictwa strony własnej. Nie jest to świeży incydent hybrydowy ani wskaźnik nadchodzącego ata",
+"tytul": "Finnish Court Jails Cargo Ship Captain, Crew Member for Baltic Sea Cable Sabotage"
+},
+"6c4a126ac3c21ae1": {
+"ts": "2026-11-06T05:14+00:00",
+"strona": "przeciwnik",
+"intencja": "retoryczna",
+"kategorie_ok": [
+"pretekst"
+],
+"pewnosc": 0.8,
+"powod": "Rosyjskie media prokremlowskie przedstawiają Polskę jako agresora, co przypomina budowanie narracji i pretekstu przed działaniami wobec Ukrainy. Zabezpieczanie granicy przez polskie służby to działani",
+"tytul": "Rosyjskie media kreują Polskę na agresora. Scenariusz jak sprzed inwazji na Ukrainę?"
+},
+"0ec7edc3577deed9": {
+"ts": "2026-11-06T08:55+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Nagłówek opisuje wyrok fińskiego sądu (działanie organów strony własnej) wobec załogi za uszkodzenie kabla. To reakcja prawna na wcześniejszy incydent, a nie nowy sygnał zagrożenia ze strony przeciwni",
+"tytul": "Finland Jails Russian Captain and Azerbaijani Crew Member Over Baltic Sea Cable Damage"
+},
+"c3cb89c8d0b9d6a9": {
+"ts": "2026-11-06T11:52+00:00",
+"strona": "neutralna",
+"intencja": "nieznana",
+"kategorie_ok": [],
+"pewnosc": 0.4,
+"powod": "Nagłówek to pytanie o przyczyny aktywności wojskowej przy granicach Białorusi i opinia eksperta, bez opisu konkretnych działań. Nie wiadomo, czy chodzi o ruchy wojsk białoruskich, czy o wzmocnienia po",
+"tytul": "Z czym związana jest aktywność wojskowa przy granicach Białorusi? Opinia eksperta"
+},
+"12ddd342e9242fae": {
+"ts": "2026-11-06T13:50+00:00",
+"strona": "sojusznicza",
+"intencja": "retoryczna",
+"kategorie_ok": [
+"ostrzezenia_sojusznikow"
+],
+"pewnosc": 0.6,
+"powod": "Prezydent Litwy (strona własna/bałtycka) ostrzega, że prowokacje Putina będą trwać, ale uważa konwencjonalny atak Rosji na NATO za mało prawdopodobny. To ocena zagrożenia przez stronę własną, nie budo",
+"tytul": "«Я им не доверяю»: Науседа предупреждает, что провокации Путина продолжатся"
+},
+"bc9baf55c8808e58": {
+"ts": "2026-11-06T14:49+00:00",
+"strona": "przeciwnik",
+"intencja": "ofensywna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Rosja nasila ataki dalekiego zasięgu na infrastrukturę cywilną, ale na Ukrainie, nie na terytorium NATO. To trwająca wojna, a nie nowy sygnał ataku na NATO. Żadna z dostępnych kategorii nie pasuje pre",
+"tytul": "Defense official: Russia is stepping up attacks on civilian infrastructure"
+},
+"6d0168c441fd5c38": {
+"ts": "2026-11-06T14:49+00:00",
+"strona": "neutralna",
+"intencja": "retoryczna",
+"kategorie_ok": [],
+"pewnosc": 0.95,
+"powod": "Komentarz o niemieckiej polityce wewnętrznej i AfD. Nie dotyczy retoryki Kremla ani żadnego zagrożenia wojskowego ze strony przeciwnika.",
+"tytul": "Nostalgia paraliżuje Niemcy. Konsekwencje dla Polski mogą być szczególnie dotkliwe"
+},
+"bc22c244768fcb94": {
+"ts": "2026-11-06T15:49+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.7,
+"powod": "Litewski minister obrony ocenia sytuację na granicy z Kaliningradem jako spokojniejszą niż w Polsce; to komunikat strony własnej, a nie działanie przeciwnika. Wzmianka o polskiej zapobieżonej prowokac",
+"tytul": "Министр: ситуация на литовской границе с Калининградом сейчас спокойнее, чем была в Польше"
+},
+"327797d4796bcdf1": {
+"ts": "2026-11-06T18:45+00:00",
+"strona": "przeciwnik",
+"intencja": "retoryczna",
+"kategorie_ok": [
+"retoryka",
+"pretekst"
+],
+"pewnosc": 0.8,
+"powod": "Kreml (Szojgu, Zacharowa) oskarża Polskę o destabilizację Rosji i grozi odwetem. To retoryka z groźbami, a zarazem oskarżenia budujące potencjalny pretekst. Brak oznak działań militarnych, więc sygnał",
+"tytul": "Rosja oskarża Polskę o działania destrukcyjne. Grozi odwetem"
+},
+"d5a1b99b04eb54ac": {
+"ts": "2026-11-06T20:44+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Wyrok fińskiego sądu to działanie wymiaru sprawiedliwości strony własnej po wcześniejszym incydencie uszkodzenia kabla na Bałtyku. Sam wyrok nie jest nowym sygnałem zagrożenia ze strony przeciwnika, a",
+"tytul": "Finland court convicts Russian captain, Azerbaijani crew member over Baltic Sea cable damage"
+},
+"fd52c83bca2a1559": {
+"ts": "2026-11-07T07:01+00:00",
+"strona": "przeciwnik",
+"intencja": "ofensywna",
+"kategorie_ok": [],
+"pewnosc": 0.45,
+"powod": "Nagłówek mówi o atakach na chłodnie w Polsce, co może wskazywać na sabotaż lub ataki hybrydowe, ale bez wskazania sprawcy i bez szczegółów. Kategoria 'gotowosc' nie pasuje, bo nie opisuje mobilizacji ",
+"tytul": "Zagrożone zapasy krwi i dostawy żywności: Ataki na chłodnie już w Polsce"
+},
+"0b899c5521278d5e": {
+"ts": "2026-11-07T08:50+00:00",
+"strona": "wlasna",
+"intencja": "retoryczna",
+"kategorie_ok": [],
+"pewnosc": 0.6,
+"powod": "Nagłówek opisuje ostrzeżenia Bałtów i Polski przed możliwymi prowokacjami Rosji. Działają tu państwa strony własnej, a ich komunikat jest ostrzeżeniem, więc nie jest to sygnał przeciwnika. Kategoria '",
+"tytul": "Baltics and Poland warn again about potential Russian provocations / Article"
+},
+"a9237ff5ce8690d8": {
+"ts": "2026-11-07T10:49+00:00",
+"strona": "wlasna",
+"intencja": "administracyjna",
+"kategorie_ok": [],
+"pewnosc": 0.8,
+"powod": "Fiński sąd skazuje kapitana i członka załogi za uszkodzenie kabla na Bałtyku. To działanie wymiaru sprawiedliwości strony własnej, czyli reakcja po fakcie, a nie nowy sygnał ataku. Incydent sam w sobi",
+"tytul": "Finland court convicts Russian captain, Azerbaijani crew member over Baltic cable damage"
+}
+}

@@ -1,0 +1,774 @@
+{
+ "wygenerowano": "2026-11-07T10:49+00:00",
+ "dzien": "2026-11-07",
+ "indeks": 16.6,
+ "natezenie": {
+  "wojska_granica": 0.325,
+  "gotowosc": 0.184,
+  "ewakuacja": 0.0,
+  "ostrzezenia_sojusznikow": 0.354,
+  "pretekst": 0.191,
+  "retoryka": 0.499,
+  "hybryda": 0.208,
+  "cyber": 0.636,
+  "granica_migracja": 0.0,
+  "przestrzen_transport": 0.0,
+  "cwiczenia": 0.0,
+  "deeskalacja": 0.742
+ },
+ "sila": {
+  "wojska_granica": 1.57,
+  "gotowosc": 0.81,
+  "ewakuacja": 0.0,
+  "ostrzezenia_sojusznikow": 1.75,
+  "pretekst": 0.85,
+  "retoryka": 2.76,
+  "hybryda": 0.94,
+  "cyber": 4.04,
+  "granica_migracja": 0.0,
+  "przestrzen_transport": 0.0,
+  "cwiczenia": 0.0,
+  "deeskalacja": 5.42
+ },
+ "wpisow_24h": 67,
+ "prog": {
+  "od": 0,
+  "nazwa": "Spokojnie",
+  "kolor": "zielony",
+  "opis": "Tło informacyjne bez wyraźnych sygnałów wobec Polski i Bałtów.",
+  "luzno": "Pij kawę",
+  "luzno_opis": "Świat jak zwykle wariuje, ale nie celuje w nas."
+ },
+ "trend": {
+  "wczoraj": 18.7,
+  "sr_7": 15.9,
+  "sr_30": 8.0,
+  "dni_historii": 18
+ },
+ "zbieznosc": {
+  "poziom": 1,
+  "nazwa": "Uwaga",
+  "kategorie": {
+   "wojska_granica": {
+    "grupy": 1,
+    "przyklady": [
+     {
+      "tytul": "Z czym związana jest aktywność wojskowa przy granicach Białorusi? Opinia eksperta",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQY3pWQUVGUUthbDFWcS1qbDZLaGlJTGRxQ1pyem1mRE9IejhKaTdYVzhTckhNNTl1MmZZbzV1aDlFR2FYV19qSG5hN2ZlbHBwNjBybDdWVXFFUkNfSnp4alFzaXA0NXdibHdQdkJkVnpkQUdVTDUtQm1GWHBtMkxqSmwyR05WUEVtSWF2X2JWRWdsNy1tZUN4ZDBRVjF0dHliTWJ4bGJkUUxzTG5zTERLVE1xbzlkOXpEQ2JLZl9XOWFWODVx?oc=5",
+      "wydawca": "wiadomości białoruskie"
+     }
+    ]
+   },
+   "gotowosc": {
+    "grupy": 1,
+    "przyklady": [
+     {
+      "tytul": "Zagrożone zapasy krwi i dostawy żywności: Ataki na chłodnie już w Polsce",
+      "link": "https://www.rmf24.pl/fakty/polska/news-zagrozone-zapasy-krwi-i-dostawy-zywnosci-ataki-na-chlodnie-j,nIdn,1025220",
+      "wydawca": "RMF24 Polska"
+     }
+    ]
+   },
+   "ewakuacja": {
+    "grupy": 0,
+    "przyklady": []
+   },
+   "ostrzezenia_sojusznikow": {
+    "grupy": 0,
+    "przyklady": []
+   },
+   "pretekst": {
+    "grupy": 3,
+    "przyklady": [
+     {
+      "tytul": "Rosyjskie media kreują Polskę na agresora. Scenariusz jak sprzed inwazji na Ukrainę?",
+      "link": "https://defence24.pl/polityka-obronna/rosyjskie-media-kreuja-polske-na-agresora-scenariusz-jak-sprzed-inwazji-na-ukraine",
+      "wydawca": "Defence24"
+     },
+     {
+      "tytul": "Baltics and Poland warn again about potential Russian provocations / Article",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPb0hFU01YZTlVNDFkRzdQRzRuSHBPTkVzLV9KWWJOQ09memVaSVNoQ0JralRCNmJZdWNPMmhCUC1oWmp4NXNuN2xnMU1NVDBsMmhrWXdXd3VsWHhORVl4V1NsZ0NzN0dvNGpkWDZKOXJnUHJYclFzN3pPUGNMeGR4elBiSG5PRUpVVGtiLTdLUk52LWFKOVIyQ0RKbkFCQWhYazMtY0JneUgzdGw3Z0hOX1dULWdRVjdYdWhpTHVuV2M4eWxZUzM1Xw?oc=5",
+      "wydawca": "LSM"
+     },
+     {
+      "tytul": "«Nie ufam im»: Nausėda ostrzega, że prowokacje Putina będą kontynuowane",
+      "link": "https://www.lrt.lt/ru/novosti/17/3106330/ia-im-ne-doveriaiu-nauseda-preduprezhdaet-chto-provokatsii-putina-prodolzhatsia",
+      "wydawca": "LRT (Litwa, po rosyjsku)"
+     }
+    ]
+   },
+   "retoryka": {
+    "grupy": 2,
+    "przyklady": [
+     {
+      "tytul": "Moscow Expresses Warnings on Kaliningrad Defense Against NATO",
+      "link": "https://jamestown.org/moscow-expresses-warnings-on-kaliningrad-defense-against-nato/",
+      "wydawca": "Jamestown Foundation"
+     },
+     {
+      "tytul": "Rosja oskarża Polskę o działania destrukcyjne. Grozi odwetem",
+      "link": "https://defence24.pl/polityka-obronna/rosja-oskarza-polske-o-dzialania-destrukcyjne-grozi-odwetem",
+      "wydawca": "Defence24"
+     }
+    ]
+   },
+   "hybryda": {
+    "grupy": 2,
+    "przyklady": [
+     {
+      "tytul": "„Pealtnägija”: estońscy nastolatkowie oferowali usługi podpaleń i dewastacji",
+      "link": "https://www.err.ee/1610186404/pealtnagija-eesti-noorukid-pakkusid-suutamis-ja-lohkumisteenust",
+      "wydawca": "ERR (Estonia, po estońsku)"
+     },
+     {
+      "tytul": "Poland border operation expands after Kaliningrad incident and sabotage warnings",
+      "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQb0ZTQ2F1Z2VrOVgya2tUeVp2OG5zS0RMU2t6Y0Y2LTRFOXctNlFyVHk2NFlTR3UxSlJhUE12bkRHTXEwYVhDVkxkcnhONGFKa0VWX1g2QzVLTGhuWTZ2YUFFYVJmSW11bVc3S0gzWVVuV1BTazZwOGdhNURlUzEyTzhTaDA0N3gyM1cwbTIwNUJuVk9wWkU2bEpuSHEyT193WVI4Q09ITTJzejJyd3NRQ2l4eVFVVjdaLUd0R3NUcjVZWnI0aGxZM0tYTGI?oc=5",
+      "wydawca": "finchannel"
+     }
+    ]
+   },
+   "przestrzen_transport": {
+    "grupy": 0,
+    "przyklady": []
+   }
+  },
+  "zbiezne": [
+   "pretekst"
+  ]
+ },
+ "analogia": [
+  {
+   "kategoria": "wojska_granica",
+   "kiedy": "XI 2021",
+   "co": "Zdjęcia satelitarne i dokument wywiadu USA: ok. 175 tys. żołnierzy przy granicy Ukrainy (Washington Post, 3.12.2021).",
+   "odpowiednik": "Rosja lub Białoruś gromadzi albo przerzuca własne wojska, sprzęt lub rakiety w pobliże Polski, Bałtów lub krajów nordyckich.",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 2,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "ostrzezenia_sojusznikow",
+   "kiedy": "XI–XII 2021",
+   "co": "USA i Wielka Brytania publicznie ostrzegają, że Rosja może zaatakować; odtajniają wywiad.",
+   "odpowiednik": "Rząd, wywiad albo dowództwo USA, Wielkiej Brytanii, NATO lub państwa regionu publicznie ostrzega, że Rosja lub Białoruś może zaatakować Polskę, Bałtów lub kraje nordyckie, albo ujawnia wywiad o takich planach. Rosyjskie oskarżenia, że to Polska lub NATO szykuje atak, NIE są odpowiednikiem (to pretekst).",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 1,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "retoryka",
+   "kiedy": "17.12.2021",
+   "co": "Rosja publikuje projekty traktatów z NATO i USA: żądanie gwarancji bezpieczeństwa i wycofania NATO.",
+   "odpowiednik": "Rosja stawia NATO, Polsce lub Bałtom formalne żądania albo ultimatum dotyczące bezpieczeństwa (wycofanie wojsk, gwarancje, strefy wpływów).",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 6,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "cyber",
+   "kiedy": "14.01.2022",
+   "co": "Atak na ukraińskie strony rządowe i złośliwe oprogramowanie WhisperGate.",
+   "odpowiednik": "Poważny cyberatak na instytucje państwowe lub infrastrukturę Polski, Bałtów albo krajów nordyckich, przypisywany Rosji lub Białorusi.",
+   "trafienie": false,
+   "grup": 1,
+   "odrzucone": 36,
+   "niezweryfikowane": 0,
+   "przyklady": [
+    {
+     "tytul": "Cyberatak na dostawcę Polskiej Agencji Kosmicznej. Skradziono dane i zażądano okupu",
+     "link": "https://cyberdefence24.pl/cyberbezpieczenstwo/cyberataki/cyberatak-na-dostawce-polskiej-agencji-kosmicznej-skradziono-dane-i-zazadano-okupu",
+     "wydawca": "CyberDefence24",
+     "powod": "Konkretny cyberatak na dostawcę agencji państwowej w Polsce (kradzież danych, okup), ale w nagłówku brak przypisania Rosji lub Białorusi, a motyw okupu wskazuje raczej na przestępców; kryterium spełni"
+    }
+   ]
+  },
+  {
+   "kategoria": "pretekst",
+   "kiedy": "14.01.2022",
+   "co": "USA ostrzegają, że Rosja przygotowuje operację pod fałszywą flagą jako pretekst.",
+   "odpowiednik": "Zachodnie służby lub rządy ostrzegają, że Rosja szykuje prowokację pod fałszywą flagą wobec Polski, Bałtów lub krajów nordyckich, albo Rosja oskarża te państwa o przygotowanie ataku i buduje w ten sposób pretekst.",
+   "trafienie": true,
+   "grup": 4,
+   "odrzucone": 5,
+   "niezweryfikowane": 0,
+   "przyklady": [
+    {
+     "tytul": "Rosyjskie media kreują Polskę na agresora. Scenariusz jak sprzed inwazji na Ukrainę?",
+     "link": "https://defence24.pl/polityka-obronna/rosyjskie-media-kreuja-polske-na-agresora-scenariusz-jak-sprzed-inwazji-na-ukraine",
+     "wydawca": "Defence24",
+     "powod": "Rosyjskie media prorządowe budują narrację o Polsce jako agresorze, co odpowiada budowaniu pretekstu. Jednocześnie polskie służby obawiają się prowokacji ze strony Rosji. Dotyczy to Polski, a nie Ukra"
+    },
+    {
+     "tytul": "Poland launches major border operation as activity in Russia fuels concern over possible \"serious provocation\"",
+     "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQb04yOUY3M0N4NGx0YlJTVkNnTzExdEpUZVBlbjB4TlYzSWNxRmcyQVZOYnIyanJNeF8tUUxDa3BOdWhaOWRLNWRCLWpqSnZmTkRRd0lvRUtMSEV3VDJVV2JEa3BKR25lZG9jRS1mTFpRaW8ybklDdDZxTGhVbnRUTVE1b2VxbW14Rzd4bzdyd0pmdjY0V0NUNGp2ZEpJT00?oc=5",
+     "wydawca": "CBS News",
+     "powod": "Polska i sojusznicy ostrzegają przed możliwą poważną prowokacją ze strony Rosji przy granicy z Kaliningradem."
+    }
+   ]
+  },
+  {
+   "kategoria": "gotowosc",
+   "kiedy": "I 2022",
+   "co": "Doniesienia o zapasach krwi i szpitalach polowych przy granicy.",
+   "odpowiednik": "Rosja lub Białoruś gromadzi zapasy krwi, rozwija szpitale polowe, mobilizuje rezerwistów albo podnosi gotowość bojową w pobliżu Polski, Bałtów lub krajów nordyckich.",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 1,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "ewakuacja",
+   "kiedy": "23.01 i 11.02.2022",
+   "co": "USA ewakuują rodziny dyplomatów z Kijowa, potem wzywają obywateli do wyjazdu.",
+   "odpowiednik": "Państwa zachodnie ewakuują dyplomatów lub wzywają obywateli do opuszczenia Polski, Bałtów lub krajów nordyckich.",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 1,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "cwiczenia",
+   "kiedy": "10–20.02.2022",
+   "co": "Ćwiczenia Union Resolve na Białorusi; wojska rosyjskie nie wracają po ich końcu.",
+   "odpowiednik": "Duże ćwiczenia wojsk Rosji lub Białorusi blisko Polski, Bałtów lub krajów nordyckich, zwłaszcza gdy wojska nie wracają po ich końcu. Ćwiczenia NATO, Polski albo państw europejskich NIE są odpowiednikiem.",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 2,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "przestrzen_transport",
+   "kiedy": "II 2022",
+   "co": "Ubezpieczyciele i linie lotnicze wycofują się z ukraińskiego nieba; 24.02 zamknięcie przestrzeni.",
+   "odpowiednik": "Ubezpieczyciele lub linie lotnicze wycofują się z lotów nad Polską, Bałtami lub krajami nordyckimi z powodu zagrożenia wojskowego, albo przestrzeń zostaje zamknięta.",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 1,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "hybryda",
+   "kiedy": "II 2022",
+   "co": "Incydenty i ostrzał w Donbasie przedstawiane przez Rosję jako ataki Ukrainy.",
+   "odpowiednik": "Incydenty, sabotaż, drony lub prowokacje na terytorium Polski, Bałtów lub krajów nordyckich, przypisywane Rosji lub Białorusi albo przedstawiane przez Rosję jako agresja tych państw.",
+   "trafienie": true,
+   "grup": 9,
+   "odrzucone": 20,
+   "niezweryfikowane": 0,
+   "przyklady": [
+    {
+     "tytul": "Poland border operation expands after Kaliningrad incident and sabotage warnings",
+     "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxQb0ZTQ2F1Z2VrOVgya2tUeVp2OG5zS0RMU2t6Y0Y2LTRFOXctNlFyVHk2NFlTR3UxSlJhUE12bkRHTXEwYVhDVkxkcnhONGFKa0VWX1g2QzVLTGhuWTZ2YUFFYVJmSW11bVc3S0gzWVVuV1BTazZwOGdhNURlUzEyTzhTaDA0N3gyM1cwbTIwNUJuVk9wWkU2bEpuSHEyT193WVI4Q09ITTJzejJyd3NRQ2l4eVFVVjdaLUd0R3NUcjVZWnI0aGxZM0tYTGI?oc=5",
+     "wydawca": "finchannel",
+     "powod": "Incydent w Kaliningradzie i ostrzeżenia o sabotażu skłaniają Polskę do rozszerzenia operacji granicznej; dotyczy Polski i sabotażu w kontekście Rosji, ale brak jasnego przypisania lub rosyjskich oskar"
+    },
+    {
+     "tytul": "„Pealtnägija”: estońscy nastolatkowie oferowali usługi podpaleń i dewastacji",
+     "link": "https://www.err.ee/1610186404/pealtnagija-eesti-noorukid-pakkusid-suutamis-ja-lohkumisteenust",
+     "wydawca": "ERR (Estonia, po estońsku)",
+     "powod": "Konkretne zdarzenie w Estonii: zlecanie podpaleń i dewastacji przez nastolatków, przy czym zleceniodawcą był m.in. rosyjski wywiad w celu siania zamętu. To sabotaż/prowokacja na terytorium kraju bałty"
+    }
+   ]
+  }
+ ],
+ "skoki": [],
+ "trend_alarm": {
+  "stan": "zbieram",
+  "opis": "zbieram historię, 6 z 21 potrzebnych dni.",
+  "dni": 6
+ },
+ "najwazniejsze": [
+  {
+   "tytul": "«Nie ufam im»: Nausėda ostrzega, że prowokacje Putina będą kontynuowane",
+   "link": "https://www.lrt.lt/ru/novosti/17/3106330/ia-im-ne-doveriaiu-nauseda-preduprezhdaet-chto-provokatsii-putina-prodolzhatsia",
+   "lead": "Prezydent Litwy Gitanas Nausėda nie uważa, że obecnie prawdopodobny jest zwykły atak wojskowy Rosji na terytorium NATO, jednak sądzi, że prowokacje prezydenta Rosji Władimira Putina będą trwać, informuje Pol",
+   "jezyk": "ru",
+   "oryginal": "«Я им не доверяю»: Науседа предупреждает, что провокации Путина продолжатся",
+   "data": "2026-11-06T13:39+00:00",
+   "kategorie": [
+    "pretekst"
+   ],
+   "ocena": 2.55,
+   "zrodla": [
+    [
+     "LRT (Litwa, po rosyjsku)",
+     "https://www.lrt.lt/ru/novosti/17/3106330/ia-im-ne-doveriaiu-nauseda-preduprezhdaet-chto-provokatsii-putina-prodolzhatsia"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Europe alarmed by US plans for security deal with Russia",
+   "link": "https://www.ft.com/content/1731d88c-fba2-4060-84dc-7dfddd7bfbca?syn-25a6b1a6=1",
+   "lead": "European officials fear Washington could strike agreement with Moscow that undermines Nato and restores Russia’s sphere of influence",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-06T15:19+00:00",
+   "kategorie": [
+    "ostrzezenia_sojusznikow"
+   ],
+   "ocena": 2.4,
+   "zrodla": [
+    [
+     "Financial Times Europe",
+     "https://www.ft.com/content/1731d88c-fba2-4060-84dc-7dfddd7bfbca?syn-25a6b1a6=1"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Z czym związana jest aktywność wojskowa przy granicach Białorusi? Opinia eksperta",
+   "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQY3pWQUVGUUthbDFWcS1qbDZLaGlJTGRxQ1pyem1mRE9IejhKaTdYVzhTckhNNTl1MmZZbzV1aDlFR2FYV19qSG5hN2ZlbHBwNjBybDdWVXFFUkNfSnp4alFzaXA0NXdibHdQdkJkVnpkQUdVTDUtQm1GWHBtMkxqSmwyR05WUEVtSWF2X2JWRWdsNy1tZUN4ZDBRVjF0dHliTWJ4bGJkUUxzTG5zTERLVE1xbzlkOXpEQ2JLZl9XOWFWODVx?oc=5",
+   "lead": "Z czym związana jest aktywność wojskowa przy granicach Białorusi? Opinia eksperta wiadomości białoruskie",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-06T11:47+00:00",
+   "kategorie": [
+    "wojska_granica"
+   ],
+   "ocena": 1.8,
+   "zrodla": [
+    [
+     "wiadomości białoruskie",
+     "https://news.google.com/rss/articles/CBMixAFBVV95cUxQY3pWQUVGUUthbDFWcS1qbDZLaGlJTGRxQ1pyem1mRE9IejhKaTdYVzhTckhNNTl1MmZZbzV1aDlFR2FYV19qSG5hN2ZlbHBwNjBybDdWVXFFUkNfSnp4alFzaXA0NXdibHdQdkJkVnpkQUdVTDUtQm1GWHBtMkxqSmwyR05WUEVtSWF2X2JWRWdsNy1tZUN4ZDBRVjF0dHliTWJ4bGJkUUxzTG5zTERLVE1xbzlkOXpEQ2JLZl9XOWFWODVx?oc=5"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Zagrożone zapasy krwi i dostawy żywności: Ataki na chłodnie już w Polsce",
+   "link": "https://www.rmf24.pl/fakty/polska/news-zagrozone-zapasy-krwi-i-dostawy-zywnosci-ataki-na-chlodnie-j,nIdn,1025220",
+   "lead": "Zagrożone zapasy krwi i dostawy żywności: Ataki na chłodnie już w Polsce",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-07T06:54+00:00",
+   "kategorie": [
+    "gotowosc"
+   ],
+   "ocena": 1.8,
+   "zrodla": [
+    [
+     "RMF24 Polska",
+     "https://www.rmf24.pl/fakty/polska/news-zagrozone-zapasy-krwi-i-dostawy-zywnosci-ataki-na-chlodnie-j,nIdn,1025220"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Cyberataki na systemy chłodnicze w Polsce. Policja potwierdza kolejne zgłoszenia",
+   "link": "https://cyberdefence24.pl/cyberbezpieczenstwo/cyberataki/cyberataki-na-systemy-chlodnicze-w-polsce-policja-potwierdza-kolejne-zgloszenia",
+   "lead": "W Polsce rośnie liczba zgłoszeń dotyczących cyberataków na systemy chłodnicze. Centralne Biuro Zwalczania Cyberprzestępczości potwierdza, że doszło już do kilku takich incydentów. Podobne ataki odnotowano w innych krajach Europy, gdzie hakerzy przejmowali kontrolę nad urządzeniami chłodniczymi w sup",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-06T11:50+00:00",
+   "kategorie": [
+    "cyber"
+   ],
+   "ocena": 1.7,
+   "zrodla": [
+    [
+     "CyberDefence24",
+     "https://cyberdefence24.pl/cyberbezpieczenstwo/cyberataki/cyberataki-na-systemy-chlodnicze-w-polsce-policja-potwierdza-kolejne-zgloszenia"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Jest ostrzeżenie dla placówek medycznych w Polsce. Zagrożone chłodnie z krwią",
+   "link": "https://www.rp.pl/ochrona-zdrowia/art45455601-jest-ostrzezenie-dla-placowek-medycznych-w-polsce-zagrozone-chlodnie-z-krwia",
+   "lead": "Polski sektor ochrony zdrowia otrzymał ostrzeżenie od zespołu cyberbezpieczeństwa Centrum e-Zdrowia przed cyberatakami na systemy chłodnicze. Powodem są kolejne tego typu incydenty w Europie Zachodniej. O sprawie pisze Rynek Zdrowia.",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-06T12:18+00:00",
+   "kategorie": [
+    "cyber"
+   ],
+   "ocena": 1.7,
+   "zrodla": [
+    [
+     "Rzeczpospolita",
+     "https://www.rp.pl/ochrona-zdrowia/art45455601-jest-ostrzezenie-dla-placowek-medycznych-w-polsce-zagrozone-chlodnie-z-krwia"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Cyberatak na dostawcę Polskiej Agencji Kosmicznej. Skradziono dane i zażądano okupu",
+   "link": "https://cyberdefence24.pl/cyberbezpieczenstwo/cyberataki/cyberatak-na-dostawce-polskiej-agencji-kosmicznej-skradziono-dane-i-zazadano-okupu",
+   "lead": "Polska Agencja Kosmiczna (POLSA) poinformowała o nieuprawnionym dostępie do wewnętrznych systemów CloudFerro (zewnętrznego podmiotu), dostawcy usługi NSIS Cloud – platformy chmurowej Narodowego Systemu Informacji Satelitarnej. Nieuprawniona osoba skopiowała dane użytkowników z rejestru kont oraz mod",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-06T13:14+00:00",
+   "kategorie": [
+    "cyber"
+   ],
+   "ocena": 1.7,
+   "zrodla": [
+    [
+     "CyberDefence24",
+     "https://cyberdefence24.pl/cyberbezpieczenstwo/cyberataki/cyberatak-na-dostawce-polskiej-agencji-kosmicznej-skradziono-dane-i-zazadano-okupu"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Ekspert Google ostrzega przed zagrożeniem dla Polski i Europy ze strony Rosji",
+   "link": "https://cyberdefence24.pl/cyberbezpieczenstwo/cyberataki/ekspert-google-ostrzega-przed-zagrozeniem-dla-polski-i-europy-ze-strony-rosji",
+   "lead": "Rosyjskie cyberataki na infrastrukturę krytyczną Europy mogą wchodzić w nowy, bardziej niebezpieczny etap. „Widzieliśmy już takie działania ze strony GRU, ale nie ze strony FSB” – mówi Jamie Collier z Google Threat Intelligence Group, odpowiadając na pytania CyberDefence24. Ekspert komentując operac",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-06T15:47+00:00",
+   "kategorie": [
+    "cyber"
+   ],
+   "ocena": 1.7,
+   "zrodla": [
+    [
+     "CyberDefence24",
+     "https://cyberdefence24.pl/cyberbezpieczenstwo/cyberataki/ekspert-google-ostrzega-przed-zagrozeniem-dla-polski-i-europy-ze-strony-rosji"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Rosja oskarża Polskę o działania destrukcyjne. Grozi odwetem",
+   "link": "https://defence24.pl/polityka-obronna/rosja-oskarza-polske-o-dzialania-destrukcyjne-grozi-odwetem",
+   "lead": "Kreml kontynuuje oskarżanie Polski o jej rzekome dążenia do zdestabilizowania sytuacji politycznej w Rosji. Siergiej Szojgu dla zobrazowania swojego rozumowania przywołał dość swobodną wizję rozpadu ZSRR, a Maria Zacharowa wprost groziła odwetem za domniemane działania Polski.",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-06T18:00+00:00",
+   "kategorie": [
+    "retoryka"
+   ],
+   "ocena": 1.7,
+   "zrodla": [
+    [
+     "Defence24",
+     "https://defence24.pl/polityka-obronna/rosja-oskarza-polske-o-dzialania-destrukcyjne-grozi-odwetem"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "NATO's secretary general does not think war in Ukraine will end with victory for either side",
+   "link": "https://www.pravda.com.ua/eng/news/2026/11/06/8061621/",
+   "lead": "NATO's Mark Rutte has called for continued European vigilance, warning that a post-war Russian military poses long-term security threats despite potential peace deals.",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-06T17:32+00:00",
+   "kategorie": [
+    "ostrzezenia_sojusznikow"
+   ],
+   "ocena": 1.44,
+   "zrodla": [
+    [
+     "Ukrainska Pravda EN",
+     "https://www.pravda.com.ua/eng/news/2026/11/06/8061621/"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Russia receives no European proposals on security guarantees, Kremlin says",
+   "link": "https://tass.com/politics/2213801",
+   "lead": "Earlier, closed-door talks involving representatives of the United States, NATO, European countries and Ukraine were held in Brussels",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-06T10:57+00:00",
+   "kategorie": [
+    "retoryka"
+   ],
+   "ocena": 1.2,
+   "zrodla": [
+    [
+     "TASS (EN)",
+     "https://tass.com/politics/2213801"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "West’s policy draws line under old security system in Europe for Russia — Foreign Ministry",
+   "link": "https://tass.com/politics/2214109",
+   "lead": "The ministry said that the West rejected a draft Agreement on the Foundations of Relations between Russia and NATO proposed by Russia in 2009, as well as a 2021 initiative to draw up an agreement with the US on security guarantees and an agreement with NATO on security measures",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-06T22:49+00:00",
+   "kategorie": [
+    "retoryka"
+   ],
+   "ocena": 1.2,
+   "zrodla": [
+    [
+     "TASS (EN)",
+     "https://tass.com/politics/2214109"
+    ]
+   ],
+   "grup": 1
+  }
+ ],
+ "wlasne": [
+  {
+   "tytul": "Nostalgia paraliżuje Niemcy. Konsekwencje dla Polski mogą być szczególnie dotkliwe",
+   "link": "https://www.rp.pl/plus-minus/art45449891-nostalgia-paralizuje-niemcy-konsekwencje-dla-polski-moga-byc-szczegolnie-dotkliwe",
+   "wydawca": "Rzeczpospolita",
+   "data": "2026-11-06T13:57+00:00",
+   "zdjete": [
+    "retoryka"
+   ],
+   "zdjete_nazwy": [
+    "retoryka i ultimata kremla"
+   ],
+   "powod": "Komentarz o niemieckiej polityce wewnętrznej i AfD. Nie dotyczy retoryki Kremla ani żadnego zagrożenia wojskowego ze strony przeciwnika.",
+   "grup": 1
+  },
+  {
+   "tytul": "Finland Sends 2 Men to Prison for Damaging Undersea Cable in Baltic Sea",
+   "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPeDkxMmZIcTBITTRSNjlLRXNNenNqSmNZX0JZUEgtS2pBX1NpMjY3VGpBTC14aERTNFdRVTdtQTM3Q2tKTEgyUFQ4LUgteUtHX3FyeDJwRnBoQWs4eDlhY090LWgwY1BWSHpYaW5hRWNQVERubS11bUptaU9GaXF4aHNOczA5MktiN1ZURmZoSG1zTWI4ZmRkdmhoRTZ4bS14YXhNb293?oc=5",
+   "wydawca": "The New York Times",
+   "data": "2026-11-05T21:34+00:00",
+   "zdjete": [
+    "hybryda"
+   ],
+   "zdjete_nazwy": [
+    "sabotaż, drony, naruszenia przestrzeni"
+   ],
+   "powod": "Fińskie działania sądowe: wyrok więzienia dla dwóch mężczyzn za uszkodzenie kabla podmorskiego. To reakcja strony własnej (wymiar sprawiedliwości), a nie nowy akt przeciwnika. Nagłówek nie wskazuje na",
+   "grup": 1
+  },
+  {
+   "tytul": "Tak przygotowują się do wojny przyszłości – 20 mil od Rosji",
+   "link": "https://www.nrk.no/tromsogfinnmark/xl/finnmarksbrigaden-bygger-droneforsvar-for-arktiske-forhold-med-erfaringer-fra-ukraina-1.18067802",
+   "wydawca": "NRK Norge (Norwegia)",
+   "data": "2026-11-05T17:51+00:00",
+   "zdjete": [
+    "ostrzezenia_sojusznikow"
+   ],
+   "zdjete_nazwy": [
+    "ostrzeżenia wywiadu i sojuszników"
+   ],
+   "powod": "Norwescy żołnierze trenują użycie dronów w warunkach arktycznych. To szkolenie strony własnej, a nie ostrzeżenie wywiadu ani działanie przeciwnika.",
+   "grup": 1
+  },
+  {
+   "tytul": "Finland Jails 2 Sailors Over Cable Damage",
+   "link": "https://www.kyivpost.com/post/89234",
+   "wydawca": "Kyiv Post",
+   "data": "2026-11-05T12:57+00:00",
+   "zdjete": [
+    "hybryda"
+   ],
+   "zdjete_nazwy": [
+    "sabotaż, drony, naruszenia przestrzeni"
+   ],
+   "powod": "Doniesienie o wyroku fińskiego sądu (kara więzienia i odszkodowanie) za uszkodzenie kabla pod koniec 2025 r. To działanie wymiaru sprawiedliwości, nie nowy atak przeciwnika.",
+   "grup": 1
+  },
+  {
+   "tytul": "Finland jails Russian cargo ship captain over Baltic Sea cable sabotage",
+   "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQQXg2YTZTRTFqS0VVTjRZb09vckU0YWd2bC1YWEhHSFlfUEp2dVRjYkp5d2t0X0FVRmZ4cUdwT3pmeXZqb0lYTXhvWllPdjE1YTBBVTVJNi1kUXliR0xfbm9VQW5IdUJVdlFxNmZXc3NWcENjclNsblNHa0pfcHRFQnZoTVdSTVFqSnlBM2FLUVNlcHNlNGdVVzhiRHhubEhBd0cxdHVKSHI1T0VISTRUNXhuVlBpS1ZoM1dVSjJSWndDazJv0gHEAUFVX3lxTE16RjRyamJVVV9FWnlBQUJfTWhUODJzbks2eHpTcmlWSm9BZ3ZwSVFEQVkxN1paUl9uTEpvWVdUeHVncDZtaDJnN1RheGRDQS1XeGxrWlBrNkZsemo5SlFha0xiQ0RJY0h4YU40Q3lUYktUN0NzN1JfQ2VXVWZVLWNYbTk4cTRXaXhXNmx5X29MdVFNQmFIeko5ZkliR0lCWUE5WFIwd0R2TkdidzgxT2lobUg1OTNXNFIzSFJ4UjRmMmd4LXg?oc=5",
+   "wydawca": "South China Morning Post",
+   "data": "2026-11-05T12:30+00:00",
+   "zdjete": [
+    "hybryda"
+   ],
+   "zdjete_nazwy": [
+    "sabotaż, drony, naruszenia przestrzeni"
+   ],
+   "powod": "Wyrok fińskiego sądu wobec kapitana rosyjskiego statku. Nagłówek używa słowa 'sabotaż', ale to opis rozstrzygnięcia sądowego dotyczącego dawnego zdarzenia, a nie świeży sygnał ataku. Brak dowodu powią",
+   "grup": 2
+  },
+  {
+   "tytul": "Azerbaijani crew member sentenced to 2 years and 10 months in prison over Baltic Sea cable sabotage",
+   "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxNdXMzSXJGNzVCbmJXcmRYRHJ1bmxEUFhZYXZqek00NEdTMXc0eHFJYkhMQmtORGQ3cWgxbDdyN0tEM2owN1ZpaHkzTlZRejBrWG82MFBYXzk1czFUZjBJa1d5NWJwTnQtLUN2eUVnTUg4S0p5Snhac3FNWEhINDU5RTNuZkptX2otdHlUVDJNekxfT25PVHBxdXZmOTd0VDhqYzBjUTdLclluclUzdkp4cWZJSC1WblRJbHgteDhmbW5qaUtUVUt0aG5zeE1HQQ?oc=5",
+   "wydawca": "Apa.az",
+   "data": "2026-11-05T11:47+00:00",
+   "zdjete": [
+    "hybryda"
+   ],
+   "zdjete_nazwy": [
+    "sabotaż, drony, naruszenia przestrzeni"
+   ],
+   "powod": "Skazanie członka załogi przez sąd to działanie wymiaru sprawiedliwości strony własnej. Nagłówek dotyczy zakończonej sprawy sprzed wyroku, a nie nowego sabotażu.",
+   "grup": 1
+  },
+  {
+   "tytul": "Fiński sąd skazał na więzienie kapitana i bosmana statku, który uszkodził kable łączności",
+   "link": "https://www.err.ee/1610187088/soome-kohus-moistis-sidekaableid-lohkunud-laeva-kapteni-ja-pootsmani-vangi",
+   "wydawca": "ERR (Estonia, po estońsku)",
+   "data": "2026-11-05T11:02+00:00",
+   "zdjete": [
+    "hybryda"
+   ],
+   "zdjete_nazwy": [
+    "sabotaż, drony, naruszenia przestrzeni"
+   ],
+   "powod": "Wyrok fińskiego sądu to działanie wymiaru sprawiedliwości państwa nordyckiego, a nie nowy incydent. Dotyczy wcześniejszego uszkodzenia kabla (sabotaż hybrydowy), ale sam nagłówek nie jest świeżym sygn",
+   "grup": 1
+  },
+  {
+   "tytul": "Finland court convicts Russian captain, Azerbaijani crew member over Baltic Sea cable damage",
+   "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxQZ1JTQW8wbkUxMUxKaEE5Q2VhM1gyNk5pWnZ1R3RtSE1RdGhuemtsdkhOa2RlUHhfZkxEWnBURjNTOWtvNU0yUmFiTE10cUZ2aE5DUFd5VUl6c1lWY256R0RxVVlJdEZ2enR0Ym04cUJQM2FWZ3dfelVyc1dPenZxQi0ydWZueUJwNnkzXzR6WTFpZ0FvbzlEanlVRWVfVEl1MzZIWHFrbS1Pb2hzUGhVUGxnRjBBSUJoblg1VU1mbTNpYUlMNHRN?oc=5",
+   "wydawca": "Reuters",
+   "data": "2026-11-05T10:45+00:00",
+   "zdjete": [
+    "hybryda"
+   ],
+   "zdjete_nazwy": [
+    "sabotaż, drony, naruszenia przestrzeni"
+   ],
+   "powod": "Wyrok fińskiego sądu to działanie wymiaru sprawiedliwości strony własnej po wcześniejszym incydencie uszkodzenia kabla na Bałtyku. Sam wyrok nie jest nowym sygnałem zagrożenia ze strony przeciwnika, a",
+   "grup": 1
+  }
+ ],
+ "intencja": {
+  "ocenione": 119,
+  "po_stronie": {
+   "neutralna": 17,
+   "wlasna": 73,
+   "przeciwnik": 21,
+   "sojusznicza": 8
+  },
+  "przyklady_wlasne": [
+   "Po komunikacie Polski o możliwej prowokacji niemiecka brygada na Litwie rozpoczęła obserwację",
+   "Poland Floods Kaliningrad Border With Police and Commandos After Sabotage Warning",
+   "Poland Launches Major Security Operation Along Border with Kaliningrad Amid Sabotage Fears",
+   "Poland reinforces Russian border amid sabotage threat, PM says",
+   "Poland reinforces Russian border after warnings of sabotage and armed incursions"
+  ]
+ },
+ "historia": [
+  {
+   "dzien": "2026-10-19",
+   "indeks": 4.0,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-20",
+   "indeks": 1.7,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-21",
+   "indeks": 3.2,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-22",
+   "indeks": 0.0,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-23",
+   "indeks": 2.4,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-25",
+   "indeks": 0.4,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-26",
+   "indeks": 3.4,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-27",
+   "indeks": 0.0,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-28",
+   "indeks": 6.1,
+   "alarm": 1,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-29",
+   "indeks": 7.1,
+   "alarm": 1,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-30",
+   "indeks": 3.4,
+   "alarm": 1,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-31",
+   "indeks": 6.4,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-11-01",
+   "indeks": 1.8,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-11-02",
+   "indeks": 24.5,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-03",
+   "indeks": 29.6,
+   "alarm": 3,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-04",
+   "indeks": 15.8,
+   "alarm": 2,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-05",
+   "indeks": 14.8,
+   "alarm": 2,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-06",
+   "indeks": 18.7,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-07",
+   "indeks": 16.6,
+   "alarm": 1,
+   "rek": false
+  }
+ ],
+ "skrot": [
+  "Poziom: spokojnie, współczynnik wpierdolu 17/100. Wobec tygodnia: bez zmian (+1); wobec miesiąca: wzrost +9.",
+  "Najsilniejsze sygnały: ostrzeżenia wywiadu i sojuszników (35% skali); cyberataki na państwo i infrastrukturę (64% skali); retoryka i ultimata kremla (50% skali).",
+  "Spiętrzenie zbieżnych komunikatów: uwaga. Co najmniej 3 niezależne redakcje w 72 h w kategoriach: budowanie pretekstu i oskarżenia.",
+  "Sygnały deeskalacji obecne (74% skali), obniżają indeks.",
+  "Analogia do zimy 2021/22: 2 z 10 zdarzeń, które poprzedziły atak Rosji na Ukrainę 24.02.2022, ma dziś odpowiednik w wiadomościach o Polsce, Bałtach i krajach nordyckich (każde opisały co najmniej 2 niezależne redakcje w 30 dniach).",
+  "Alarm trendu: zbieram historię, 6 z 21 potrzebnych dni."
+ ]
+}
