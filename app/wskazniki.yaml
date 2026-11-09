@@ -28,6 +28,9 @@ kategorie:
       - 'переброск\w* (войск|техники)'
       - 'сосредоточени\w* войск'
     wykluczenia:
+      # Zdjęcia satelitarne smogu i pola golfowego to nie ruchy wojsk.
+      # Tylko gdy w tekście nie ma wojska (tekst o wojskach i smogu zostaje zaklasyfikowany).
+      - '^(?!.*\b(wojsk\w*|troops|żołnierz\w*|army|military|armia)\b).*\b(smog\w*|air quality|jakoś\w* powietrza|golf course)\b'
       # Własne i sojusznicze siły (Polska, UK, NATO, Europa, USA), gdy w tekście nie pada Rosja ani Białoruś jako strona.
       - '^(?!.*\b(russia\w*|russian|rosj\w*|rosyjsk\w*|belarus\w*|białoru\w*|kremlin|kreml\w*|россия|российск|белорус)).*\b(poland|polish|polsk\w*|polsc\w*|uk|british|brytyjsk\w*|european|europejsk\w*|nato|allied|sojusznicz\w*|german|niemieck\w*|american|amerykańsk\w*|lithuanian|litewsk\w*|latvian|łotewsk\w*|estonian|estońsk\w*)\b.{0,40}\b(troops|forces|soldiers|police|żołnierz\w*|wojsk\w*|sił\w*|policj\w*)'
       # Państwo flanki samo wysyła swoje siły (także „do granicy z Rosją”): to reakcja obronna, nie koncentracja przeciwnika.
@@ -60,6 +63,12 @@ kategorie:
       - 'мобилизац\w*'
       - 'военное положение'
       - 'боеготовност\w*'
+    wykluczenia:
+      # Mobilizacja wyborców, poderwanie myśliwców do samolotu pasażerskiego, spór o weryfikację rezerwisty, mobilizacja policji.
+      - '\b(frekwenc\w*|voter turnout)\b'
+      - '\b(wizz air|samolot\w* pasażersk\w*|passenger (plane|aircraft|jet))'
+      - '\bkanclerz\w* sprawiedliwości\b'
+      - '\b(policj\w*|police)\b.{0,200}\bmobilizacj\w*'
   ewakuacja:
     nazwa: "Ewakuacja dyplomatów i ostrzeżenia dla podróżnych"
     waga: 4
@@ -93,6 +102,14 @@ kategorie:
       - '\b(zbliżając\w*|nieuchronn\w*|realn\w*) (atak|agresj|wojn|inwazj)'
       - '\bostrzeg\w*\b.{0,40}\b(atak|agresj|inwazj|wojn)'
       - '\b(przygotow\w*|szykuj\w*)\b.{0,15}\b(atak|agresj|inwazj|wojn)'
+    wykluczenia:
+      # Ostrzeżenie przed zamachem terrorystycznym w Moskwie to nie ostrzeżenie przed atakiem na flankę.
+      - '\bterror\w*\b.{0,80}\b(moscow|moskw\w*|carycyn\w*|tsaritsyn\w*)'
+      - '\b(moscow|moskw\w*|carycyn\w*|tsaritsyn\w*)\b.{0,80}\bterror\w*'
+      # Fałszywe alerty po włamaniu do aplikacji alarmowej.
+      - '\b(fake|false|bogus|fałszyw\w*|błędn\w*)\b.{0,30}\b(alerts?|warnings?|alert\w*|ostrzeżeni\w*)'
+      - '\b(hack\w*|cyber\w*|zhakowan\w*)\b.{0,80}\b(alerts?|emergency app|alarmow\w*|ostrzegani\w*)'
+      - '\b(alerts?|emergency app|alarmow\w*|ostrzegani\w*)\b.{0,80}\b(hack\w*|cyber\w*|zhakowan\w*)'
   pretekst:
     nazwa: "Budowanie pretekstu i oskarżenia"
     waga: 3
@@ -137,6 +154,15 @@ kategorie:
       - 'гарантии безопасности'
       - 'ядерн\w*'
       - 'ответные меры'
+    wykluczenia:
+      # Fałszywe alerty i włamania do aplikacji alarmowych to cyberatak, nie groźba Kremla.
+      - '\b(fake|false|bogus|fałszyw\w*|błędn\w*)\b.{0,30}\b(alerts?|warnings?|alert\w*|ostrzeżeni\w*)'
+      - '\b(hack\w*|cyber\w*|zhakowan\w*)\b.{0,80}\b(alerts?|emergency app|alarmow\w*|ostrzegani\w*)'
+      - '\b(alerts?|emergency app|alarmow\w*|ostrzegani\w*)\b.{0,80}\b(hack\w*|cyber\w*|zhakowan\w*)'
+      # Korea Północna (bez Rosji w tekście), Sahara Zachodnia, krajowe negocjacje o rządzie.
+      - '^(?!.*\b(russia\w*|rosj\w*|rosyjsk\w*|kreml\w*|kremlin|putin\w*)).*\b(north korea\w*|korei północnej|korea północna|koreańsk\w* północn\w*)'
+      - '\bwestern sahara\b|\bsaharz\w* zachodni\w*'
+      - '\b(utworz\w*|stworz\w*|sformuj\w*)\b.{0,20}\brząd\w*'
   hybryda:
     nazwa: "Sabotaż, drony, naruszenia przestrzeni"
     waga: 2
@@ -160,6 +186,9 @@ kategorie:
       - '\bflot\w* cieni'
       - 'диверси\w*'
       - 'саботаж'
+    wykluczenia:
+      # Podpalenia w czasie zamieszek ulicznych (gaz łzawiący) to nie sabotaż.
+      - '\barson\b.{0,60}\btear gas'
   cyber:
     nazwa: "Cyberataki na państwo i infrastrukturę"
     waga: 2
@@ -175,6 +204,10 @@ kategorie:
       - '\batak\w* hakersk'
       - '\bwłaman\w*\b.{0,30}\b(system|serwer|skrzyn|poczt)'
       - 'кибератак\w*'
+    wykluczenia:
+      # Oszustwo w prywatnym banku oraz eseje o algorytmach i demokracji to nie cyberatak na państwo.
+      - '\bbanks?\b.{0,60}\b(stole|stolen)\b'
+      - '\b(algorytm\w*|algorithms?)\b.{0,200}\b(demokracj\w*|democracy|politycy|politicians)'
   granica_migracja:
     nazwa: "Presja na granicy z Białorusią"
     waga: 1
@@ -213,6 +246,11 @@ kategorie:
       - '\b(ćwiczen\w*|manewr\w*)\b.{0,40}\b(białoru\w*|rosj\w*|królewieck\w*|kaliningrad\w*|floty bałtyck)'
       - '\b(białoru\w*|rosj\w*|królewieck\w*|kaliningrad\w*)\b.{0,40}\b(ćwiczen\w*|manewr\w*)'
       - 'учени[яйе]\w*'
+    wykluczenia:
+      # Okręt szpiegowski obserwujący ćwiczenia NATO to nie duże ćwiczenia Rosji.
+      - '\b(spy|intelligence|surveillance) (ships?|vessels?)\b'
+      - '\bokręt\w* (szpieg\w*|wywiad\w*)'
+      - '\bstat\w* szpieg\w*'
   deeskalacja:
     nazwa: "Sygnały deeskalacji"
     waga: -3
@@ -231,6 +269,20 @@ kategorie:
       - 'перемири\w*'
       - 'мирн\w* переговор\w*'
       - 'отвод войск'
+    wykluczenia:
+      # Koniec, wygaśnięcie, odrzucenie lub wykorzystanie rozejmu do walki to nie deeskalacja.
+      - '\b(ceasefire|truce)\b.{0,60}\b(ended|ends|expired?|expires|expiry|collapsed?|broke down|breached)\b'
+      - '\b(end of|end to)\b.{0,15}\b(ceasefire|truce)'
+      - '\b(fighting|war|attacks?|strikes?)\b.{0,20}\b(returns?|resum\w*)\b.{0,60}\b(ceasefire|truce)'
+      - '\b(rejected|refus\w*|declin\w*)\b.{0,40}\b(ceasefire|truce)'
+      - '\b(use[sd]?|exploit\w*|took advantage of)\b.{0,20}\b(the )?(ceasefire|truce)\b.{0,40}\b(to|for)\b'
+      - '\b(skończył\w*|wygasł\w*|wygasa\w*|odrzuci\w*|odmówi\w*)\b.{0,40}\b(rozejm\w*|zawiesz\w* broni)'
+      - '\b(rozejm\w*|zawiesz\w* broni)\b.{0,40}\b(skończy\w*|zakończ\w* się|wygas\w*|odrzuc\w*)'
+      - '\bwykorzyst\w*\b.{0,40}\b(rozejm\w*|zawiesz\w* broni)'
+      - '\bnie planuje\b.{0,40}\b(rozejm\w*|zawiesz\w* broni)'
+      # Bombardowanie z komentarzem, że Rosja nie chce deeskalacji, i rozbity układ pokojowy.
+      - '\bdoes not want\b.{0,40}\bde-?escalat'
+      - '\b(shatter\w*|collaps\w*|violat\w*|breach\w*)\b.{0,30}\bpeace (deal|agreement)'
 
 # Czy wiadomość dotyczy Polski i wschodniej flanki NATO. Mnożnik wagi wpisu w indeksie.
 geografia:
