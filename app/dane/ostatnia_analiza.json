@@ -1,0 +1,642 @@
+{
+ "wygenerowano": "2026-11-14T18:55+00:00",
+ "dzien": "2026-11-14",
+ "indeks": 8.9,
+ "natezenie": {
+  "wojska_granica": 0.072,
+  "gotowosc": 0.0,
+  "ewakuacja": 0.0,
+  "ostrzezenia_sojusznikow": 0.037,
+  "pretekst": 0.052,
+  "retoryka": 0.503,
+  "hybryda": 0.147,
+  "cyber": 0.238,
+  "granica_migracja": 0.0,
+  "przestrzen_transport": 0.366,
+  "cwiczenia": 0.052,
+  "deeskalacja": 0.871
+ },
+ "sila": {
+  "wojska_granica": 0.3,
+  "gotowosc": 0.0,
+  "ewakuacja": 0.0,
+  "ostrzezenia_sojusznikow": 0.15,
+  "pretekst": 0.21,
+  "retoryka": 2.79,
+  "hybryda": 0.64,
+  "cyber": 1.09,
+  "granica_migracja": 0.0,
+  "przestrzen_transport": 1.82,
+  "cwiczenia": 0.21,
+  "deeskalacja": 8.19
+ },
+ "wpisow_24h": 71,
+ "prog": {
+  "od": 0,
+  "nazwa": "Spokojnie",
+  "kolor": "zielony",
+  "opis": "Tło informacyjne bez wyraźnych sygnałów wobec Polski i Bałtów.",
+  "luzno": "Pij kawę",
+  "luzno_opis": "Świat jak zwykle wariuje, ale nie celuje w nas."
+ },
+ "trend": {
+  "wczoraj": 11.9,
+  "sr_7": 12.2,
+  "sr_30": 9.2,
+  "dni_historii": 25
+ },
+ "zbieznosc": {
+  "poziom": 1,
+  "nazwa": "Uwaga",
+  "kategorie": {
+   "wojska_granica": {
+    "grupy": 0,
+    "przyklady": []
+   },
+   "gotowosc": {
+    "grupy": 0,
+    "przyklady": []
+   },
+   "ewakuacja": {
+    "grupy": 0,
+    "przyklady": []
+   },
+   "ostrzezenia_sojusznikow": {
+    "grupy": 0,
+    "przyklady": []
+   },
+   "pretekst": {
+    "grupy": 1,
+    "przyklady": [
+     {
+      "tytul": "West seeks to conceal who ordered Nord Stream sabotage — Russian MFA",
+      "link": "https://tass.com/politics/2217571",
+      "wydawca": "TASS (EN)"
+     }
+    ]
+   },
+   "retoryka": {
+    "grupy": 1,
+    "przyklady": [
+     {
+      "tytul": "Rosja postawiła żądania w sprawie wojny. Media: Jedno dotyczy Polski",
+      "link": "https://www.polsatnews.pl/wiadomosc/2026-11-14/rosja-postawila-zadania-w-sprawie-wojny-media-jedno-dotyczy-polski/",
+      "wydawca": "Polsat News Świat"
+     }
+    ]
+   },
+   "hybryda": {
+    "grupy": 9,
+    "przyklady": [
+     {
+      "tytul": "Kaunas o rakiecie przeznaczonej do zestrzelenia drona: kwestia setek tysięcy, a nie milionów euro",
+      "link": "https://www.lrt.lt/naujienos/lietuvoje/2/3111448/kaunas-apie-raketa-skirta-dronui-numusti-simtu-tukstanciu-o-ne-milijonu-euru-klausimas",
+      "wydawca": "LRT (Litwa, po litewsku)"
+     },
+     {
+      "tytul": "Dron naruszył polską przestrzeń powietrzną? Sprzeczne głosy z Polski i Litwy",
+      "link": "https://defence24.pl/polityka-obronna/dron-naruszyl-polska-przestrzen-powietrzna-sprzeczne-glosy-z-polski-i-litwy",
+      "wydawca": "Defence24"
+     },
+     {
+      "tytul": "Alarm w krajach bałtyckich. Drony naruszyły przestrzeń powietrzną Łotwy i Estonii",
+      "link": "https://www.rmf24.pl/fakty/swiat/news-alarm-w-krajach-baltyckich-drony-naruszyly-przestrzen-powiet,nIdn,1025762",
+      "wydawca": "RMF24 Świat"
+     },
+     {
+      "tytul": "Rosyjski wywiad miał stać za dywersją na polskiej kolei. Jest akt oskarżenia",
+      "link": "https://www.rp.pl/przestepczosc/art45478501-rosyjski-wywiad-mial-stac-za-dywersja-na-polskiej-kolei-jest-akt-oskarzenia",
+      "wydawca": "Rzeczpospolita"
+     }
+    ]
+   },
+   "przestrzen_transport": {
+    "grupy": 0,
+    "przyklady": []
+   }
+  },
+  "zbiezne": [
+   "hybryda"
+  ]
+ },
+ "analogia": [
+  {
+   "kategoria": "wojska_granica",
+   "kiedy": "XI 2021",
+   "co": "Zdjęcia satelitarne i dokument wywiadu USA: ok. 175 tys. żołnierzy przy granicy Ukrainy (Washington Post, 3.12.2021).",
+   "odpowiednik": "Rosja lub Białoruś gromadzi albo przerzuca własne wojska, sprzęt lub rakiety w pobliże Polski, Bałtów lub krajów nordyckich.",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 2,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "ostrzezenia_sojusznikow",
+   "kiedy": "XI–XII 2021",
+   "co": "USA i Wielka Brytania publicznie ostrzegają, że Rosja może zaatakować; odtajniają wywiad.",
+   "odpowiednik": "Rząd, wywiad albo dowództwo USA, Wielkiej Brytanii, NATO lub państwa regionu publicznie ostrzega, że Rosja lub Białoruś może zaatakować Polskę, Bałtów lub kraje nordyckie, albo ujawnia wywiad o takich planach. Rosyjskie oskarżenia, że to Polska lub NATO szykuje atak, NIE są odpowiednikiem (to pretekst).",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 1,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "retoryka",
+   "kiedy": "17.12.2021",
+   "co": "Rosja publikuje projekty traktatów z NATO i USA: żądanie gwarancji bezpieczeństwa i wycofania NATO.",
+   "odpowiednik": "Rosja stawia NATO, Polsce lub Bałtom formalne żądania albo ultimatum dotyczące bezpieczeństwa (wycofanie wojsk, gwarancje, strefy wpływów).",
+   "trafienie": false,
+   "grup": 1,
+   "odrzucone": 9,
+   "niezweryfikowane": 0,
+   "przyklady": [
+    {
+     "tytul": "Rosja postawiła żądania w sprawie wojny. Media: Jedno dotyczy Polski",
+     "link": "https://www.polsatnews.pl/wiadomosc/2026-11-14/rosja-postawila-zadania-w-sprawie-wojny-media-jedno-dotyczy-polski/",
+     "wydawca": "Polsat News Świat",
+     "powod": "Rosja (strona działająca) według NYT domagała się w negocjacjach wycofania wojsk NATO ze wschodniej flanki, w tym z Polski, czyli formalnego żądania bezpieczeństwa wobec NATO/Polski. Zgodne z kryteriu"
+    }
+   ]
+  },
+  {
+   "kategoria": "cyber",
+   "kiedy": "14.01.2022",
+   "co": "Atak na ukraińskie strony rządowe i złośliwe oprogramowanie WhisperGate.",
+   "odpowiednik": "Poważny cyberatak na instytucje państwowe lub infrastrukturę Polski, Bałtów albo krajów nordyckich, przypisywany Rosji lub Białorusi.",
+   "trafienie": false,
+   "grup": 1,
+   "odrzucone": 53,
+   "niezweryfikowane": 0,
+   "przyklady": [
+    {
+     "tytul": "Cyberatak na dostawcę Polskiej Agencji Kosmicznej. Skradziono dane i zażądano okupu",
+     "link": "https://cyberdefence24.pl/cyberbezpieczenstwo/cyberataki/cyberatak-na-dostawce-polskiej-agencji-kosmicznej-skradziono-dane-i-zazadano-okupu",
+     "wydawca": "CyberDefence24",
+     "powod": "Konkretny cyberatak na dostawcę agencji państwowej w Polsce (kradzież danych, okup), ale w nagłówku brak przypisania Rosji lub Białorusi, a motyw okupu wskazuje raczej na przestępców; kryterium spełni"
+    }
+   ]
+  },
+  {
+   "kategoria": "pretekst",
+   "kiedy": "14.01.2022",
+   "co": "USA ostrzegają, że Rosja przygotowuje operację pod fałszywą flagą jako pretekst.",
+   "odpowiednik": "Zachodnie służby lub rządy ostrzegają, że Rosja szykuje prowokację pod fałszywą flagą wobec Polski, Bałtów lub krajów nordyckich, albo Rosja oskarża te państwa o przygotowanie ataku i buduje w ten sposób pretekst.",
+   "trafienie": true,
+   "grup": 5,
+   "odrzucone": 8,
+   "niezweryfikowane": 0,
+   "przyklady": [
+    {
+     "tytul": "Rosja twierdzi, że rozbiła polską siatkę szpiegowską. Polska: To prowokacja",
+     "link": "https://www.rmf24.pl/fakty/swiat/news-rosja-twierdzi-ze-rozbila-polska-siatke-szpiegowska-polska-t,nIdn,1025697",
+     "wydawca": "RMF24 Świat",
+     "powod": "Rosja oskarża Polskę o szpiegostwo i twierdzi, że rozbiła polską siatkę, co może budować pretekst. Polska nazywa to prowokacją. To konkretne zdarzenie z właściwą stroną (Rosja oskarża Polskę), choć je"
+    },
+    {
+     "tytul": "Rosyjskie media kreują Polskę na agresora. Scenariusz jak sprzed inwazji na Ukrainę?",
+     "link": "https://defence24.pl/polityka-obronna/rosyjskie-media-kreuja-polske-na-agresora-scenariusz-jak-sprzed-inwazji-na-ukraine",
+     "wydawca": "Defence24",
+     "powod": "Rosyjskie media prorządowe budują narrację o Polsce jako agresorze, co odpowiada budowaniu pretekstu. Jednocześnie polskie służby obawiają się prowokacji ze strony Rosji. Dotyczy to Polski, a nie Ukra"
+    }
+   ]
+  },
+  {
+   "kategoria": "gotowosc",
+   "kiedy": "I 2022",
+   "co": "Doniesienia o zapasach krwi i szpitalach polowych przy granicy.",
+   "odpowiednik": "Rosja lub Białoruś gromadzi zapasy krwi, rozwija szpitale polowe, mobilizuje rezerwistów albo podnosi gotowość bojową w pobliżu Polski, Bałtów lub krajów nordyckich.",
+   "trafienie": false,
+   "grup": 1,
+   "odrzucone": 1,
+   "niezweryfikowane": 0,
+   "przyklady": [
+    {
+     "tytul": "Mobilizacja sił na Białorusi. Żołnierze, sprzęt wojskowy i drony w gotowości",
+     "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPMTJPb0kxTjdEejBGYnJKbnZ4Z2t6dGhmWjlpQXUzT2d4aFFZQ2V5MDZOZXRfVDdDQWpzOXpTbWE4c1V0R2RfcU5pNElETzN5MUpJcmhiQ3hTcm5sdXRoSU5HQWRMS3Jfdk0zamhLZGMya2Q1VVRiWm9pWU1sYXJsUndVVEFNblZwTVEzWW9xMlJPenJKbGZBbDE4OU9obkZTbjQyRU5CQzlIdG9lUnJuUkhR?oc=5",
+     "wydawca": "Defence24",
+     "powod": "Białoruś mobilizuje siły i podnosi gotowość (żołnierze, sprzęt, drony) – to działanie strony białoruskiej, zgodne z kryterium mobilizacji/gotowości bojowej. Nagłówek nie podaje jednak wprost lokalizac"
+    }
+   ]
+  },
+  {
+   "kategoria": "ewakuacja",
+   "kiedy": "23.01 i 11.02.2022",
+   "co": "USA ewakuują rodziny dyplomatów z Kijowa, potem wzywają obywateli do wyjazdu.",
+   "odpowiednik": "Państwa zachodnie ewakuują dyplomatów lub wzywają obywateli do opuszczenia Polski, Bałtów lub krajów nordyckich.",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 1,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "cwiczenia",
+   "kiedy": "10–20.02.2022",
+   "co": "Ćwiczenia Union Resolve na Białorusi; wojska rosyjskie nie wracają po ich końcu.",
+   "odpowiednik": "Duże ćwiczenia wojsk Rosji lub Białorusi blisko Polski, Bałtów lub krajów nordyckich, zwłaszcza gdy wojska nie wracają po ich końcu. Ćwiczenia NATO, Polski albo państw europejskich NIE są odpowiednikiem.",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 7,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "przestrzen_transport",
+   "kiedy": "II 2022",
+   "co": "Ubezpieczyciele i linie lotnicze wycofują się z ukraińskiego nieba; 24.02 zamknięcie przestrzeni.",
+   "odpowiednik": "Ubezpieczyciele lub linie lotnicze wycofują się z lotów nad Polską, Bałtami lub krajami nordyckimi z powodu zagrożenia wojskowego, albo przestrzeń zostaje zamknięta.",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 2,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "hybryda",
+   "kiedy": "II 2022",
+   "co": "Incydenty i ostrzał w Donbasie przedstawiane przez Rosję jako ataki Ukrainy.",
+   "odpowiednik": "Incydenty, sabotaż, drony lub prowokacje na terytorium Polski, Bałtów lub krajów nordyckich, przypisywane Rosji lub Białorusi albo przedstawiane przez Rosję jako agresja tych państw.",
+   "trafienie": true,
+   "grup": 37,
+   "odrzucone": 35,
+   "niezweryfikowane": 0,
+   "przyklady": [
+    {
+     "tytul": "Poland: two Ukrainians detained, suspected of sabotage for Russia",
+     "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPeGZtTzB1V0N1ZzYzak93Tl9CeHJIMWdhTXFZMUhWSjBMLWprVkwxSXZad2QwSEF2d3hKa2p4OEkyMW9YcVhkQXA2dXFRMGs0elhiYXNZYnlHcG83Z2MwUGNDTHN2cmNyT09mSXU2VkZ3YkZWR1RLNXJsSmdhU3ZhX0JLb0Y5Z245bjNIajRyU2F3Y1Zo?oc=5",
+     "wydawca": "beninwebtv.com",
+     "powod": "Konkretne zdarzenie w Polsce: zatrzymanie dwóch Ukraińców podejrzanych o sabotaż na rzecz Rosji. Sabotaż na terytorium Polski przypisywany Rosji spełnia kryterium; sprawcami wykonawczymi są obywatele "
+    },
+    {
+     "tytul": "Drone incursions trigger air alerts across Lithuania, NATO jets scrambled",
+     "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOUjRCS2N2WHQ4Rk1XOGc3MFR5NXVSdUFLY1VXTzZrU0diZXpDNGg2UEc1VVdMMzg3cktQaWZqN2FYYjYyOTI1dzgtOXZ5eXl6Mk1XQ0k5UU5BN2Nwek5adFdCeDVoNVZXS1lXOHhvTDFxZzBSYlRaVDJrMmpEbkdvdnZSZ3JGNnFCQlpBOU1hV041WnN3cTloOHZOaXBMUF9YdXNCTWVIUGdqbkVvd1RpWWdpTUc4UHJTT0FQRTdR?oc=5",
+     "wydawca": "LRT",
+     "powod": "Konkretne zdarzenie: incydent z dronami nad Litwą (kraj bałtycki), alarmy lotnicze i poderwanie myśliwców NATO. Kryterium wymaga incydentu/drona na terytorium Bałtów; nagłówek nie wskazuje wprost Rosj"
+    }
+   ]
+  }
+ ],
+ "skoki": [],
+ "trend_alarm": {
+  "stan": "zbieram",
+  "opis": "zbieram historię, 13 z 21 potrzebnych dni.",
+  "dni": 13
+ },
+ "najwazniejsze": [
+  {
+   "tytul": "Rosja postawiła żądania w sprawie wojny. Media: Jedno dotyczy Polski",
+   "link": "https://www.polsatnews.pl/wiadomosc/2026-11-14/rosja-postawila-zadania-w-sprawie-wojny-media-jedno-dotyczy-polski/",
+   "lead": "Podczas negocjacji w Abu Zabi, Rosja domagała się wycofania wojsk NATO ze wschodniej flanki, w tym z Polski - podaje New York Times. Rosyjscy negocjatorzy żądali też, by Francja i Wielka Brytania wykluczyły możliwość użycia broni jądrowej w obronie państw europejskich. Wcześniej niemiecki Bild podaw",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-14T05:40+00:00",
+   "kategorie": [
+    "retoryka"
+   ],
+   "ocena": 1.2,
+   "zrodla": [
+    [
+     "Polsat News Świat",
+     "https://www.polsatnews.pl/wiadomosc/2026-11-14/rosja-postawila-zadania-w-sprawie-wojny-media-jedno-dotyczy-polski/"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Medijs: Krievija atkal ultimatīvi prasa atvilkt NATO spēkus no Austrumeiropas",
+   "link": "https://www.lsm.lv/raksts/zinas/arzemes/14.11.2026-medijs-krievija-atkal-ultimativi-prasa-atvilkt-nato-spekus-no-austrumeiropas.a671950/?utm_source=rss&utm_campaign=rss&utm_medium=links",
+   "lead": "Divas dienas pirms ASV sūtņu Stīva Vitkofa un Džareda Kušnera vizītes Kremlī Krievija cita starpā izvirzījusi prasību atvilkt NATO spēkus uz 1997. gada robežām, vēsta laikraksts \"The New York Times\".",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-14T12:36+00:00",
+   "kategorie": [
+    "retoryka"
+   ],
+   "ocena": 1.02,
+   "zrodla": [
+    [
+     "LSM (Łotwa, po łotewsku)",
+     "https://www.lsm.lv/raksts/zinas/arzemes/14.11.2026-medijs-krievija-atkal-ultimativi-prasa-atvilkt-nato-spekus-no-austrumeiropas.a671950/?utm_source=rss&utm_campaign=rss&utm_medium=links"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Russia demands NATO return to 1997 borders and ban on allies' shared use of nuclear weapons",
+   "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPal9WYWtOSy1aVndtR3dtRGxycm53dnA4Q2RjUUpWSjFSS3ozOE00Y3RMRmRUMXNkNHh2WkpRUFFrOC1QZEppZUhHeHVtdjNrUGdkdHdMdGIxMzJmUWdieE1MTHJ5cXZhcWpScGV6SnpIU3RzSTlQOHBzSlZqSjRkTTREQTFoampNa0RNNDhNb3RfMlpHU3ZwcEFqdHp6cGJnZzdpTWxPOVdDM1ZYNUp0VlFCTzh0RHpET2lSYnZRYTNwZ9IBvgFBVV95cUxPTVNLdlo4bURIeGRHUkp3Nk1HblBUdWxQbFFSbHZ0cVBpODI5My1DYXc3OEZkaTNWUEVhaDJ2cllUcllMZktTV0FZemZSUUx1Y1d1RkFRVGlYV2d0MUdUVUFfMW5ERF94eENWSVU1bVBSc2doU3k3NW5obW5mUGtpbTFISWVOd09MVERLLWRub05JOS1MMWdPdzRId2xkcWdtcUtQM3g3a0doS3FDSGdjYnRWR2std2JMenh2dmRB?oc=5",
+   "lead": "Russia demands NATO return to 1997 borders and ban on allies' shared use of nuclear weapons The New Voice of Ukraine",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-14T11:33+00:00",
+   "kategorie": [
+    "retoryka"
+   ],
+   "ocena": 0.72,
+   "zrodla": [
+    [
+     "The New Voice of Ukraine",
+     "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPal9WYWtOSy1aVndtR3dtRGxycm53dnA4Q2RjUUpWSjFSS3ozOE00Y3RMRmRUMXNkNHh2WkpRUFFrOC1QZEppZUhHeHVtdjNrUGdkdHdMdGIxMzJmUWdieE1MTHJ5cXZhcWpScGV6SnpIU3RzSTlQOHBzSlZqSjRkTTREQTFoampNa0RNNDhNb3RfMlpHU3ZwcEFqdHp6cGJnZzdpTWxPOVdDM1ZYNUp0VlFCTzh0RHpET2lSYnZRYTNwZ9IBvgFBVV95cUxPTVNLdlo4bURIeGRHUkp3Nk1HblBUdWxQbFFSbHZ0cVBpODI5My1DYXc3OEZkaTNWUEVhaDJ2cllUcllMZktTV0FZemZSUUx1Y1d1RkFRVGlYV2d0MUdUVUFfMW5ERF94eENWSVU1bVBSc2doU3k3NW5obW5mUGtpbTFISWVOd09MVERLLWRub05JOS1MMWdPdzRId2xkcWdtcUtQM3g3a0doS3FDSGdjYnRWR2std2JMenh2dmRB?oc=5"
+    ]
+   ],
+   "grup": 1
+  }
+ ],
+ "wlasne": [
+  {
+   "tytul": "Retired general: Without women, Estonia may run out of conscripts, reservists",
+   "link": "https://news.err.ee/1610196370/retired-general-without-women-estonia-may-run-out-of-conscripts-reservists",
+   "wydawca": "ERR News (Estonia)",
+   "data": "2026-11-14T12:49+00:00",
+   "zdjete": [
+    "gotowosc"
+   ],
+   "zdjete_nazwy": [
+    "gotowość bojowa i mobilizacja"
+   ],
+   "powod": "Emerytowany generał z Estonii komentuje demografię i możliwe rozszerzenie poboru na kobiety. To debata strony własnej o zasobach wojskowych. Nie ma tu działań przeciwnika ani sygnału ataku, więc kateg",
+   "grup": 1
+  },
+  {
+   "tytul": "Ekspert wyjaśnia, dlaczego obecność broni jądrowej w pobliżu granic stanowi dylemat bezpieczeństwa oraz w jaki sposób OUBZ powinna na to zareagować",
+   "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPOXh2SXRzSlpxbnpvd1BhVjlpQlFWTFdPZFI0aDlKbldoUThEQ1ZYcXN2TDV3ZlpMcnpkNk9ra09Qb0FZSnh6eXgzcmc3Mm1qWXNtemM0bWRJWHFjMnNwLWJobjNfS3NwZzJET2FkNl9nRWJLbjlUVE1oTjRzSXlzcjlvWDQtcE83VWR0WFZtcUNvcU51Z2tRRmRERkZGUGdPcXJkUjlmb2FEOEhmczN2TkJSS0xlNjctbGgwcWNPV04wYWZHOXNCakZUdEs4b0dETjN2am9BZ3VyN2tHdDlMMnRB?oc=5",
+   "wydawca": "wiadomości białoruskie",
+   "data": "2026-11-14T08:12+00:00",
+   "zdjete": [
+    "retoryka"
+   ],
+   "zdjete_nazwy": [
+    "retoryka i ultimata kremla"
+   ],
+   "powod": "Komentarz eksperta (źródło białoruskie) o dylemacie bezpieczeństwa związanym z bronią jądrową i reakcji OUBZ. To analiza, a nie działanie ani ultimatum Kremla. Brak wypowiedzi urzędnika rosyjskiego, b",
+   "grup": 1
+  },
+  {
+   "tytul": "Przestój lotów w USA: Nieliczne samoloty dostały zgodę na start",
+   "link": "https://www.sverigesradio.se/artikel/9340889",
+   "wydawca": "Sveriges Radio Ekot (Szwecja)",
+   "data": "2026-11-14T01:15+00:00",
+   "zdjete": [
+    "przestrzen_transport"
+   ],
+   "zdjete_nazwy": [
+    "zamknięcia przestrzeni powietrznej i odwołane loty"
+   ],
+   "powod": "Krajowe wstrzymanie lotów w USA (prawdopodobnie awaria techniczna lub decyzja administracyjna FAA) nie ma związku z Rosją, Białorusią ani zagrożeniem dla Polski, krajów bałtyckich i nordyckich. Katego",
+   "grup": 1
+  },
+  {
+   "tytul": "Tallinn to use satellite imagery to detect illegal buildings",
+   "link": "https://news.err.ee/1610195404/tallinn-to-use-satellite-imagery-to-detect-illegal-buildings",
+   "wydawca": "ERR News (Estonia)",
+   "data": "2026-11-13T13:35+00:00",
+   "zdjete": [
+    "wojska_granica"
+   ],
+   "zdjete_nazwy": [
+    "koncentracja wojsk przy granicy"
+   ],
+   "powod": "Urząd planowania miejskiego w Tallinnie użyje zdjęć satelitarnych do wykrywania nielegalnych budynków. To sprawa administracyjna, bez związku z wojskiem ani z przeciwnikiem. Kategoria „wojska_granica”",
+   "grup": 1
+  },
+  {
+   "tytul": "Baltic power grids face new security reality",
+   "link": "https://eng.lsm.lv/article/features/features/13.11.2026-baltic-power-grids-face-new-security-reality.a671809/?utm_source=rss&utm_campaign=rss&utm_medium=links",
+   "wydawca": "LSM English (Łotwa)",
+   "data": "2026-11-13T09:41+00:00",
+   "zdjete": [
+    "hybryda"
+   ],
+   "zdjete_nazwy": [
+    "sabotaż, drony, naruszenia przestrzeni"
+   ],
+   "powod": "Artykuł analityczny o odporności bałtyckich sieci energetycznych; opisuje ogólne spektrum zagrożeń (sabotaż, cyber) i wzrost bezpieczeństwa, a nie konkretny incydent ani działanie przeciwnika. Kategor",
+   "grup": 1
+  },
+  {
+   "tytul": "West seeks to conceal who ordered Nord Stream sabotage — Russian MFA",
+   "link": "https://tass.com/politics/2217571",
+   "wydawca": "TASS (EN)",
+   "data": "2026-11-13T06:35+00:00",
+   "zdjete": [
+    "hybryda"
+   ],
+   "zdjete_nazwy": [
+    "sabotaż, drony, naruszenia przestrzeni"
+   ],
+   "powod": "Rosyjskie MFA (TASS) oskarża Niemcy, Danię i Szwecję o ukrywanie sprawców sabotażu Nord Stream – to narracja oskarżycielska wobec państw zachodnich, w tym nordyckich, a więc budowanie pretekstu/dezinf",
+   "grup": 1
+  },
+  {
+   "tytul": "Norway Expects Sabotage by Russian Intelligence in 2027 – Intelligence Agency",
+   "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQUmxVUXFhVlBCYUltanRwd2tiNjNwR2huRWl3dmJ5ZmhCeGtpYW80bFc1aERVaVJYVTA2cVZUb2NhT3gxRHFnejRJNmZPRklsUTdjQ1lYWWZGdE5aQTB1dDg3Y2RqQ2poYnoyOWJmYUU0VUl4U3FMT1Uwbm9xUTFST0doRWpPWmtyVVNQZUhYLU4ycU5YYUJmT1pqLWIwTjhfU0lmVjY3SE1VMjcyNWRoRNIBtgFBVV95cUxOVVRLRzBJdXRTNWNXTkZXTlB5eHpBY3pPUXEwSC1rb1ViU3ozR0pqbGdDelBxM3I2V3R3c05VbHlYVy1LUzY1bXJ5cFRKZDhFaGotck5LMWlEWktvM25XWGN2TF9XMVkwbEdieXEyYVV0UWlmQ1drQVliVnNOUkY0NU9taG9kU0RyeWp2ck4wOFdmUjJyZERnMnRzVE5vNkFoand2aVFlQ0VXbWp5MmFhS3NNNkFNUQ?oc=5",
+   "wydawca": "LIGA.net",
+   "data": "2026-11-13T04:54+00:00",
+   "zdjete": [
+    "hybryda"
+   ],
+   "zdjete_nazwy": [
+    "sabotaż, drony, naruszenia przestrzeni"
+   ],
+   "powod": "Norweski wywiad (strona własna) publikuje ocenę zagrożenia: spodziewa się sabotażu rosyjskich służb w 2027 r. To ostrzeżenie wywiadu, a nie zaobserwowany akt sabotażu, więc 'hybryda' nie opisuje bezpo",
+   "grup": 1
+  },
+  {
+   "tytul": "Norwegia przygotowuje się na rosyjski sabotaż. Kontrwywiad nie wyklucza ofiar śmiertelnych",
+   "link": "https://www.rp.pl/konflikty-zbrojne/art45482891-norwegia-przygotowuje-sie-na-rosyjski-sabotaz-kontrwywiad-nie-wyklucza-ofiar-smiertelnych",
+   "wydawca": "Rzeczpospolita",
+   "data": "2026-11-12T21:19+00:00",
+   "zdjete": [
+    "hybryda"
+   ],
+   "zdjete_nazwy": [
+    "sabotaż, drony, naruszenia przestrzeni"
+   ],
+   "powod": "Norweski kontrwywiad (strona własna) publicznie ostrzega przed możliwym rosyjskim sabotażem w ciągu roku – to ostrzeżenie służb, a nie odnotowany incydent. Kategoria 'hybryda' dotyczy faktycznych aktó",
+   "grup": 1
+  }
+ ],
+ "intencja": {
+  "ocenione": 109,
+  "po_stronie": {
+   "neutralna": 18,
+   "sojusznicza": 8,
+   "wlasna": 45,
+   "przeciwnik": 38
+  },
+  "przyklady_wlasne": [
+   "UK to lead Norway, Sweden and seven NATO allies against Russian submarines after US-backed operation foils suspected cable sabotage plot",
+   "Ostra krytyka Maud Olofsson pod adresem M i S: „Weźcie odpowiedzialność za Szwecję”",
+   "Lithuania and Poland try 10 suspects in GRU sabotage cases — Politico Europe",
+   "W rozmowach o utworzeniu rządu zniknęły czerwone linie wobec hasła „Łotwa na pierwszym miejscu”",
+   "Estonia Calls Russian Sabotage ‘State Terrorism’ as Cyberattacks Hit Supermarkets"
+  ]
+ },
+ "historia": [
+  {
+   "dzien": "2026-10-19",
+   "indeks": 4.0,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-20",
+   "indeks": 1.7,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-21",
+   "indeks": 3.2,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-22",
+   "indeks": 0.0,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-23",
+   "indeks": 2.4,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-25",
+   "indeks": 0.4,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-26",
+   "indeks": 3.4,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-27",
+   "indeks": 0.0,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-28",
+   "indeks": 6.1,
+   "alarm": 1,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-29",
+   "indeks": 7.1,
+   "alarm": 1,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-30",
+   "indeks": 3.4,
+   "alarm": 1,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-31",
+   "indeks": 6.4,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-11-01",
+   "indeks": 1.8,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-11-02",
+   "indeks": 24.5,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-03",
+   "indeks": 29.6,
+   "alarm": 3,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-04",
+   "indeks": 15.8,
+   "alarm": 2,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-05",
+   "indeks": 14.8,
+   "alarm": 2,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-06",
+   "indeks": 18.7,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-07",
+   "indeks": 7.9,
+   "alarm": 2,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-08",
+   "indeks": 4.9,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-09",
+   "indeks": 15.5,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-10",
+   "indeks": 17.7,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-11",
+   "indeks": 14.0,
+   "alarm": 2,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-12",
+   "indeks": 13.6,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-13",
+   "indeks": 11.9,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-14",
+   "indeks": 8.9,
+   "alarm": 1,
+   "rek": false
+  }
+ ],
+ "skrot": [
+  "Poziom: spokojnie, współczynnik wpierdolu 9/100. Wobec tygodnia: spadek -3; wobec miesiąca: bez zmian (-0).",
+  "Najsilniejsze sygnały: zamknięcia przestrzeni powietrznej i odwołane loty (37% skali); retoryka i ultimata kremla (50% skali).",
+  "Spiętrzenie zbieżnych komunikatów: uwaga. Co najmniej 3 niezależne redakcje w 72 h w kategoriach: sabotaż, drony, naruszenia przestrzeni.",
+  "Sygnały deeskalacji obecne (87% skali), obniżają indeks.",
+  "Analogia do zimy 2021/22: 2 z 10 zdarzeń, które poprzedziły atak Rosji na Ukrainę 24.02.2022, ma dziś odpowiednik w wiadomościach o Polsce, Bałtach i krajach nordyckich (każde opisały co najmniej 2 niezależne redakcje w 30 dniach).",
+  "Alarm trendu: zbieram historię, 13 z 21 potrzebnych dni."
+ ]
+}

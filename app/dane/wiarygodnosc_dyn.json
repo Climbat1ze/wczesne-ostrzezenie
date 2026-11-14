@@ -1,0 +1,395 @@
+{
+ "ts": "2026-11-09T06:58+00:00",
+ "zrodla": {
+  "osw-pl": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "osw-en": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "pap-en": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "defence24": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.4,
+   "trafien_30d": 5
+  },
+  "cyberdefence24": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.5,
+   "trafien_30d": 2
+  },
+  "zbiam": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "tvn24-swiat": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 1.0,
+   "trafien_30d": 2
+  },
+  "rmf24-swiat": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 1.0,
+   "trafien_30d": 1
+  },
+  "rmf24-polska": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.0,
+   "trafien_30d": 1
+  },
+  "polsat-swiat": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "polsat-polska": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "rp": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 1.0,
+   "trafien_30d": 3
+  },
+  "oko-press": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.667,
+   "trafien_30d": 3
+  },
+  "notes-from-poland": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 1.0,
+   "trafien_30d": 1
+  },
+  "err-en": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.0,
+   "trafien_30d": 1
+  },
+  "lrt-en": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.0,
+   "trafien_30d": 9
+  },
+  "lsm-en": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.5,
+   "trafien_30d": 2
+  },
+  "delfi-en": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "icds": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "yle": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "yle-en": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "svt-utrikes": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "svt-inrikes": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.0,
+   "trafien_30d": 2
+  },
+  "sr-ekot": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.0,
+   "trafien_30d": 1
+  },
+  "dn": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.0,
+   "trafien_30d": 2
+  },
+  "nrk-norge": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "nrk-urix": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.0,
+   "trafien_30d": 1
+  },
+  "aftenposten": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.0,
+   "trafien_30d": 3
+  },
+  "dr-udland": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "dr-indland": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "berlingske": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.0,
+   "trafien_30d": 2
+  },
+  "ruv-en": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "lsm-lv": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 1.0,
+   "trafien_30d": 1
+  },
+  "lsm-ru": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 1.0,
+   "trafien_30d": 1
+  },
+  "err-et": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.0,
+   "trafien_30d": 1
+  },
+  "err-ru": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "lrt-lt": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.75,
+   "trafien_30d": 4
+  },
+  "lrt-ru": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.4,
+   "trafien_30d": 5
+  },
+  "mod-lv": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "15min-lt": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.8,
+   "trafien_30d": 5
+  },
+  "lrytas-lt": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.0,
+   "trafien_30d": 3
+  },
+  "delfi-lt": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "tvnet-lv": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.5,
+   "trafien_30d": 2
+  },
+  "diena-lv": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 1.0,
+   "trafien_30d": 1
+  },
+  "postimees-ee": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.333,
+   "trafien_30d": 3
+  },
+  "postimees-en": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.0,
+   "trafien_30d": 1
+  },
+  "kyiv-independent": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "pravda-ua": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.667,
+   "trafien_30d": 6
+  },
+  "kyiv-post": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.333,
+   "trafien_30d": 3
+  },
+  "bbc-europe": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "bbc-russian": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "guardian-ua": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "dw-eu": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "france24-eu": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "rferl": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "ft-europe": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.0,
+   "trafien_30d": 1
+  },
+  "economist-europe": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "aljazeera": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "meduza": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "moscow-times": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 1.0,
+   "trafien_30d": 1
+  },
+  "defense-news": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "breaking-defense": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "uk-defence-journal": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "uk-mod": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "war-on-the-rocks": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "csis": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "jamestown": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.0,
+   "trafien_30d": 1
+  },
+  "bellingcat": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "foreign-policy": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "euvsdisinfo": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "us-travel": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "gn-granica": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.0,
+   "trafien_30d": 1
+  },
+  "gn-baltic-threat": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.538,
+   "trafien_30d": 13
+  },
+  "kremlin-en": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "mid-ru": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "tass": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": 0.4,
+   "trafien_30d": 5
+  },
+  "rt": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  },
+  "sputnik": {
+   "mnoznik": 1.0,
+   "potwierdzalnosc": null,
+   "trafien_30d": 0
+  }
+ }
+}

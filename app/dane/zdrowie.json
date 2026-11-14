@@ -1,0 +1,198 @@
+{
+ "przebiegi": [
+  {
+   "ts": "2026-11-13T19:34+00:00",
+   "kanaly_ok": 73,
+   "kanaly_razem": 74,
+   "proc": 0.986,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-13T19:34+00:00"
+  },
+  {
+   "ts": "2026-11-13T20:33+00:00",
+   "kanaly_ok": 72,
+   "kanaly_razem": 74,
+   "proc": 0.973,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-13T20:33+00:00"
+  },
+  {
+   "ts": "2026-11-13T21:32+00:00",
+   "kanaly_ok": 73,
+   "kanaly_razem": 74,
+   "proc": 0.986,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-13T21:32+00:00"
+  },
+  {
+   "ts": "2026-11-13T22:31+00:00",
+   "kanaly_ok": 72,
+   "kanaly_razem": 74,
+   "proc": 0.973,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-13T22:31+00:00"
+  },
+  {
+   "ts": "2026-11-13T23:37+00:00",
+   "kanaly_ok": 73,
+   "kanaly_razem": 74,
+   "proc": 0.986,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-13T23:37+00:00"
+  },
+  {
+   "ts": "2026-11-14T00:27+00:00",
+   "kanaly_ok": 73,
+   "kanaly_razem": 74,
+   "proc": 0.986,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T00:27+00:00"
+  },
+  {
+   "ts": "2026-11-14T01:26+00:00",
+   "kanaly_ok": 74,
+   "kanaly_razem": 74,
+   "proc": 1.0,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T01:26+00:00"
+  },
+  {
+   "ts": "2026-11-14T02:26+00:00",
+   "kanaly_ok": 73,
+   "kanaly_razem": 74,
+   "proc": 0.986,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T02:26+00:00"
+  },
+  {
+   "ts": "2026-11-14T03:25+00:00",
+   "kanaly_ok": 73,
+   "kanaly_razem": 74,
+   "proc": 0.986,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T03:25+00:00"
+  },
+  {
+   "ts": "2026-11-14T04:25+00:00",
+   "kanaly_ok": 73,
+   "kanaly_razem": 74,
+   "proc": 0.986,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T04:25+00:00"
+  },
+  {
+   "ts": "2026-11-14T05:26+00:00",
+   "kanaly_ok": 70,
+   "kanaly_razem": 74,
+   "proc": 0.946,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T05:26+00:00"
+  },
+  {
+   "ts": "2026-11-14T07:06+00:00",
+   "kanaly_ok": 74,
+   "kanaly_razem": 74,
+   "proc": 1.0,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T07:06+00:00"
+  },
+  {
+   "ts": "2026-11-14T08:06+00:00",
+   "kanaly_ok": 72,
+   "kanaly_razem": 74,
+   "proc": 0.973,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T08:06+00:00"
+  },
+  {
+   "ts": "2026-11-14T09:06+00:00",
+   "kanaly_ok": 73,
+   "kanaly_razem": 74,
+   "proc": 0.986,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T09:06+00:00"
+  },
+  {
+   "ts": "2026-11-14T10:05+00:00",
+   "kanaly_ok": 74,
+   "kanaly_razem": 74,
+   "proc": 1.0,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T10:05+00:00"
+  },
+  {
+   "ts": "2026-11-14T11:04+00:00",
+   "kanaly_ok": 72,
+   "kanaly_razem": 74,
+   "proc": 0.973,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T11:04+00:00"
+  },
+  {
+   "ts": "2026-11-14T12:03+00:00",
+   "kanaly_ok": 74,
+   "kanaly_razem": 74,
+   "proc": 1.0,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T12:03+00:00"
+  },
+  {
+   "ts": "2026-11-14T13:02+00:00",
+   "kanaly_ok": 73,
+   "kanaly_razem": 74,
+   "proc": 0.986,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T13:02+00:00"
+  },
+  {
+   "ts": "2026-11-14T14:01+00:00",
+   "kanaly_ok": 72,
+   "kanaly_razem": 74,
+   "proc": 0.973,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T14:01+00:00"
+  },
+  {
+   "ts": "2026-11-14T15:00+00:00",
+   "kanaly_ok": 73,
+   "kanaly_razem": 74,
+   "proc": 0.986,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T15:00+00:00"
+  },
+  {
+   "ts": "2026-11-14T15:59+00:00",
+   "kanaly_ok": 73,
+   "kanaly_razem": 74,
+   "proc": 0.986,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T15:59+00:00"
+  },
+  {
+   "ts": "2026-11-14T16:58+00:00",
+   "kanaly_ok": 73,
+   "kanaly_razem": 74,
+   "proc": 0.986,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T16:58+00:00"
+  },
+  {
+   "ts": "2026-11-14T17:56+00:00",
+   "kanaly_ok": 74,
+   "kanaly_razem": 74,
+   "proc": 1.0,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T17:56+00:00"
+  },
+  {
+   "ts": "2026-11-14T18:55+00:00",
+   "kanaly_ok": 74,
+   "kanaly_razem": 74,
+   "proc": 1.0,
+   "bledy_tlumaczenia": 0,
+   "dane_json": "2026-11-14T18:55+00:00"
+  }
+ ],
+ "incydent": null,
+ "incydenty_zakonczone": []
+}
