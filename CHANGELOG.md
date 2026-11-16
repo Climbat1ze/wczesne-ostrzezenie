@@ -5,6 +5,26 @@ Zasada numeracji w tej aplikacji: **MAJOR** = nowy moduł albo zmiana sposobu li
 liczenia, **PATCH** = poprawka wzorca, tekstu albo błędu. Wersja żyje w `app/WERSJA`; test `tests/test_wersja.py` pilnuje,
 żeby pierwsza pozycja tego pliku była równa wersji. Zgłoszenia zmian (CR): `docs/change_requests.md`.
 
+## [2.1.0] - 2026-11-16
+
+### Zmienione
+- Mniej zapytań do Claude (CR-013). Raport administracyjny z 16.11: 791 wywołań w 7 dniach (ok. 113 na dobę), z czego
+  ok. 90 to tłumaczenie: osobne zapytanie dla każdego kanału w każdym przebiegu, średnio 10 nagłówków na zapytanie.
+  Teraz nagłówki ze wszystkich kanałów i języków jednego przebiegu idą wspólnymi paczkami po 60 (do 4 zapytań na
+  przebieg, zwykle 1); najpierw źródła liczone do indeksu, potem źródła na próbie. Dotłumaczanie zaległych trafień:
+  1 zapytanie na przebieg (było 4). Weryfikacja analogii 2021/22 modelem najwyżej raz na 6 godzin (było: co przebieg).
+  Ocena intencji bez zmian (tylko przy nowych kandydatach, chroni przed fałszywym alarmem).
+  Szacunek: ok. 40–50 zapytań na dobę zamiast ok. 113.
+- Domyślny dzienny budżet `CLAUDE_BUDZET_DZIENNY` 60 (było 150), rezerwa `CLAUDE_REZERWA` 20 (było 50).
+- Sztafeta przebiegów pyta API GitHub o świeżość danych co 15 minut (było co 5), mniej zapytań w czasie czekania.
+
+### Źródła
+- Delfi EN (Litwa) zablokowane: kanał pusty od 2.11 pod każdym znanym adresem. Zastępstwo na próbie: BNN Baltic News
+  Network (EN), bez kosztu tłumaczenia.
+- US State Dept Travel Advisories z powrotem aktywne z nową flagą `rzadki: true`: kanał działa, ale Departament Stanu
+  zmienia ostrzeżenia raz na kilka tygodni. Reguła ciszy (najnowszy wpis starszy niż 14 dni) nie dotyczy źródeł
+  rzadkich; reguła błędu kanału nadal tak.
+
 ## [2.0.4] - 2026-11-05
 
 ### Poprawione

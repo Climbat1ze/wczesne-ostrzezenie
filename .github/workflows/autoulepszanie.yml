@@ -29,7 +29,7 @@ jobs:
         id: zgoda
         env:
           CLAUDE_WYLACZ: ${{ vars.CLAUDE_WYLACZ }}
-          BUDZET: ${{ vars.CLAUDE_BUDZET_DZIENNY || '150' }}
+          BUDZET: ${{ vars.CLAUDE_BUDZET_DZIENNY || '60' }}
         run: |
           if [ "$CLAUDE_WYLACZ" = "1" ]; then echo "CLAUDE_WYLACZ=1: koniec bez działania"; echo "dalej=nie" >> "$GITHUB_OUTPUT"; exit 0; fi
           UZYTE=$(curl -fsSL "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/dane/app/dane/budzet.json" 2>/dev/null \

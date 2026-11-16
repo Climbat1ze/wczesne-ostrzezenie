@@ -3,7 +3,7 @@
 # Raport tygodniowy mailem w poniedziałek o godzinie ze zmiennej STATUS_GODZINY (Warszawa, domyślnie 7).
 # Sekrety: SMTP_USER, SMTP_PASS (hasło aplikacji Gmail), MAIL_DO (odbiorcy po przecinku), CLAUDE_CODE_OAUTH_TOKEN.
 # Opcjonalnie: sekret MAIL_ADMIN; zmienne STATUS_GODZINY, STATUS_DNI, STATUS_FORMA, SITE_URL,
-# CLAUDE_BUDZET_DZIENNY (domyślnie 150), CLAUDE_REZERWA (domyślnie 50), CLAUDE_WYLACZ (1 = bez Claude), ALARMY_DZIENNIE (domyślnie 3).
+# CLAUDE_BUDZET_DZIENNY (domyślnie 60), CLAUDE_REZERWA (domyślnie 20), CLAUDE_WYLACZ (1 = bez Claude), ALARMY_DZIENNIE (domyślnie 3).
 # Settings → Pages → Source: GitHub Actions.
 name: wczesne-ostrzezenie
 
@@ -183,7 +183,7 @@ jobs:
               [ $(( ZAPIS + 58*60 )) -gt "$CEL" ] && CEL=$(( ZAPIS + 58*60 ))
             fi
             [ "$TERAZ" -ge "$CEL" ] && break
-            CZEKAJ=$(( CEL - TERAZ )); [ "$CZEKAJ" -gt 300 ] && CZEKAJ=300
+            CZEKAJ=$(( CEL - TERAZ )); [ "$CZEKAJ" -gt 900 ] && CZEKAJ=900
             echo "Ostatni zapis danych: ${OST:-brak}; następny przebieg za $(( (CEL - TERAZ) / 60 )) min"
             sleep "$CZEKAJ"
           done
