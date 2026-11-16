@@ -4,6 +4,7 @@ Co robi automatycznie (każda zmiana trafia do notatki źródła, do dane/zmiany
   1. Martwy lub nieaktualny kanał (błąd od 7 dni albo najnowszy wpis starszy niż 14 dni):
      szuka nowego adresu RSS w tej samej domenie; jeśli znajdzie działający, podmienia adres.
      Jeśli nie znajdzie: aktywne -> obserwacja; po 30 dniach martwy -> zablokowane.
+     Źródło z flagą `rzadki: true` w rejestrze (publikuje raz na kilka tygodni) podlega tylko regule błędu, nie ciszy.
   2. Źródło na próbie (obserwacja) po 30 dniach: awans do aktywnych albo blokada (krzykliwość, potwierdzalność).
      Za mało tytułów do oceny: próba przedłużona o 30 dni.
   3. Aktywne źródło, które zaczęło krzyczeć albo przestało być potwierdzane: z powrotem na próbę.
@@ -110,7 +111,8 @@ def przeglad(zrodla: list[dict], jakosc: dict, stat: dict, teraz: dt.datetime, p
 
         # 1. martwy albo nieaktualny kanał
         dni_bledu = _dni(s.get("blad_od"), dzis)
-        dni_ciszy = _dni(s.get("najnowszy"), dzis) if s.get("ostatnio_ok") else None
+        # źródło z flagą `rzadki` (np. ostrzeżenia podróżne) publikuje raz na kilka tygodni: liczy się tylko błąd kanału
+        dni_ciszy = _dni(s.get("najnowszy"), dzis) if s.get("ostatnio_ok") and not z.get("rzadki") else None
         martwy = (dni_bledu is not None and dni_bledu >= r["martwy_dni"]) or \
                  (dni_ciszy is not None and dni_ciszy >= r["nieaktualny_dni"])
         if martwy:

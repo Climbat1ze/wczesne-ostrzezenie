@@ -239,6 +239,9 @@ PLIK_ANALOGIA = DANE / "analogia_weryfikacja.json"
 PROG_ANALOGII = 0.6
 MAKS_ANALOGIA = 60
 PAMIEC_ANALOGII_DNI = 35
+# Analogia patrzy na okno 30 dni (kamień liczy się od 2 niezależnych redakcji), więc godzina zwłoki niczego nie zmienia.
+# Od 2.1.0 model sprawdza nowe pary najwyżej raz na tyle godzin (było: każdy przebieg, do 16 zapytań na dobę).
+ANALOGIA_CO_GODZIN = 6
 
 SYSTEM_ANALOGIA = (
     "Jesteś analitykiem wczesnego ostrzegania. Porównujesz dzisiejsze wiadomości z zdarzeniami, które poprzedziły atak "
@@ -268,17 +271,32 @@ def pamiec_analogii() -> dict:
     return _PAMIEC_AN
 
 
+def _za_wczesnie_na_analogie(znane: dict, teraz: dt.datetime) -> bool:
+    ostatnie = max((v.get("ts", "") for v in znane.values()), default="")
+    if not ostatnie:
+        return False
+    try:
+        return teraz - dt.datetime.fromisoformat(ostatnie) < dt.timedelta(hours=ANALOGIA_CO_GODZIN)
+    except ValueError:
+        return False
+
+
 def werdykt_analogii(nr: int, wid: str) -> dict | None:
     return pamiec_analogii().get(_klucz(nr, wid))
 
 
 def weryfikuj_analogie(kandydaci: list[tuple[int, dict, dict]], teraz: dt.datetime) -> int:
-    """kandydaci: (nr kamienia, kamień z wskazniki.yaml, wpis). Jedno zapytanie na przebieg. Zwraca liczbę werdyktów."""
+    """kandydaci: (nr kamienia, kamień z wskazniki.yaml, wpis). Jedno zapytanie, najwyżej raz na ANALOGIA_CO_GODZIN.
+
+    Zwraca liczbę werdyktów. Pary czekające na kolejne sprawdzenie liczą się do tego czasu jako „bez sprawdzenia”.
+    """
     import claude_cli  # noqa: E402
     import koszty  # noqa: E402
     znane = pamiec_analogii()
     nowe = [(n, a, w) for n, a, w in kandydaci if _klucz(n, w["id"]) not in znane][:MAKS_ANALOGIA]
-    if not nowe or not claude_cli.dostepny() or koszty.przydziel(1) < 1:
+    if not nowe or _za_wczesnie_na_analogie(znane, teraz):
+        return 0
+    if not claude_cli.dostepny() or koszty.przydziel(1) < 1:
         return 0
     dane = "\n".join(json.dumps({"i": i, "zdarzenie_2021_22": a["co"], "kryterium": a.get("odpowiednik", a["co"]),
                                  "naglowek": w["tytul"], "oryginal": w.get("oryginal"), "lead": (w.get("lead") or "")[:200],

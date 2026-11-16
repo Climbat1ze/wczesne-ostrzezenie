@@ -274,6 +274,7 @@ def pobierz(zrodla: list[dict], slownik: Slownik) -> dict:
     import tlumacz  # noqa: E402
     pamiec_tl = wczytaj_json(DANE / "tlumaczenia.json", {})
     archiwum = {w["id"]: w for w in czytaj_naglowki()}
+    kanaly = []
     for z, dane, blad in wyniki:
         s = stat.setdefault(z["id"], {"dni": {}, "ostatni_blad": None, "ostatnio_ok": None})
         if dane is None:
@@ -289,7 +290,11 @@ def pobierz(zrodla: list[dict], slownik: Slownik) -> dict:
         s["ostatni_blad"] = None
         s["blad_od"] = None
         s["najnowszy"] = max(w["data"] for w in wpisy)[:10]
-        tlumacz.przetlumacz(wpisy, z.get("jezyk", "pl"), pamiec_tl)
+        kanaly.append((z, s, wpisy))
+    # jedno wspólne tłumaczenie dla wszystkich kanałów (2.1.0): paczki po 60 nagłówków zamiast zapytania na kanał
+    tlumacz.przetlumacz_kanaly([(wpisy, z.get("jezyk", "pl"), z["status"] in ("aktywne", "monitoring"))
+                                for z, _, wpisy in kanaly], pamiec_tl)
+    for z, s, wpisy in kanaly:
         for w in wpisy:
             archiwum[w["id"]] = {k: w[k] for k in ("id", "zrodlo", "grupa", "wydawca", "tytul", "link", "data") if k in w} | {
                 "lead": (w.get("lead") or "")[:200], **({"oryginal": w["oryginal"], "jezyk": w["jezyk"]} if w.get("oryginal") else {})}

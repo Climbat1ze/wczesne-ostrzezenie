@@ -28,7 +28,7 @@ gh secret set MAIL_DO -R Climbat1ze/wczesne-ostrzezenie
 ```
 
 ## Jak to działa
-Workflow `.github/workflows/ostrzezenie.yml` ma w harmonogramie minuty 13 i 43, ale pomija przebieg, gdy dane mają mniej niż 40 minut, więc zwykle działa raz na godzinę, a zgubione przez GitHub uruchomienie nadrabia drugi wpis. Pobiera kanały, tłumaczy bałtyckie nagłówki (Claude haiku na subskrypcji, w ramach dziennego budżetu), liczy WW, wysyła alarmy (najwyżej 3 na dobę, reszta zbiorczo) i publikuje stronę na GitHub Pages. Stan (historia, wpisy, statystyki źródeł, budżet, dziennik maili i alarmów, zdrowie) żyje na gałęzi `dane`, nadpisywanej jednym commitem przy każdym przebiegu.
+Workflow `.github/workflows/ostrzezenie.yml` ma w harmonogramie minuty 13 i 43, ale pomija przebieg, gdy dane mają mniej niż 40 minut, więc zwykle działa raz na godzinę, a zgubione przez GitHub uruchomienie nadrabia drugi wpis. Pobiera kanały, tłumaczy bałtyckie i nordyckie nagłówki (Claude haiku na subskrypcji, wspólne paczki po 60 nagłówków ze wszystkich kanałów, w ramach dziennego budżetu), liczy WW, wysyła alarmy (najwyżej 3 na dobę, reszta zbiorczo) i publikuje stronę na GitHub Pages. Stan (historia, wpisy, statystyki źródeł, budżet, dziennik maili i alarmów, zdrowie) żyje na gałęzi `dane`, nadpisywanej jednym commitem przy każdym przebiegu.
 
 W poniedziałek rano ten sam przebieg dodatkowo:
 - przegląda źródła (martwe kanały, koniec 30 dni próby) i zapisuje `app/zrodla.yaml` na `main`;
@@ -54,8 +54,8 @@ Ręczne uruchomienie: Actions → wczesne-ostrzezenie → Run workflow (opcja �
 | `STATUS_GODZINY` | zmienna, opcjonalna | godzina raportu, czas Warszawy (domyślnie `7`) |
 | `STATUS_DNI` | zmienna, opcjonalna | dni raportu, 1 = poniedziałek (domyślnie `1`) |
 | `STATUS_FORMA` | zmienna, opcjonalna | `tydzien` (raport tygodniowy, domyślnie) albo `dzien` (pełny skrót) |
-| `CLAUDE_BUDZET_DZIENNY` | zmienna, opcjonalna | dzienny limit zapytań do Claude (domyślnie `150`); po wyczerpaniu nagłówki zostają w oryginale, jeden mail do administratora na dobę. Skany na zlecenie są poza tym limitem |
-| `CLAUDE_REZERWA` | zmienna, opcjonalna | ile zapytań z limitu dziennego tłumaczenie zostawia dla oceny intencji i analogii (domyślnie `50`) |
+| `CLAUDE_BUDZET_DZIENNY` | zmienna, opcjonalna | dzienny limit zapytań do Claude (domyślnie `60`); po wyczerpaniu nagłówki zostają w oryginale, jeden mail do administratora na dobę. Skany na zlecenie są poza tym limitem |
+| `CLAUDE_REZERWA` | zmienna, opcjonalna | ile zapytań z limitu dziennego tłumaczenie zostawia dla oceny intencji i analogii (domyślnie `20`) |
 | `CLAUDE_WYLACZ` | zmienna, opcjonalna | `1` = żadnych wywołań Claude (tłumaczenie, oceny, przeglądy) |
 | `ZGLOSZENIA_DZIENNIE` | zmienna, opcjonalna | najwyżej tyle skanów na żądanie na dobę razem (domyślnie `10`) |
 | `ZGLOSZENIA_NA_OSOBE` | zmienna, opcjonalna | na autora na dobę (domyślnie `3`; właściciel i współpracownicy bez limitu na osobę) |

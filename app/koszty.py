@@ -1,8 +1,8 @@
 """Blokady kosztów i dziennik zużycia.
 
-- Dzienny budżet zapytań do Claude (`CLAUDE_BUDZET_DZIENNY`, domyślnie 150). Po wyczerpaniu: nagłówki zostają
+- Dzienny budżet zapytań do Claude (`CLAUDE_BUDZET_DZIENNY`, domyślnie 60; do 2.0.4 było 150). Po wyczerpaniu: nagłówki zostają
   w oryginale, jeden mail do MAIL_ADMIN na dobę.
-- Pule budżetu (2.0.4): tłumaczenie nie rusza rezerwy `CLAUDE_REZERWA` (domyślnie 50 zapytań), więc ocena intencji
+- Pule budżetu (2.0.4): tłumaczenie nie rusza rezerwy `CLAUDE_REZERWA` (domyślnie 20 zapytań), więc ocena intencji
   i analogii przy każdym przebiegu godzinowym ma zawsze zapas. Skany na zlecenie (pula `zgloszenia`) są poza budżetem
   dziennym: ogranicza je limit zgłoszeń (10 na dobę, 2 zapytania każde) i wyłącznik `CLAUDE_WYLACZ=1`.
 - Wyłącznik awaryjny `CLAUDE_WYLACZ=1`: żadnych wywołań Claude (tłumaczenie, oceny, przeglądy).
@@ -22,8 +22,8 @@ from zoneinfo import ZoneInfo
 
 WAW = ZoneInfo("Europe/Warsaw")
 DANE = Path(__file__).resolve().parent / "dane"
-BUDZET_DOMYSLNY = 150
-REZERWA_DOMYSLNA = 50   # zapytania zostawione na intencję i analogię (2 na przebieg x 24 przebiegi + zapas)
+BUDZET_DOMYSLNY = 60    # 2.1.0: tłumaczenie wspólnymi paczkami ok. 30/dobę + intencja do 15 + analogia do 4
+REZERWA_DOMYSLNA = 20   # zapytania zostawione na intencję i analogię (intencja tylko przy nowych kandydatach, analogia co 6 h)
 PULE = ("ogolna", "tlumaczenie", "zgloszenia")
 ALARMY_DOMYSLNIE = 3
 
