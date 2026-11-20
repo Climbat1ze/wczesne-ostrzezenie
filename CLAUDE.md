@@ -13,4 +13,4 @@ Nie obowiązują tu: rejestr projektów i dane prywatne z innych repo. To repo j
 
 ## Reguły tego repo
 - **Publiczne repo.** Żadnych wartości sekretów, adresów odbiorców maili ani danych osób w plikach i commitach; tylko nazwy zmiennych (`SMTP_USER`, `SMTP_PASS`, `MAIL_DO`, token Claude).
-- Stan i decyzje projektu: `CHANGELOG.md`, `docs/`. Dokumenty z monorepo `PROJEKTY-CLAUDE-MASTER` (`PROJEKT WCZESNE OSTRZEZENIE/`) przejdą do `docs/` przy podziale monorepo.
+- Stan i decyzje projektu: `CHANGELOG.md`, `docs/`. Opis projektu, decyzje i log z okresu przed przeniesieniem (do 2026-11-05) zostają w prywatnym repo właściciela, nie tutaj: od 2026-11-02 publiczna jest tylko aplikacja, bo tamte pliki mają dane prywatne (stan z 2026-11-20).
