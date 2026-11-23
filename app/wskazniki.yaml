@@ -37,6 +37,9 @@ kategorie:
       - '\b(police officers|policjanci|policjant\w*|counter-terrorism|antyterroryst\w*)\b.{0,60}\b(sent|deployed|wysłan\w*|skierowan\w*)'
       # Wojska sojusznicze przybywające DO państwa flanki (wzmocnienie NATO, ćwiczenia).
       - '\b(troops|forces|soldiers|żołnierz\w*|wojsk\w*)\b.{0,20}\b(deploy\w*|arriv\w*|przyb\w*|rozmieszcz\w*)\b.{0,10}\b(to|in|do|w|na)\s+(poland|polsce|polski|lithuania|litwie|litwy|latvia|łotwie|łotwy|estonia|estonii)\b'
+      # Zdjęcia satelitarne niezwiązane z wojskiem (pole golfowe, most kerczeński, smog) i patrol wojsk państwa flanki przy własnej granicy.
+      - '\b(golf|kerch\w*|kerczeń\w*|crimean bridge)\b'
+      - '(?s)^(?=.*\b(lithuania\w*|latvia\w*|estonia\w*|poland|polish)\b).*\btroops patrol'
   gotowosc:
     nazwa: "Gotowość bojowa i mobilizacja"
     waga: 3
@@ -60,6 +63,9 @@ kategorie:
       - 'мобилизац\w*'
       - 'военное положение'
       - 'боеготовност\w*'
+    wykluczenia:
+      # Weryfikacja prawna kandydata do misji to nie mobilizacja.
+      - '\bweryfikacj\w*\b.{0,40}\bkandydat'
   ewakuacja:
     nazwa: "Ewakuacja dyplomatów i ostrzeżenia dla podróżnych"
     waga: 4
@@ -93,6 +99,12 @@ kategorie:
       - '\b(zbliżając\w*|nieuchronn\w*|realn\w*) (atak|agresj|wojn|inwazj)'
       - '\bostrzeg\w*\b.{0,40}\b(atak|agresj|inwazj|wojn)'
       - '\b(przygotow\w*|szykuj\w*)\b.{0,15}\b(atak|agresj|inwazj|wojn)'
+    wykluczenia:
+      # Ostrzeżenie przed terroryzmem w Rosji/Moskwie (bez Polski, Bałtów, NATO) to nie ostrzeżenie o ataku na flankę.
+      - '(?s)^(?!.*(polsk|poland|polish|litw|lithuan|łotw|latvi|eston|bałt|baltic|nato|flank))(?=.*terror)(?=.*(moscow|moskw|rosj|russia|fsb))'
+      # Fałszywe alerty po włamaniach do aplikacji alarmowych (cyberatak, nie ostrzeżenie wywiadu).
+      - '(fake|false|fałszyw\w*|hack\w*|haker\w*|hakersk\w*|cyber\w*).{0,60}(alerts?|alarm\w*|warning systems?)'
+      - '(alerts?|alarm\w*).{0,60}(hack\w*|cyber\w*|haker\w*)'
   pretekst:
     nazwa: "Budowanie pretekstu i oskarżenia"
     waga: 3
@@ -137,6 +149,16 @@ kategorie:
       - 'гарантии безопасности'
       - 'ядерн\w*'
       - 'ответные меры'
+    wykluczenia:
+      # Fałszywe alerty po włamaniach: to cyberatak, nie retoryka Kremla.
+      - '(fake|false|fałszyw\w*|hack\w*|haker\w*|hakersk\w*|cyber\w*).{0,60}(alerts?|alarm\w*|warning systems?)'
+      - '(alerts?|alarm\w*).{0,60}(hack\w*|cyber\w*|haker\w*)'
+      # Czerwone linie w negocjacjach koalicyjnych.
+      - '(?s)^(?=.*\b(czerwon\w* lini\w*|red lines?)\b)(?=.*\b(koalicj\w*|utworz\w* rząd\w*|następny rząd|coalition|government formation)\b)'
+      # Gwarancje bezpieczeństwa dla Ukrainy, gdy w tekście nie ma Rosji ani Kremla.
+      - '(?s)^(?!.*(russia|rosj|rosyjsk|kreml|moscow|moskw|putin|lavrov|ławrow|росси))(?=.*(security guarantees|gwarancj\w*))(?=.*(ukrain|zełensk|zelensk))'
+      # Broń jądrowa Korei Północnej lub Iranu oraz bezpieczeństwo elektrowni, gdy w tekście nie ma Rosji.
+      - '(?s)^(?!.*(russia|rosj|rosyjsk|kreml|moscow|moskw|putin|росси))(?=.*(north korea|korea północn|korei północn|iran|nuclear safety))'
   hybryda:
     nazwa: "Sabotaż, drony, naruszenia przestrzeni"
     waga: 2
@@ -160,6 +182,9 @@ kategorie:
       - '\bflot\w* cieni'
       - 'диверси\w*'
       - 'саботаж'
+    wykluczenia:
+      # Cytat ekologów o strategii energetycznej („sabotaż” w przenośni).
+      - '\bekolo\w*\b.{0,40}\bsabota\w*'
   cyber:
     nazwa: "Cyberataki na państwo i infrastrukturę"
     waga: 2
@@ -175,6 +200,9 @@ kategorie:
       - '\batak\w* hakersk'
       - '\bwłaman\w*\b.{0,30}\b(system|serwer|skrzyn|poczt)'
       - 'кибератак\w*'
+    wykluczenia:
+      # Zaprzeczenie: awaria „nie z powodu cyberataku”.
+      - '\b(not|nie|no)\b.{0,25}\b(caused by|due to|spowodowan\w*|wynik\w*)\b.{0,20}\bcyber'
   granica_migracja:
     nazwa: "Presja na granicy z Białorusią"
     waga: 1
@@ -213,6 +241,10 @@ kategorie:
       - '\b(ćwiczen\w*|manewr\w*)\b.{0,40}\b(białoru\w*|rosj\w*|królewieck\w*|kaliningrad\w*|floty bałtyck)'
       - '\b(białoru\w*|rosj\w*|królewieck\w*|kaliningrad\w*)\b.{0,40}\b(ćwiczen\w*|manewr\w*)'
       - 'учени[яйе]\w*'
+    wykluczenia:
+      # Okręt szpiegowski obserwujący ćwiczenia NATO to nie ćwiczenia Rosji.
+      - '\b(spy|intelligence|surveillance) ships?\b'
+      - '\b(okręt\w*|statek|statk\w*) (szpieg|wywiad)'
   deeskalacja:
     nazwa: "Sygnały deeskalacji"
     waga: -3
@@ -231,6 +263,14 @@ kategorie:
       - 'перемири\w*'
       - 'мирн\w* переговор\w*'
       - 'отвод войск'
+    wykluczenia:
+      # Koniec, odrzucenie lub wykorzystanie rozejmu oraz powrót walk to nie deeskalacja.
+      - '\b(end of|ends|ended|ending|collapse\w*|reject\w*|returns?|resum\w*)\b.{0,50}\b(ceasefire|truce|peace deal|fighting)'
+      - '\b(ceasefire|truce)\b.{0,40}\b(ends?|ended|collapsed|rejected|broke down)\b'
+      - '\b(peace deal|peace talks)\b.{0,30}\bremains? elusive'
+      - '\b(skończy\w*|zakończ\w*|odrzuci\w*|wykorzyst\w*|nie planuje)\b.{0,60}\b(rozejm\w*|zawieszeni\w* (broni|walk)|zawieszeń broni)'
+      - '\b(rozejm\w*|zawieszeni\w* (broni|walk))\b.{0,40}\b(odrzuc\w*|zakończ\w*|skończ\w*)'
+      - '\bnie będzie negocjowa'
 
 # Czy wiadomość dotyczy Polski i wschodniej flanki NATO. Mnożnik wagi wpisu w indeksie.
 geografia:
