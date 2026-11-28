@@ -1,0 +1,3 @@
+{"data": "2026-11-02", "id": "pap-en", "nazwa": "PAP English", "powod": "najnowszy wpis sprzed 472 dni; brak zastępstwa", "typ": "status", "z": "obserwacja", "na": "zablokowane"}
+{"data": "2026-11-09", "id": "us-travel", "nazwa": "US State Dept Travel Advisories", "powod": "najnowszy wpis sprzed 17 dni; szukam zastępstwa co tydzień", "typ": "status", "z": "aktywne", "na": "obserwacja"}
+{"data": "2026-11-23", "id": "bellingcat", "nazwa": "Bellingcat", "powod": "najnowszy wpis sprzed 18 dni; znaleziony działający kanał w tej samej domenie", "typ": "nowy adres", "z": "https://www.bellingcat.com/feed/", "na": "https://www.bellingcat.com/rss"}

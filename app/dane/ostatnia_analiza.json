@@ -1,0 +1,861 @@
+{
+ "wygenerowano": "2026-11-28T16:30+00:00",
+ "dzien": "2026-11-28",
+ "indeks": 9.7,
+ "natezenie": {
+  "wojska_granica": 0.052,
+  "gotowosc": 0.0,
+  "ewakuacja": 0.0,
+  "ostrzezenia_sojusznikow": 0.052,
+  "pretekst": 0.101,
+  "retoryka": 0.263,
+  "hybryda": 0.677,
+  "cyber": 0.268,
+  "granica_migracja": 0.233,
+  "przestrzen_transport": 0.0,
+  "cwiczenia": 0.0,
+  "deeskalacja": 0.503
+ },
+ "sila": {
+  "wojska_granica": 0.21,
+  "gotowosc": 0.0,
+  "ewakuacja": 0.0,
+  "ostrzezenia_sojusznikow": 0.21,
+  "pretekst": 0.42,
+  "retoryka": 1.22,
+  "hybryda": 4.52,
+  "cyber": 1.25,
+  "granica_migracja": 1.06,
+  "przestrzen_transport": 0.0,
+  "cwiczenia": 0.0,
+  "deeskalacja": 2.8
+ },
+ "wpisow_24h": 65,
+ "prog": {
+  "od": 0,
+  "nazwa": "Spokojnie",
+  "kolor": "zielony",
+  "opis": "Tło informacyjne bez wyraźnych sygnałów wobec Polski i Bałtów.",
+  "luzno": "Pij kawę",
+  "luzno_opis": "Świat jak zwykle wariuje, ale nie celuje w nas."
+ },
+ "trend": {
+  "wczoraj": 21.5,
+  "sr_7": 18.6,
+  "sr_30": 15.5,
+  "dni_historii": 39
+ },
+ "zbieznosc": {
+  "poziom": 1,
+  "nazwa": "Uwaga",
+  "kategorie": {
+   "wojska_granica": {
+    "grupy": 0,
+    "przyklady": []
+   },
+   "gotowosc": {
+    "grupy": 0,
+    "przyklady": []
+   },
+   "ewakuacja": {
+    "grupy": 0,
+    "przyklady": []
+   },
+   "ostrzezenia_sojusznikow": {
+    "grupy": 1,
+    "przyklady": [
+     {
+      "tytul": "Rosja nasila operacje hybrydowe. Polska drugim najczęstszym celem w Europie",
+      "link": "https://www.rp.pl/konflikty-zbrojne/art45550961-rosja-nasila-operacje-hybrydowe-polska-drugim-najczestszym-celem-w-europie",
+      "wydawca": "Rzeczpospolita"
+     }
+    ]
+   },
+   "pretekst": {
+    "grupy": 2,
+    "przyklady": [
+     {
+      "tytul": "Rosja grozi kolejnemu państwu NATO. Ostrzega przed otwartą wojną",
+      "link": "https://defence24.pl/geopolityka/rosja-grozi-kolejnemu-panstwu-nato-ostrzega-przed-otwarta-wojna",
+      "wydawca": "Defence24"
+     },
+     {
+      "tytul": "Russian missile crash in Poland likely an intentional provocation as European militaries hold drills, Polish leader says - ABC News",
+      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNcExfYmlWeVZjek83MktkdDhnNURMMzM4VzAtNi1Nd0ZkcW40ckhkNmJ3RWxJZWV5eHdNVndwZlUxMmlDWDNvcmF0Zk1jdDFiSV9tN0hFTm1WRHFidGJkajl1Nk11YllOOUE2ZzVodnZfUWRiT0x1UE1LY21ESFNPZDhlTlp4ZkpNWjE2T3JIWHgtNTdDRVQ4QWhaS2phOV90MnZGWE5BRk5QWk83Ui1aUWxDS2JWeUdmMVHSAb8BQVVfeXFMTU80aVBGUjZQZ2I5TUJCZDRjcGdjV2UtQmZzTnpkUnBic21LOW5nZ04wMzhXVC1YdVNDZmxGdE1FQUFUUGozSDM1bnRKVlRJRldRXzNzWXRtbXlvSk5hUzNYN09qeHVqTGNMbjhFUG81T1hTaHpzSkpJSGhEclVVamQxTU1XbDJNT2pOMjJRRXhsZHowc0swUklBbXF1X0ZEWnZuUGt4TU5lYkNSLVowZmJWNWlTcnVTV3lQV2M4a2s?oc=5",
+      "wydawca": "ABC News - Breaking News, Latest News and Videos"
+     }
+    ]
+   },
+   "retoryka": {
+    "grupy": 2,
+    "przyklady": [
+     {
+      "tytul": "Russia warns NATO of preemptive nuclear strikes over Baltic interests",
+      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxOZ1RnbUt3N0JGTmJnVWx2bEpHM2RyZUtKa0dreXA5b1FhT3FUTEtyd09KQ2xidFZ5SHA4dnEzaVFIcHVzRThGWkJtWl81em40czdFVnFDNFhnQlBVWlJhM1JyZ0dUaW9qejhkZmdIbVpEblYteTU4eXRnXzNsMzktWXQ0UXVKc3g1cURsMTFjWEEyd19QTXNheGpOYVpOMm10R0dISmZBZDNha19fSFMyak9sQXEyQQ?oc=5",
+      "wydawca": "scanx.trade"
+     },
+     {
+      "tytul": "Kremlin Warned NATO of Nuclear Strikes Over Baltic: WSJ",
+      "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxNbTUtS3h4VmduMk1LY0ZGZUVVdGJsUm10RnJjcGNNTnNhTTh5d1kyUWFFVjEtODVuMExmSW9wanNHcWNLWDhTUlFzYVRiZ1FYWVZrMGl3SHNWQVlYVFZFdTVQZUdVQ1ByQjBiSEdkS1Q2LTRSQWwxbDk4dXl2cndrX0Jn?oc=5",
+      "wydawca": "JFeed"
+     }
+    ]
+   },
+   "hybryda": {
+    "grupy": 16,
+    "przyklady": [
+     {
+      "tytul": "Poland says will create no-fly zone at Ukraine border after repeated airspace violations",
+      "link": "https://www.france24.com/en/poland-says-will-create-no-fly-zone-at-ukraine-border-after-repeated-airspace-violations",
+      "wydawca": "France 24 Europe"
+     },
+     {
+      "tytul": "Rosja nasila operacje hybrydowe. Polska drugim najczęstszym celem w Europie",
+      "link": "https://www.rp.pl/konflikty-zbrojne/art45550961-rosja-nasila-operacje-hybrydowe-polska-drugim-najczestszym-celem-w-europie",
+      "wydawca": "Rzeczpospolita"
+     },
+     {
+      "tytul": "Unidentified drone enters Latvian airspace: military launches interceptor UAV",
+      "link": "https://www.pravda.com.ua/eng/news/2026/11/27/8064897/",
+      "wydawca": "Ukrainska Pravda EN"
+     },
+     {
+      "tytul": "Badanie: państwa bałtyckie, Niemcy i Polska nadal będą celem rosyjskiej sabotażu",
+      "link": "https://www.lsm.lv/raksts/zinas/arzemes/27.11.2026-petijums-baltijas-valstis-vacija-un-polija-ari-turpmak-paliks-par-krievijas-sabotazas-merkiem.a673703/?utm_source=rss&utm_campaign=rss&utm_medium=links",
+      "wydawca": "LSM (Łotwa, po łotewsku)"
+     }
+    ]
+   },
+   "przestrzen_transport": {
+    "grupy": 0,
+    "przyklady": []
+   }
+  },
+  "zbiezne": [
+   "hybryda"
+  ]
+ },
+ "analogia": [
+  {
+   "kategoria": "wojska_granica",
+   "kiedy": "XI 2021",
+   "co": "Zdjęcia satelitarne i dokument wywiadu USA: ok. 175 tys. żołnierzy przy granicy Ukrainy (Washington Post, 3.12.2021).",
+   "odpowiednik": "Rosja lub Białoruś gromadzi albo przerzuca własne wojska, sprzęt lub rakiety w pobliże Polski, Bałtów lub krajów nordyckich.",
+   "trafienie": false,
+   "grup": 1,
+   "odrzucone": 6,
+   "niezweryfikowane": 0,
+   "przyklady": [
+    {
+     "tytul": "Russia is modernising key military garrison near Finnish border, Finnish broadcaster says – photos",
+     "link": "https://www.pravda.com.ua/eng/news/2026/11/23/8064168/",
+     "wydawca": "Ukrainska Pravda EN",
+     "powod": "Rosja rozbudowuje własny garnizon Kamienka ok. 60 km od Finlandii i wzmacnia siły przy granicy NATO – to konkretne zdarzenie dotyczące rosyjskich wojsk w pobliżu kraju nordyckiego."
+    }
+   ]
+  },
+  {
+   "kategoria": "ostrzezenia_sojusznikow",
+   "kiedy": "XI–XII 2021",
+   "co": "USA i Wielka Brytania publicznie ostrzegają, że Rosja może zaatakować; odtajniają wywiad.",
+   "odpowiednik": "Rząd, wywiad albo dowództwo USA, Wielkiej Brytanii, NATO lub państwa regionu publicznie ostrzega, że Rosja lub Białoruś może zaatakować Polskę, Bałtów lub kraje nordyckie, albo ujawnia wywiad o takich planach. Rosyjskie oskarżenia, że to Polska lub NATO szykuje atak, NIE są odpowiednikiem (to pretekst).",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 12,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "retoryka",
+   "kiedy": "17.12.2021",
+   "co": "Rosja publikuje projekty traktatów z NATO i USA: żądanie gwarancji bezpieczeństwa i wycofania NATO.",
+   "odpowiednik": "Rosja stawia NATO, Polsce lub Bałtom formalne żądania albo ultimatum dotyczące bezpieczeństwa (wycofanie wojsk, gwarancje, strefy wpływów).",
+   "trafienie": false,
+   "grup": 1,
+   "odrzucone": 29,
+   "niezweryfikowane": 0,
+   "przyklady": [
+    {
+     "tytul": "Rosja postawiła żądania w sprawie wojny. Media: Jedno dotyczy Polski",
+     "link": "https://www.polsatnews.pl/wiadomosc/2026-11-14/rosja-postawila-zadania-w-sprawie-wojny-media-jedno-dotyczy-polski/",
+     "wydawca": "Polsat News Świat",
+     "powod": "Rosja (strona działająca) według NYT domagała się w negocjacjach wycofania wojsk NATO ze wschodniej flanki, w tym z Polski, czyli formalnego żądania bezpieczeństwa wobec NATO/Polski. Zgodne z kryteriu"
+    }
+   ]
+  },
+  {
+   "kategoria": "cyber",
+   "kiedy": "14.01.2022",
+   "co": "Atak na ukraińskie strony rządowe i złośliwe oprogramowanie WhisperGate.",
+   "odpowiednik": "Poważny cyberatak na instytucje państwowe lub infrastrukturę Polski, Bałtów albo krajów nordyckich, przypisywany Rosji lub Białorusi.",
+   "trafienie": false,
+   "grup": 1,
+   "odrzucone": 63,
+   "niezweryfikowane": 0,
+   "przyklady": [
+    {
+     "tytul": "Cyberatak na dostawcę Polskiej Agencji Kosmicznej. Skradziono dane i zażądano okupu",
+     "link": "https://cyberdefence24.pl/cyberbezpieczenstwo/cyberataki/cyberatak-na-dostawce-polskiej-agencji-kosmicznej-skradziono-dane-i-zazadano-okupu",
+     "wydawca": "CyberDefence24",
+     "powod": "Konkretny cyberatak na dostawcę agencji państwowej w Polsce (kradzież danych, okup), ale w nagłówku brak przypisania Rosji lub Białorusi, a motyw okupu wskazuje raczej na przestępców; kryterium spełni"
+    }
+   ]
+  },
+  {
+   "kategoria": "pretekst",
+   "kiedy": "14.01.2022",
+   "co": "USA ostrzegają, że Rosja przygotowuje operację pod fałszywą flagą jako pretekst.",
+   "odpowiednik": "Zachodnie służby lub rządy ostrzegają, że Rosja szykuje prowokację pod fałszywą flagą wobec Polski, Bałtów lub krajów nordyckich, albo Rosja oskarża te państwa o przygotowanie ataku i buduje w ten sposób pretekst.",
+   "trafienie": true,
+   "grup": 32,
+   "odrzucone": 34,
+   "niezweryfikowane": 0,
+   "przyklady": [
+    {
+     "tytul": "Poland prevented Russian false-flag operation at border, says advisor to defence minister",
+     "link": "https://notesfrompoland.com/2026/11/20/poland-prevented-russian-false-flag-operation-at-border-says-advisor-to-defence-minister/",
+     "wydawca": "Notes from Poland",
+     "powod": "Doradca ministra obrony Polski mówi o udaremnionej rosyjskiej operacji pod fałszywą flagą na granicy. To konkretne zdarzenie i zachodnie ostrzeżenie dotyczące Polski."
+    },
+    {
+     "tytul": "Russia was preparing an attack near the Polish border, to blame Ukraine",
+     "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQaDhtZV9iSzNYUmhwNUdtc1ZWcGxtV0t0Zm11S1VpTFBuZmhXUjhiOEhMMXNlYV9RWWRwSlVHOGZILXpsMVdyelVEdnUtTlBWdC1Za1N5cDBlZlNieDYwQmgtYUYwRVJPaEw4VFVxbWtCY2NPTmNjVzEtVHJ5TGpiUkpnc2g4dU1tNzB0ZWZiUW8wUjFYVW5temRHN3NGdHc?oc=5",
+     "wydawca": "KOHA.net",
+     "powod": "Doniesienia o rosyjskim planie prowokacji przy granicy z Polską z obarczeniem winą Ukrainy – operacja pod fałszywą flagą. Źródło to agregator bez jasnego wskazania służb, więc pewność jest niższa."
+    }
+   ]
+  },
+  {
+   "kategoria": "gotowosc",
+   "kiedy": "I 2022",
+   "co": "Doniesienia o zapasach krwi i szpitalach polowych przy granicy.",
+   "odpowiednik": "Rosja lub Białoruś gromadzi zapasy krwi, rozwija szpitale polowe, mobilizuje rezerwistów albo podnosi gotowość bojową w pobliżu Polski, Bałtów lub krajów nordyckich.",
+   "trafienie": true,
+   "grup": 5,
+   "odrzucone": 7,
+   "niezweryfikowane": 0,
+   "przyklady": [
+    {
+     "tytul": "Pełna gotowość bojowa na granicy z Polską. Łukaszenka wydał rozkaz. Co to oznacza?",
+     "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE8xc213UjdqRUtUNnE1VC1TdWJUMWtlUmZibkxqN0ltSXFxc1gtTVN6ZlFEZExSYVI5bFRQWmR2TWp4cDk1TTU3cFRWekJfSG1iOGczNUFIOUFELS1MT1EyNjZWS25zbEk?oc=5",
+     "wydawca": "Nasza Polska",
+     "powod": "Łukaszenka rozkazał pełną gotowość bojową na granicy z Polską."
+    },
+    {
+     "tytul": "Pełna gotowość bojowa na granicy z Polską. Białoruskie jednostki dostały rozkaz",
+     "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxPYko3QkxKOUNYQUw4eGVQYU9Vbnp2VThuS2RUWGloSlN3R1F1V3ZFNTBjemJycmpmUlJGMkJCeTBZR1RSOUx2Q1YzREx6UnZsaERKY3JVcy1hdmtpY21WMG9UUFB6c3VnUWh1Q05WUWM0SF8xTE5KYlMtYW9hYkRrTGhqYkFTNHIwQUY5bURVYWhQZFp1N3NZMlE1TXlLOFVMTlB1dGprdW4zRUhnNmxKWDRlYnI0bnREek1pWWE1T1E3LXUtMUdvdlc2MjV5ZU1UVXJHSDR3?oc=5",
+     "wydawca": "Forsal.pl",
+     "powod": "Białoruskie jednostki dostały rozkaz pełnej gotowości bojowej na granicy z Polską – podniesienie gotowości w pobliżu Polski; szczegóły i wiarygodność niepewne."
+    }
+   ]
+  },
+  {
+   "kategoria": "ewakuacja",
+   "kiedy": "23.01 i 11.02.2022",
+   "co": "USA ewakuują rodziny dyplomatów z Kijowa, potem wzywają obywateli do wyjazdu.",
+   "odpowiednik": "Państwa zachodnie ewakuują dyplomatów lub wzywają obywateli do opuszczenia Polski, Bałtów lub krajów nordyckich.",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 1,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "cwiczenia",
+   "kiedy": "10–20.02.2022",
+   "co": "Ćwiczenia Union Resolve na Białorusi; wojska rosyjskie nie wracają po ich końcu.",
+   "odpowiednik": "Duże ćwiczenia wojsk Rosji lub Białorusi blisko Polski, Bałtów lub krajów nordyckich, zwłaszcza gdy wojska nie wracają po ich końcu. Ćwiczenia NATO, Polski albo państw europejskich NIE są odpowiednikiem.",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 26,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "przestrzen_transport",
+   "kiedy": "II 2022",
+   "co": "Ubezpieczyciele i linie lotnicze wycofują się z ukraińskiego nieba; 24.02 zamknięcie przestrzeni.",
+   "odpowiednik": "Ubezpieczyciele lub linie lotnicze wycofują się z lotów nad Polską, Bałtami lub krajami nordyckimi z powodu zagrożenia wojskowego, albo przestrzeń zostaje zamknięta.",
+   "trafienie": false,
+   "grup": 0,
+   "odrzucone": 7,
+   "niezweryfikowane": 0,
+   "przyklady": []
+  },
+  {
+   "kategoria": "hybryda",
+   "kiedy": "II 2022",
+   "co": "Incydenty i ostrzał w Donbasie przedstawiane przez Rosję jako ataki Ukrainy.",
+   "odpowiednik": "Incydenty, sabotaż, drony lub prowokacje na terytorium Polski, Bałtów lub krajów nordyckich, przypisywane Rosji lub Białorusi albo przedstawiane przez Rosję jako agresja tych państw.",
+   "trafienie": true,
+   "grup": 107,
+   "odrzucone": 107,
+   "niezweryfikowane": 0,
+   "przyklady": [
+    {
+     "tytul": "Poland calls for permanent US military base after Russian airspace violations",
+     "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQVXExU25VcE1PeEFTYThRclQtR1J3ZWNsN3FjLUtCVlFTZURUUS1TSERTNGpITm9xOW1PTWVpazBzalNqVTVEWG9fZ3ZZaThSeEJfUUpHYXZsa2t6NGZGemhPc053S1E2Q252NElZaWtKN2VGQXFra2VQal83dFI4NTFNZEV5TkJYY3Rhc0hpeDRTbkZhcklwZTJpNXU0VFcwQldobmpLVXFPYl8wTmc?oc=5",
+     "wydawca": "BGNES",
+     "powod": "Nagłówek odnosi się do rosyjskich naruszeń przestrzeni powietrznej Polski, czyli incydentów na jej terytorium przypisywanych Rosji. Główny temat to polskie wezwanie do bazy USA, więc dopasowanie jest "
+    },
+    {
+     "tytul": "NATO sends AWACS forward after Russian incursion into Poland",
+     "link": "https://ukdefencejournal.org.uk/nato-sends-awacs-forward-after-russian-incursion-into-poland/",
+     "wydawca": "UK Defence Journal",
+     "powod": "Konkretny incydent: rosyjskie rakiety i dron wleciały w polską przestrzeń powietrzną, NATO reaguje wysłaniem AWACS. Dotyczy Polski i przypisywany Rosji."
+    }
+   ]
+  }
+ ],
+ "skoki": [],
+ "trend_alarm": {
+  "stan": "norma",
+  "opis": "średnia z 7 dni +1 pkt wobec normy 17 z poprzednich 20 dni; suma nadwyżek 0 przy progu 24.",
+  "norma": 16.5,
+  "sigma": 6.1,
+  "suma": 0.0,
+  "prog": 24.4,
+  "nadwyzka_7d": 1.2
+ },
+ "najwazniejsze": [
+  {
+   "tytul": "Rosja szykuje nowe uderzenia w Europie? Polska na celowniku Kremla",
+   "link": "https://defence24.pl/polityka-obronna/rosja-szykuje-nowe-uderzenia-w-europie-polska-na-celowniku-kremla",
+   "lead": "Polska oraz Niemcy najprawdopodobniej pozostaną głównymi celami rosyjskich działań sabotażowych na terytorium Europy – wynika z najnowszego raportu Międzynarodowego Instytutu Studiów Strategicznych (IISS). Eksperci zwracają uwagę na coraz agresywniejszy charakter działań rosyjskich służb specjalnych",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-27T19:36+00:00",
+   "kategorie": [
+    "hybryda"
+   ],
+   "ocena": 1.7,
+   "zrodla": [
+    [
+     "Defence24",
+     "https://defence24.pl/polityka-obronna/rosja-szykuje-nowe-uderzenia-w-europie-polska-na-celowniku-kremla"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Ekspert: Home run dla Rosji po rakietach manewrujących nad Polską",
+   "link": "https://www.sverigesradio.se/artikel/9352112",
+   "lead": "Polska chce wzmocnić wschodnią flankę NATO i liczy na dalsze naruszenia przestrzeni powietrznej – według słów ambasadora tego kraju. Oscar Jonsson, doktor od rosyjskiej wojny w Wyższej Szkole Obrony, opisuje rosyjskie rakiety manewrujące w Polsce jako",
+   "jezyk": "sv",
+   "oryginal": "Expert: Homerun för Ryssland efter kryssningsrobotar mot Polen",
+   "data": "2026-11-28T10:49+00:00",
+   "kategorie": [
+    "hybryda"
+   ],
+   "ocena": 1.7,
+   "zrodla": [
+    [
+     "Sveriges Radio Ekot (Szwecja)",
+     "https://www.sverigesradio.se/artikel/9352112"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Na granicy z Białorusią zawrócono trzech nielegalnych migrantów",
+   "link": "https://www.lrt.lt/naujienos/lietuvoje/2/3128019/pasienyje-su-baltarusija-apgrezti-trys-neteiseti-migrantai",
+   "lead": "Na litewskiej granicy z Białorusią w ciągu ostatniej doby zawrócono trzech nielegalnych migrantów – poinformowała w sobotę Państwowa Służba Ochrony Granicy.",
+   "jezyk": "lt",
+   "oryginal": "Pasienyje su Baltarusija apgręžti trys neteisėti migrantai",
+   "data": "2026-11-28T06:47+00:00",
+   "kategorie": [
+    "granica_migracja"
+   ],
+   "ocena": 1.27,
+   "zrodla": [
+    [
+     "15min.lt (Litwa)",
+     "https://www.15min.lt/naujiena/aktualu/nusikaltimaiirnelaimes/pasienyje-su-baltarusija-apgrezti-trys-neteiseti-migrantai-59-2816580?utm_source=rssfeed_default&utm_medium=rss&utm_campaign=rssfeed"
+    ],
+    [
+     "LRT (Litwa, po litewsku)",
+     "https://www.lrt.lt/naujienos/lietuvoje/2/3128019/pasienyje-su-baltarusija-apgrezti-trys-neteiseti-migrantai"
+    ]
+   ],
+   "grup": 2
+  },
+  {
+   "tytul": "Russian acts of sabotage in Europe rose 16% over the past year, with Germany and Poland remaining the top targets",
+   "link": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5HSE43TzB6bFRpdGtzci12dm5CUlA4U25BdWtPMGg1eld4TVBibmw0YWhPa2FldVhoV0dYRGNtcTdocWx0VE93OTF4SQ?oc=5",
+   "lead": "Russian acts of sabotage in Europe rose 16% over the past year, with Germany and Poland remaining the top targets theins.press",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-27T18:32+00:00",
+   "kategorie": [
+    "hybryda"
+   ],
+   "ocena": 1.2,
+   "zrodla": [
+    [
+     "theins.press",
+     "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5HSE43TzB6bFRpdGtzci12dm5CUlA4U25BdWtPMGg1eld4TVBibmw0YWhPa2FldVhoV0dYRGNtcTdocWx0VE93OTF4SQ?oc=5"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Rosyjski sabotaż w Europie. Dwa najbardziej narażone kraje, wśród nich Polska",
+   "link": "https://www.polsatnews.pl/wiadomosc/2026-11-28/rosyjski-sabotaz-w-europie-dwa-najbardziej-narazone-kraje-wsrod-nich-polska/",
+   "lead": "Przed zdarzeniem z masową liczbą ofiar ostrzega Międzynarodowy Instytut Studiów Strategicznych (IISS). W najnowszym raporcie brytyjski think tank zwraca uwagę, że nasila się liczba rosyjskich aktów sabotażu w Europie. Najczęściej atakowanymi krajami są Niemcy i Polska - oceniają analitycy, wskazując",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-28T08:19+00:00",
+   "kategorie": [
+    "hybryda"
+   ],
+   "ocena": 1.2,
+   "zrodla": [
+    [
+     "Polsat News Polska",
+     "https://www.polsatnews.pl/wiadomosc/2026-11-28/rosyjski-sabotaz-w-europie-dwa-najbardziej-narazone-kraje-wsrod-nich-polska/"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Romania calls on NATO to help repel Russian hybrid attacks",
+   "link": "https://www.pravda.com.ua/eng/news/2026/11/27/8065029/",
+   "lead": "Romanian Foreign Minister Dan Neculăescu has called on NATO to adopt joint measures against Russian hybrid threats – including cyberattacks, disinformation and Black Sea incidents – and warned that the Black Sea is becoming a weak spot in European security.",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-27T17:51+00:00",
+   "kategorie": [
+    "cyber"
+   ],
+   "ocena": 0.72,
+   "zrodla": [
+    [
+     "Ukrainska Pravda EN",
+     "https://www.pravda.com.ua/eng/news/2026/11/27/8065029/"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Ekspert nie ma dobrych wieści dla Ukrainy. \"Absolutnie nie do przyjęcia\"",
+   "link": "https://www.polsatnews.pl/wiadomosc/2026-11-27/ekspert-nie-ma-dobrych-wiesci-dla-ukrainy-absolutnie-nie-do-przyjecia/",
+   "lead": "Propozycja oddania przez Ukrainę Donbasu za gwarancje bezpieczeństwa na wzór art. 5 NATO jest nie do przyjęcia dla strony rosyjskiej - ocenił Wojciech Konończuk, dyrektor Ośrodka Studiów Wschodnich. - Moim zdaniem nie ma realnie takich propozycji na stole - komentował w programie Najważniejsze pytan",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-27T17:56+00:00",
+   "kategorie": [
+    "retoryka"
+   ],
+   "ocena": 0.72,
+   "zrodla": [
+    [
+     "Polsat News Świat",
+     "https://www.polsatnews.pl/wiadomosc/2026-11-27/ekspert-nie-ma-dobrych-wiesci-dla-ukrainy-absolutnie-nie-do-przyjecia/"
+    ]
+   ],
+   "grup": 1
+  },
+  {
+   "tytul": "Russian Sabotage in Europe Rises by 16% as Moscow Tests NATO’s Capacity for Deterrence",
+   "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNM0Z4enhkd2tvU1pGd1J2d0V1cEg5T0MzZ1VlN2p5TnNTZExVWFZxaHpHM2VyT1Fidm5BMTNXcDRiOUhZb0oydFpjS0wzeVlxOHFSM1NzcGo3b195SXdCakJQQ2ZOazh3YTNVbnVUV0NIZVJIVFJIZDdsb0ZBNmZRNQ?oc=5",
+   "lead": "Russian Sabotage in Europe Rises by 16% as Moscow Tests NATO’s Capacity for Deterrence EU Today",
+   "jezyk": null,
+   "oryginal": null,
+   "data": "2026-11-27T21:26+00:00",
+   "kategorie": [
+    "hybryda"
+   ],
+   "ocena": 0.72,
+   "zrodla": [
+    [
+     "EU Today",
+     "https://news.google.com/rss/articles/CBMigAFBVV95cUxNM0Z4enhkd2tvU1pGd1J2d0V1cEg5T0MzZ1VlN2p5TnNTZExVWFZxaHpHM2VyT1Fidm5BMTNXcDRiOUhZb0oydFpjS0wzeVlxOHFSM1NzcGo3b195SXdCakJQQ2ZOazh3YTNVbnVUV0NIZVJIVFJIZDdsb0ZBNmZRNQ?oc=5"
+    ]
+   ],
+   "grup": 1
+  }
+ ],
+ "wlasne": [
+  {
+   "tytul": "Samopodpalenie 22-latka. Teza o manifeście politycznym jest na wyrost",
+   "link": "https://www.rp.pl/spoleczenstwo/art45557061-samopodpalenie-22-latka-teza-o-manifescie-politycznym-jest-na-wyrost",
+   "wydawca": "Rzeczpospolita",
+   "data": "2026-11-28T11:44+00:00",
+   "zdjete": [
+    "hybryda"
+   ],
+   "zdjete_nazwy": [
+    "sabotaż, drony, naruszenia przestrzeni"
+   ],
+   "powod": "Indywidualny akt samopodpalenia ukraińskiego 22-latka w Warszawie; motyw niejasny, a sama redakcja podaje, że teza o manifeście politycznym jest na wyrost. Brak śladu działania Rosji, Białorusi ani ic",
+   "grup": 1
+  },
+  {
+   "tytul": "Ekspert: Home run dla Rosji po rakietach manewrujących nad Polską",
+   "link": "https://www.sverigesradio.se/artikel/9352112",
+   "wydawca": "Sveriges Radio Ekot (Szwecja)",
+   "data": "2026-11-28T10:49+00:00",
+   "zdjete": [
+    "cwiczenia"
+   ],
+   "zdjete_nazwy": [
+    "duże ćwiczenia rosji i białorusi"
+   ],
+   "powod": "Nagłówek i lead opisują rosyjskie rakiety manewrujące naruszające polską przestrzeń powietrzną (komentarz eksperta ze szwedzkiego radia), co pasuje do naruszeń przestrzeni. Kategoria 'cwiczenia' nie p",
+   "grup": 1
+  },
+  {
+   "tytul": "Pod pretekstem poprawy połączenia internetowego, w imieniu Telia, oszuści wyłudzili 13 000 euro",
+   "link": "https://rus.err.ee/1610209270/pod-predlogom-uluchshenija-internet-soedinenija-ot-imeni-telia-moshenniki-pohitili-13-000-evro",
+   "wydawca": "ERR (Estonia, po rosyjsku)",
+   "data": "2026-11-27T15:01+00:00",
+   "zdjete": [
+    "pretekst"
+   ],
+   "zdjete_nazwy": [
+    "budowanie pretekstu i oskarżenia"
+   ],
+   "powod": "Zwykłe oszustwo finansowe w Estonii (podszywanie się pod Telię i bank). Słowo „pretekst” użyte potocznie, bez związku z budowaniem pretekstu wojennego. Brak sygnału zagrożenia ze strony państwa przeci",
+   "grup": 1
+  },
+  {
+   "tytul": "Norweska linia lotnicza składa wniosek o upadłość",
+   "link": "https://www.sverigesradio.se/artikel/9351732",
+   "wydawca": "Sveriges Radio Ekot (Szwecja)",
+   "data": "2026-11-27T13:17+00:00",
+   "zdjete": [
+    "przestrzen_transport"
+   ],
+   "zdjete_nazwy": [
+    "zamknięcia przestrzeni powietrznej i odwołane loty"
+   ],
+   "powod": "Upadłość komercyjnej linii lotniczej i odwołane loty z przyczyn finansowych; brak związku z zagrożeniem wojskowym ani zamknięciem przestrzeni powietrznej.",
+   "grup": 1
+  },
+  {
+   "tytul": "NATO poderwało myśliwce i drona. Incydent na granicy Sojuszu",
+   "link": "https://www.polsatnews.pl/wiadomosc/2026-11-27/nato-poderwalo-mysliwce-i-drona-incydent-na-granicy-sojuszu/",
+   "wydawca": "Polsat News Świat",
+   "data": "2026-11-27T08:58+00:00",
+   "zdjete": [
+    "ostrzezenia_sojusznikow"
+   ],
+   "zdjete_nazwy": [
+    "ostrzeżenia wywiadu i sojuszników"
+   ],
+   "powod": "Niezidentyfikowany dron naruszył przestrzeń Łotwy – to naruszenie przestrzeni (hybryda), sprawca nieustalony, więc przypisanie Rosji niepewne. Poderwanie myśliwców przez NATO to reakcja sojusznicza, n",
+   "grup": 1
+  },
+  {
+   "tytul": "EXPLAINER: Protecting the Skies: How Poland’s Proposed No-Fly Zone Could Work",
+   "link": "https://www.kyivpost.com/post/91383",
+   "wydawca": "Kyiv Post",
+   "data": "2026-11-27T08:15+00:00",
+   "zdjete": [
+    "hybryda",
+    "przestrzen_transport"
+   ],
+   "zdjete_nazwy": [
+    "sabotaż, drony, naruszenia przestrzeni",
+    "zamknięcia przestrzeni powietrznej i odwołane loty"
+   ],
+   "powod": "Artykuł wyjaśniający polski plan strefy zakazu lotów przy granicach ze wschodnimi sąsiadami – to środek obronny strony własnej, a nie działanie przeciwnika. Wspomniane wcześniejsze wloty rosyjskich ra",
+   "grup": 1
+  },
+  {
+   "tytul": "Lithuania Seeks EU Terrorist Label for Russia’s GRU Spy Agency",
+   "link": "https://www.kyivpost.com/post/91323",
+   "wydawca": "Kyiv Post",
+   "data": "2026-11-26T17:03+00:00",
+   "zdjete": [
+    "cyber",
+    "hybryda"
+   ],
+   "zdjete_nazwy": [
+    "cyberataki na państwo i infrastrukturę",
+    "sabotaż, drony, naruszenia przestrzeni"
+   ],
+   "powod": "Działanie Litwy (strona własna): dyplomatyczny wniosek o wpisanie GRU na unijną listę terrorystyczną. To reakcja polityczno-prawna, a nie nowy sygnał ataku. Wzmianki o cyberatakach i sabotażu dotyczą ",
+   "grup": 1
+  },
+  {
+   "tytul": "Dziecięcy balet wkrótce trafi na scenę w Estonii",
+   "link": "https://www.err.ee/1610208401/estonias-jouab-peagi-lavale-lasteballett",
+   "wydawca": "ERR (Estonia, po estońsku)",
+   "data": "2026-11-26T16:50+00:00",
+   "zdjete": [
+    "pretekst"
+   ],
+   "zdjete_nazwy": [
+    "budowanie pretekstu i oskarżenia"
+   ],
+   "powod": "Zapowiedź dziecięcego przedstawienia baletowego w Estonii – wydarzenie kulturalne bez związku z zagrożeniem wojskowym; przypisanie 'pretekst' to fałszywe trafienie reguły słownikowej.",
+   "grup": 1
+  }
+ ],
+ "intencja": {
+  "ocenione": 182,
+  "po_stronie": {
+   "sojusznicza": 34,
+   "przeciwnik": 76,
+   "neutralna": 24,
+   "wlasna": 48
+  },
+  "przyklady_wlasne": [
+   "W poniedziałek spotkanie Rady Północnoatlantyckiej. Będzie dotyczyć naruszenia polskiej przestrzeni powietrznej",
+   "Mark Rutte broni Trumpa i jego relacji z Putinem. „To w interesie Polski”",
+   "Statek towarowy płonący na Bałtyku znany jest z przewozu broni dla Rosji",
+   "Organy nadzoru: więcej uchybień w ochronie bezpieczeństwa, niż wykryto",
+   "Poland Evacuates Rzeszow-Jasionka Airport Control Tower for First Time Amid Russian Attack on Ukraine - Avi-Go"
+  ]
+ },
+ "historia": [
+  {
+   "dzien": "2026-10-19",
+   "indeks": 4.0,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-20",
+   "indeks": 1.7,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-21",
+   "indeks": 3.2,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-22",
+   "indeks": 0.0,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-23",
+   "indeks": 2.4,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-25",
+   "indeks": 0.4,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-26",
+   "indeks": 3.4,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-27",
+   "indeks": 0.0,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-28",
+   "indeks": 6.1,
+   "alarm": 1,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-29",
+   "indeks": 7.1,
+   "alarm": 1,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-30",
+   "indeks": 3.4,
+   "alarm": 1,
+   "rek": true
+  },
+  {
+   "dzien": "2026-10-31",
+   "indeks": 6.4,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-11-01",
+   "indeks": 1.8,
+   "alarm": 0,
+   "rek": true
+  },
+  {
+   "dzien": "2026-11-02",
+   "indeks": 24.5,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-03",
+   "indeks": 29.6,
+   "alarm": 3,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-04",
+   "indeks": 15.8,
+   "alarm": 2,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-05",
+   "indeks": 14.8,
+   "alarm": 2,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-06",
+   "indeks": 18.7,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-07",
+   "indeks": 7.9,
+   "alarm": 2,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-08",
+   "indeks": 4.9,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-09",
+   "indeks": 15.5,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-10",
+   "indeks": 17.7,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-11",
+   "indeks": 14.0,
+   "alarm": 2,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-12",
+   "indeks": 13.6,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-13",
+   "indeks": 11.9,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-14",
+   "indeks": 7.6,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-15",
+   "indeks": 13.0,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-16",
+   "indeks": 18.4,
+   "alarm": 1,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-17",
+   "indeks": 16.8,
+   "alarm": 2,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-18",
+   "indeks": 20.8,
+   "alarm": 3,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-19",
+   "indeks": 22.6,
+   "alarm": 3,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-20",
+   "indeks": 26.7,
+   "alarm": 3,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-21",
+   "indeks": 15.9,
+   "alarm": 3,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-22",
+   "indeks": 17.0,
+   "alarm": 3,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-23",
+   "indeks": 26.9,
+   "alarm": 3,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-24",
+   "indeks": 14.1,
+   "alarm": 3,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-25",
+   "indeks": 11.8,
+   "alarm": 2,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-26",
+   "indeks": 22.9,
+   "alarm": 2,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-27",
+   "indeks": 21.5,
+   "alarm": 2,
+   "rek": false
+  },
+  {
+   "dzien": "2026-11-28",
+   "indeks": 9.7,
+   "alarm": 1,
+   "rek": false
+  }
+ ],
+ "skrot": [
+  "Poziom: spokojnie, współczynnik wpierdolu 10/100. Wobec tygodnia: spadek -9; wobec miesiąca: spadek -6.",
+  "Najsilniejsze sygnały: sabotaż, drony, naruszenia przestrzeni (68% skali); cyberataki na państwo i infrastrukturę (27% skali); retoryka i ultimata kremla (26% skali).",
+  "Spiętrzenie zbieżnych komunikatów: uwaga. Co najmniej 3 niezależne redakcje w 72 h w kategoriach: sabotaż, drony, naruszenia przestrzeni.",
+  "Sygnały deeskalacji obecne (50% skali), obniżają indeks.",
+  "Analogia do zimy 2021/22: 3 z 10 zdarzeń, które poprzedziły atak Rosji na Ukrainę 24.02.2022, ma dziś odpowiednik w wiadomościach o Polsce, Bałtach i krajach nordyckich (każde opisały co najmniej 2 niezależne redakcje w 30 dniach)."
+ ]
+}
